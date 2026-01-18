@@ -3,3 +3,5 @@
 - [2026-01-18] Generated a new SSH Deploy Key for secure, isolated access to 'ianchanning/sprites-swarm'.
 - [2026-01-18] Created 'docs/Getting Started With Ralph.md' containing the Ralph Wiggum Loop protocol.
 - [2026-01-18] Committed and pushed the documentation to the remote repository.
+- [2026-01-18] Resolved `sudo` permission collision: reclaimed local repository ownership via `chown` and enabled non-sudo Docker access via `usermod` and `newgrp`.
+- [2026-01-18] Upgraded `ralph.sh` to be polymorphic, supporting both `gemini` and `claude` agents. Documented usage in README.md.
