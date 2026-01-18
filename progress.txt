@@ -5,3 +5,8 @@
 - [2026-01-18] Committed and pushed the documentation to the remote repository.
 - [2026-01-18] Resolved `sudo` permission collision: reclaimed local repository ownership via `chown` and enabled non-sudo Docker access via `usermod` and `newgrp`.
 - [2026-01-18] Upgraded `ralph.sh` to be polymorphic, supporting both `gemini` and `claude` agents. Documented usage in README.md.
+- [2026-01-18] Added transcript for 'How I ACTUALLY Use Claude Code' video to `docs/`.
+- [2026-01-18] Implemented automated Sprite identity bootstrapping: `init_sprite.sh` now auto-generates SSH keys and Git config based on container name.
+- [2026-01-18] Enhanced `lsprite.sh` with `create` (idempotent up) and `key` (extract public key) commands for better DX.
+- [2026-01-18] Resolved Git/SSH friction in Sprites: added `safe.directory` bypass and pre-populated `known_hosts` for GitHub.
+- [2026-01-18] Verified end-to-end workflow with `genesis-2` sprite (automated identity -> key extraction -> git push).
