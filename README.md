@@ -26,24 +26,22 @@ Forge the base Docker image that all Sprites will use.
 ### 2. Summon a Cave (Sprite)
 Create a new persistent container. Let's call it `tentacle-1`.
 ```bash
-./lsprite.sh up tentacle-1
+./lsprite.sh create tentacle-1
 ```
 
 ### 3. Jack In (The Pirate Parley)
-Enter the Cave. On your first entry, you must establish the **Parley Agreement**:
-```bash
-./lsprite.sh in tentacle-1
-```
-*Inside the Cave:*
-1.  **Identity:** The Sprite automatically generates its own SSH key and Git config on startup.
-    The email will be `nyx+tentacle-1@blank-slate.io`.
-2.  **Retrieve Key:** You can see the public key in the docker logs:
+The Sprite automatically generates its own identity on startup. You just need to give it access.
+
+1.  **Retrieve Key:** Extract the public key from the Sprite's logs:
     ```bash
-    # On the host machine
-    docker logs tentacle-1
+    ./lsprite.sh key tentacle-1
     ```
-3.  **Grant Access:** Copy that public key and add it to your GitHub Repo as a **Deploy Key** with **Write Access**.
-4.  **Verify:** Run `ssh -T git@github.com` inside the cave to confirm the handshake.
+2.  **Grant Access:** Copy that key and add it to your GitHub Repo as a **Deploy Key** with **Write Access**.
+3.  **Enter the Cave:**
+    ```bash
+    ./lsprite.sh in tentacle-1
+    ```
+4.  **Verify (Optional):** Inside the cave, run `ssh -T git@github.com`. The handshake is pre-configured, so it should just welcome you.
 
 ### 4. Unleash the Ralph Loop
 Once the Parley is sealed, you can run the autonomous loop inside the Cave.
