@@ -39,8 +39,14 @@ case "$1" in
   ls)
     $DOCKER_CMD ps --filter "ancestor=$IMAGE_NAME"
     ;;
+  key)
+    NAME=$2
+    if [ -z "$NAME" ]; then echo "Usage: $0 key <name>"; exit 1; fi
+    # Grep the key from the logs (grabbing the last occurrence if multiple exist)
+    $DOCKER_CMD logs "$NAME" 2>&1 | grep "ssh-ed25519" | tail -n 1
+    ;;
   *)
-    echo "Usage: $0 {build|create|up|in|rm|ls}"
+    echo "Usage: $0 {build|create|up|in|rm|ls|key}"
     exit 1
     ;;
 esac
