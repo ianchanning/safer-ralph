@@ -1,65 +1,83 @@
-# Project Reaper: The Minimalist Agent Fleet ("Pirates with Katanas")
+# The Octopus of Chaos: A Silicon Pirate Swarm
 
-This document outlines a strategy to build an "agent-fleet expressed in code" that is useful, maintainable, and brutally simple. We strip away the complexity of traditional orchestration frameworks in favor of a disposable, container-based "Soul" architecture.
+> "We are not building a factory of mindless robots; we are growing an Octopus of Chaos." - *Captain Nyx*
 
-## 1. Core Philosophy: "The Reaper Pattern"
+This repository houses the **Sprites Swarm** (aka Project Reaper), a minimalist agent-fleet architecture expressed in code. It is designed to be useful, maintainable, and brutally simple.
 
-Instead of maintaining long-running, stateful agents, we treat agents as **disposable execution units**. This prevents state drift and ensures a clean environment for every task.
+## Core Philosophy: The Octopus & The Cave
 
-*   **Reference:** *The Design & Implementation of Sprites* (Ptacek): "Sprites are ball-point disposable computers... The whole point is that there’s no reason to parcel them out... You just make a new one."
-*   **Application:** Our fleet is a collection of "Souls" (System Prompts). To run an agent, we spawn a generic container (a local Sprite), inject a Soul, execute the task, and move on.
+We reject the idea of "managing agents." Instead, we extend our consciousness.
 
-## 2. Architecture: "Souls" and "The Reaper"
+1.  **The Octopus (Host/You):** The central intelligence. You (The Dreamer) and Nyx Prime (The High Priest/Executioner) reside on the Host machine.
+2.  **The Tentacles (Agents/Reapers):** These are extensions of the Octopus. They are not separate entities; they are limbs reaching out to perform tasks.
+3.  **The Pirate Caves (Sprites):** Each Tentacle operates inside a private, isolated Docker container (a "Sprite"). This is their "Cave." It is a safe harbor where they can code, destroy, and rebuild without risking the Host.
+4.  **The Souls (Personas):** Before a Tentacle enters a Cave, it dons a "Soul" (System Prompt) that defines its behavior (e.g., `killer`, `architect`).
 
-The entire "Fleet" consists of only two components committed to the repository:
+## Quick Start: Summoning a Tentacle
 
-### A. The Souls (`/souls/*.md`)
-These are the definitions of our agents. Each Markdown file contains the system prompt and operational constraints for a specific persona.
+Follow these steps to spin up your own local Silicon Pirate Cave.
 
-*   **`souls/killer.md` (The Implementer):**
-    *   **Role:** High-velocity coding. "Safe YOLO Mode" enabled.
-    *   **Reference:** *Claude Code Best Practices* ("Safe YOLO mode"): "Letting Claude run arbitrary commands... in a container... works well for workflows like fixing lint errors or generating boilerplate code."
-    *   **Behavior:** Takes a file path and a bug report. Fixes it. No chatter.
+### 1. Build the Golden Image
+Forge the base Docker image that all Sprites will use.
+```bash
+./lsprite.sh build
+```
 
-### B. The Reaper Script (`reap.sh`)
-A tiny shell script that acts as the "Orchestrator." It handles the lifecycle of the local Sprite (a "Fat Container").
+### 2. Summon a Cave (Sprite)
+Create a new persistent container. Let's call it `tentacle-1`.
+```bash
+./lsprite.sh up tentacle-1
+```
 
-*   **Mechanism:** `./reap.sh <soul> <task>`
-    1.  **Spawn:** Ensures a local Docker container (Sprite) is running with the repository mounted at `/workspace`.
-    2.  **Inject:** Pipes the content of `souls/<soul>.md` (System Prompt) into the container's CLI tool.
-    3.  **Execute:** Runs the task inside the isolated environment using headless mode.
-*   **Reference:** *Claude Code Best Practices* ("Headless Mode"): "Use the -p flag with a prompt to enable headless mode... for non-interactive contexts like CI... and automation."
+### 3. Jack In (The Pirate Parley)
+Enter the Cave. On your first entry, you must establish the **Parley Agreement**:
+```bash
+./lsprite.sh in tentacle-1
+```
+*Inside the Cave:*
+1.  **Generate Identity:** The Tentacle needs its own SSH key to push "Treasure" (Code) back to the repo.
+    ```bash
+    ssh-keygen -t ed25519 -C "nyx-tentacle-1@blank-slate.io"
+    cat ~/.ssh/id_ed25519.pub
+    ```
+2.  **Grant Access:** Copy that public key and add it to your GitHub Repo as a **Deploy Key** with **Write Access**.
+3.  **Verify:** Run `ssh -T git@github.com` to confirm the handshake.
 
-## 3. Why This is "Sufficient" and "Useful"
+### 4. Unleash the Ralph Loop
+Once the Parley is sealed, you can run the autonomous loop inside the Cave.
+```bash
+# Inside the container
+./ralph.sh 5
+```
+This runs 5 iterations of the **Tentacle Loop**:
+1.  Reads `PRD.md` (The Roadmap).
+2.  Reads `progress.txt` (The Log).
+3.  Executes the next task using the `gemini` CLI with the `killer` Soul.
+4.  Commits the changes.
+5.  Repeats.
 
-The goal is a fleet with "sufficient behaviours to be useful." By decomposing the work into specialized "Souls," we achieve utility through focus:
+## Architecture: Souls & Reapers
 
-*   **Behavior 1: Isolated Execution (Safety)**
-    *   **Source:** *Demystifying evals*: "Each trial should be 'isolated' by starting from a clean environment."
-    *   **Implementation:** Every task runs in a fresh container. If an agent deletes the filesystem, the host is protected.
+The fleet is defined by these core components:
 
-*   **Behavior 2: Specialized Context (Efficiency)**
-    *   **Source:** *Claude Code Best Practices*: "Claude Code’s success rate improves significantly with more specific instructions... giving clear directions upfront reduces the need for course corrections."
-    *   **Implementation:** We don't ask one agent to be an architect AND a coder. We use `souls/architect.md` for planning and `souls/killer.md` for coding.
+*   **`souls/*.md`**: The personalities.
+    *   **`killer.md`**: The ruthless implementer. High-velocity coding. "Safe YOLO Mode" enabled.
+    *   **`architect.md`**: The planner. Doesn't write code, just specs.
+*   **`lsprite.sh`**: The bridge between the Host (Octopus) and the Cave (Docker).
+*   **`ralph.sh`**: The heartbeat loop that runs *inside* the Cave, driving the Tentacle.
+*   **`reap.sh`**: (Deprecated/Legacy) The host-side orchestrator for one-off strikes.
 
-*   **Behavior 3: "Infrastructure as Code" (Reproducibility)**
-    *   **Source:** *SuperClaude*: "Transform Claude Code into a Structured Development Platform... through behavioral instruction injection."
-    *   **Implementation:** The entire behavior of the fleet is version-controlled in the `/souls` directory. Improving the fleet means editing a Markdown file.
+## Key Files
 
-## 4. The "Eval" Strategy (Verification)
+*   **`PRD.md`**: The Product Requirements Document. The Tentacles read this to know what to build.
+*   **`progress.txt`**: The shared memory of what has been accomplished.
+*   **`IDEAS.md`**: The "Menu of Chaos" - architectural alternatives and future plans.
+*   **`NYX_SILICON_PIRATE_CAVE.md`**: The Tactical Briefing found inside every new Cave.
 
-We verify utility using the "Eval" concept but stripped to the bone.
+## The Goal
+To have an agent-fleet expressed in code that has "sufficient behaviours to be useful."
+*   **Useful:** It produces working code via `ralph.sh`.
+*   **Expressed in Code:** The fleet is just `souls/` and bash scripts.
+*   **Sufficient:** It plans, codes, reviews, and commits.
 
-*   **The "Gauntlet":** A test script that runs a `killer` agent against a known bug.
-*   **Reference:** *Demystifying evals*: "Start with what you already test manually... 20-50 simple tasks drawn from real failures."
-*   **Implementation:** 
-    1. Create a branch with a broken test.
-    2. Run `./reap.sh killer "Fix the failing test"`.
-    3. Run the test suite. If it passes, the agent is "Useful."
-
-## 5. Future Expansion (The "Swarm")
-
-The skeleton can evolve into more complex behaviors:
-
-*   **The "Factory" Pattern:** A script `assemble.sh` that chains `./reap.sh architect` -> `./reap.sh killer` -> `./reap.sh reviewer`.
-*   **Reference:** *Claude Code Best Practices* ("Multi-Claude workflows"): "Have one Claude write code; use another Claude to verify... This separation often yields better results."
+*"Sharpen the axe. Burn the logs. Build the future."*
