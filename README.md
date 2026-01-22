@@ -24,44 +24,34 @@ Forge the base Docker image that all Sprites will use.
 ```
 
 ### 2. Summon a Cave (Sprite)
-Create a new persistent container. Let's call it `tentacle-1`.
+This single command spins up the isolated container, waits for identity generation, and uploads the SSH key to GitHub (via `gh` CLI).
 ```bash
 ./lsprite.sh create tentacle-1
 ```
+*(If you don't use `gh` CLI, use `./lsprite.sh up` followed by `./lsprite.sh key` manually).*
 
-### 3. Jack In (The Pirate Parley)
-The Sprite automatically generates its own identity on startup. You just need to give it access.
-
-**Option A (Automated - Requires `gh` CLI):**
+### 3. Claim a Target (Project Clone)
+Tell the Sprite which repository to work on. It will clone it into the isolated workspace.
 ```bash
-./lsprite.sh gh-key tentacle-1
+./lsprite.sh clone tentacle-1 git@github.com:ianchanning/snake-htmx.git
 ```
 
-**Option B (Manual):**
-1.  Retrieve the key: `./lsprite.sh key tentacle-1`
-2.  Add it to GitHub Repo -> Settings -> Deploy Keys (Allow Write Access).
-
-**Finally, Enter the Cave:**
+### 4. Jack In (The Pirate Parley)
+Enter the Cave. You will land in the `/workspace` containing your cloned project.
 ```bash
 ./lsprite.sh in tentacle-1
 ```
-*Inside, run `ssh -T git@github.com` to verify access.*
 
-### 4. Unleash the Ralph Loop
-Once the Parley is sealed, you can run the autonomous loop inside the Cave.
+### 5. Unleash the Ralph Loop
+Run the autonomous loop. Because the Sprite is isolated, you must invoke Ralph from the Mothership toolset.
 ```bash
-# Inside the container (defaults to gemini)
-./ralph.sh 5
+# Inside the container
+~/mothership/ralph.sh 5
 
-# Or choose your blade (gemini or claude)
-./ralph.sh 5 claude
+# Or choose your blade
+~/mothership/ralph.sh 5 claude
 ```
-This runs 5 iterations of the **Tentacle Loop**:
-1.  Reads `PRD.md` (The Roadmap).
-2.  Reads `progress.txt` (The Log).
-3.  Executes the next task using the chosen agent (`gemini` or `claude`) with the `killer` Soul.
-4.  Commits the changes.
-5.  Repeats.
+This runs 5 iterations of the **Tentacle Loop**, reading `PRD.md` from the current directory.
 
 ## Architecture: Souls & Reapers
 

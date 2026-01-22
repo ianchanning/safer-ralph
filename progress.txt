@@ -20,3 +20,4 @@
 - [2026-01-18] Enhanced `lsprite.sh rm` command to automatically delete the dedicated workspace directory on the host.
 - [2026-01-18] Added `clone` command to `lsprite.sh` allowing Sprites to pull in target repositories for development.
 - [2026-01-18] Created `ianchanning/snake-htmx` Mothership-governed repository for the first project strike.
+- [2026-01-18] Updated `README.md` with the new streamlined workflow (build -> create -> clone -> in -> ralph).
