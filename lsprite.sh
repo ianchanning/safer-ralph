@@ -100,8 +100,28 @@ case "$1" in
     fi
     rm "$TMP_KEY_FILE"
     ;;
+  clone)
+    NAME=$2
+    REPO_URL=$3
+    TARGET_DIR=$4
+    
+    if [ -z "$NAME" ] || [ -z "$REPO_URL" ]; then 
+        echo "Usage: $0 clone <name> <repo_url> [target_dir]"
+        exit 1 
+    fi
+    
+    echo "👾 Sprite '$NAME' is cloning $REPO_URL..."
+    
+    # Construct the command
+    GIT_CMD="git clone $REPO_URL"
+    if [ -n "$TARGET_DIR" ]; then
+        GIT_CMD="$GIT_CMD $TARGET_DIR"
+    fi
+    
+    $DOCKER_CMD exec "$NAME" bash -c "$GIT_CMD"
+    ;;
   *)
-    echo "Usage: $0 {build|create|up|in|rm|ls|key|gh-key}"
+    echo "Usage: $0 {build|create|up|in|rm|ls|key|gh-key|clone}"
     exit 1
     ;;
 esac
