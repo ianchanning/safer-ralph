@@ -10,3 +10,6 @@
 - [2026-01-18] Enhanced `lsprite.sh` with `create` (idempotent up) and `key` (extract public key) commands for better DX.
 - [2026-01-18] Resolved Git/SSH friction in Sprites: added `safe.directory` bypass and pre-populated `known_hosts` for GitHub.
 - [2026-01-18] Verified end-to-end workflow with `genesis-2` sprite (automated identity -> key extraction -> git push).
+- [2026-01-18] Added `gh-key` command to `lsprite.sh` for one-shot automated deploy key addition via GitHub CLI.
+- [2026-01-18] Added automated Mothership (`sprites-swarm`) cloning to `init_sprite.sh` to ensure every Sprite has a local copy of the hive mind.
+- [2026-01-18] Documented Persistent Knowledge Setup (`docs/my-gemini-bootstrap-2.md` and `my-claude-bootstrap-2.md`).
