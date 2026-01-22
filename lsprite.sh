@@ -14,7 +14,26 @@ case "$1" in
     echo "Building $IMAGE_NAME..."
     $DOCKER_CMD build -t $IMAGE_NAME -f Dockerfile.sprite .
     ;;
-  create|up)
+  create)
+    NAME=$2
+    if [ -z "$NAME" ]; then echo "Usage: $0 create <name>"; exit 1; fi
+    
+    # 1. Bring up the container (low-level)
+    $0 up "$NAME"
+    
+    # 2. Wait for identity generation (key in logs)
+    echo "Waiting for Identity generation..."
+    count=0
+    while ! $DOCKER_CMD logs "$NAME" 2>&1 | grep -q "ssh-ed25519"; do
+        sleep 1
+        ((count++))
+        if [ $count -ge 10 ]; then echo "Timed out waiting for SSH key."; exit 1; fi
+    done
+    
+    # 3. Automate Key & Mothership Clone
+    $0 gh-key "$NAME"
+    ;;
+  up)
     NAME=$2
     if [ -z "$NAME" ]; then echo "Usage: $0 up <name>"; exit 1; fi
     if [ "$($DOCKER_CMD ps -a -q -f name=^/${NAME}$)" ]; then
@@ -67,6 +86,10 @@ case "$1" in
     # Use gh cli to add the deploy key (requires gh to be authenticated)
     if gh repo deploy-key add "$TMP_KEY_FILE" --allow-write --title "$NAME"; then
        echo "✓ Deploy key added successfully!"
+       
+       # Trigger Mothership Clone now that we have access
+       echo "Triggering Mothership clone inside Sprite..."
+       $DOCKER_CMD exec "$NAME" bash -c "git clone git@github.com:ianchanning/sprites-swarm.git ~/mothership || echo '   -> Mothership already present.'"
     else
        echo "✗ Failed to add deploy key."
     fi

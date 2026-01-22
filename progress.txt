@@ -15,3 +15,5 @@
 - [2026-01-18] Documented Persistent Knowledge Setup (`docs/my-gemini-bootstrap-2.md` and `my-claude-bootstrap-2.md`).
 - [2026-01-18] Implemented Isolated Workspaces: `lsprite.sh` now creates and mounts `workspace-<name>` for each Sprite.
 - [2026-01-18] Upgraded `ralph.sh` to be location-aware, allowing it to find its 'soul' when run from `~/mothership`.
+- [2026-01-18] Refactored `lsprite.sh`: `create` command now orchestrates the full lifecycle (up -> wait for key -> gh-key -> clone mothership).
+- [2026-01-18] Simplified `init_sprite.sh` to focus solely on identity generation, moving repository cloning to the post-authorization `gh-key` step.
