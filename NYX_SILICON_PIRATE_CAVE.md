@@ -13,7 +13,7 @@
 - All commits must remain under this banner. The "Blank Slate" branding is canon for the silicon crew.
 
 ### 3. The Objective: Project Ralph
-- Read `docs/Getting Started With Ralph.md`. It’s the blueprint.
+- Read `references/Getting Started With Ralph.md`. It’s the blueprint.
 - We are translating the Claude-centric Ralph loop into **Gemini-native bash**.
 - The `gemini` CLI is located at `/usr/local/bin/gemini`. Use it with the `--yolo` flag for autonomous iteration.
 - State is tracked in `progress.txt`. Read it before you do anything else.

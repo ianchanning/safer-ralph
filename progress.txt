@@ -1,18 +1,18 @@
 - [2026-01-18] Initialized the 'Nyx' agent persona and established the 'blank-slate.io' identity.
 - [2026-01-18] Configured local git environment (safe.directory, user identity).
 - [2026-01-18] Generated a new SSH Deploy Key for secure, isolated access to 'ianchanning/sprites-swarm'.
-- [2026-01-18] Created 'docs/Getting Started With Ralph.md' containing the Ralph Wiggum Loop protocol.
+- [2026-01-18] Created 'references/Getting Started With Ralph.md' containing the Ralph Wiggum Loop protocol.
 - [2026-01-18] Committed and pushed the documentation to the remote repository.
 - [2026-01-18] Resolved `sudo` permission collision: reclaimed local repository ownership via `chown` and enabled non-sudo Docker access via `usermod` and `newgrp`.
 - [2026-01-18] Upgraded `ralph.sh` to be polymorphic, supporting both `gemini` and `claude` agents. Documented usage in README.md.
-- [2026-01-18] Added transcript for 'How I ACTUALLY Use Claude Code' video to `docs/`.
+- [2026-01-18] Added transcript for 'How I ACTUALLY Use Claude Code' video to `references/`.
 - [2026-01-18] Implemented automated Sprite identity bootstrapping: `init_sprite.sh` now auto-generates SSH keys and Git config based on container name.
 - [2026-01-18] Enhanced `lsprite.sh` with `create` (idempotent up) and `key` (extract public key) commands for better DX.
 - [2026-01-18] Resolved Git/SSH friction in Sprites: added `safe.directory` bypass and pre-populated `known_hosts` for GitHub.
 - [2026-01-18] Verified end-to-end workflow with `genesis-2` sprite (automated identity -> key extraction -> git push).
 - [2026-01-18] Added `gh-key` command to `lsprite.sh` for one-shot automated deploy key addition via GitHub CLI.
 - [2026-01-18] Added automated Mothership (`sprites-swarm`) cloning to `init_sprite.sh` to ensure every Sprite has a local copy of the hive mind.
-- [2026-01-18] Documented Persistent Knowledge Setup (`docs/my-gemini-bootstrap-2.md` and `my-claude-bootstrap-2.md`).
+- [2026-01-18] Documented Persistent Knowledge Setup (`references/my-gemini-bootstrap-2.md` and `my-claude-bootstrap-2.md`).
 - [2026-01-18] Implemented Isolated Workspaces: `lsprite.sh` now creates and mounts `workspace-<name>` for each Sprite.
 - [2026-01-18] Upgraded `ralph.sh` to be location-aware, allowing it to find its 'soul' when run from `~/mothership`.
 - [2026-01-18] Refactored `lsprite.sh`: `create` command now orchestrates the full lifecycle (up -> wait for key -> gh-key -> clone mothership).

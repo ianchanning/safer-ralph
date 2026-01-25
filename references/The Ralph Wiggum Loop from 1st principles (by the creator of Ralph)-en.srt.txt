@@ -1,0 +1,2532 @@
+1
+00:00:58,800 --> 00:01:05,439
+Hello everyone. Surprise for anyone
+
+2
+00:01:01,039 --> 00:01:08,560
+who's tuning in. So, it's been a wild
+
+3
+00:01:05,439 --> 00:01:10,159
+couple of days. Um, Ralph is finally
+
+4
+00:01:08,560 --> 00:01:12,640
+crossing the chasm and people are
+
+5
+00:01:10,159 --> 00:01:14,560
+realizing that the economics of software
+
+6
+00:01:12,640 --> 00:01:19,759
+development has
+
+7
+00:01:14,560 --> 00:01:22,400
+forever changed. Um, if you run uh what
+
+8
+00:01:19,759 --> 00:01:25,200
+I'm about to show you in a loop. What
+
+9
+00:01:22,400 --> 00:01:28,080
+happens is you work out a unit economic
+
+10
+00:01:25,200 --> 00:01:29,280
+cost for software development.
+
+11
+00:01:28,080 --> 00:01:30,479
+Note there is a difference between
+
+12
+00:01:29,280 --> 00:01:32,960
+software development and software
+
+13
+00:01:30,479 --> 00:01:34,720
+engineering. Software engineering is
+
+14
+00:01:32,960 --> 00:01:36,880
+some of the stuff we'll be doing here
+
+15
+00:01:34,720 --> 00:01:38,400
+later as I expand some of these
+
+16
+00:01:36,880 --> 00:01:41,520
+teachings.
+
+17
+00:01:38,400 --> 00:01:46,799
+And essentially software development now
+
+18
+00:01:41,520 --> 00:01:49,680
+costs $1042 US an hour. It's uh less
+
+19
+00:01:46,799 --> 00:01:54,320
+than uh you would pay a fast
+
+20
+00:01:49,680 --> 00:01:57,040
+fast food retail worker. It's cheap.
+
+21
+00:01:54,320 --> 00:02:00,960
+It's now cheap. And not only is it
+
+22
+00:01:57,040 --> 00:02:02,799
+cheap, you can do it autonomously.
+
+23
+00:02:00,960 --> 00:02:05,680
+But to get it working, you have to
+
+24
+00:02:02,799 --> 00:02:09,039
+understand the bare bones fundamentals
+
+25
+00:02:05,680 --> 00:02:12,239
+from first principles. Like don't start
+
+26
+00:02:09,039 --> 00:02:14,640
+with a jackhammer like Ralph. Like learn
+
+27
+00:02:12,239 --> 00:02:16,640
+how to use a screwdriver first. Learn
+
+28
+00:02:14,640 --> 00:02:18,400
+how to use a screwdriver first. Really
+
+29
+00:02:16,640 --> 00:02:20,720
+important. just don't jump straight to
+
+30
+00:02:18,400 --> 00:02:23,520
+the power tools.
+
+31
+00:02:20,720 --> 00:02:25,200
+And yeah, so the calculations of $1042
+
+32
+00:02:23,520 --> 00:02:28,800
+an hour is really simple. If you take
+
+33
+00:02:25,200 --> 00:02:32,480
+API costs for
+
+34
+00:02:28,800 --> 00:02:34,480
+uh Sonnet 4.5 from Enthropic right now
+
+35
+00:02:32,480 --> 00:02:36,800
+and you run Ralph in a loop and you look
+
+36
+00:02:34,480 --> 00:02:40,800
+at how much it costs in a 24-hour
+
+37
+00:02:36,800 --> 00:02:43,360
+period, you're looking at $1042 an hour.
+
+38
+00:02:40,800 --> 00:02:46,000
+And in that you're not out in a single
+
+39
+00:02:43,360 --> 00:02:48,560
+hour you're outputting multiple days
+
+40
+00:02:46,000 --> 00:02:51,519
+worth of work if not weeks levels of
+
+41
+00:02:48,560 --> 00:02:53,760
+work. So in 24 hours you're you're
+
+42
+00:02:51,519 --> 00:02:56,640
+actually at a place where you're mogging
+
+43
+00:02:53,760 --> 00:02:58,239
+like backlogs type thing. So it gets
+
+44
+00:02:56,640 --> 00:03:00,480
+really strange for what's going to be
+
+45
+00:02:58,239 --> 00:03:03,599
+happening in our industry going forward
+
+46
+00:03:00,480 --> 00:03:05,599
+because if you look at it right
+
+47
+00:03:03,599 --> 00:03:08,239
+essentially
+
+48
+00:03:05,599 --> 00:03:09,599
+um it's going to create this rift
+
+49
+00:03:08,239 --> 00:03:11,040
+something I've been talking about over
+
+50
+00:03:09,599 --> 00:03:12,720
+the last There's going to be this
+
+51
+00:03:11,040 --> 00:03:14,720
+massive rift in software development
+
+52
+00:03:12,720 --> 00:03:17,280
+between those who get it and those who
+
+53
+00:03:14,720 --> 00:03:19,519
+don't. And I've been pleading with
+
+54
+00:03:17,280 --> 00:03:22,239
+people, please invest in yourselves, get
+
+55
+00:03:19,519 --> 00:03:24,000
+curious, pick up the screwdriver, master
+
+56
+00:03:22,239 --> 00:03:26,000
+the screwdriver. Once you know the
+
+57
+00:03:24,000 --> 00:03:28,480
+screwdriver, go for the jackhammer.
+
+58
+00:03:26,000 --> 00:03:31,200
+Thanks, uh, Dex for the analogy. So,
+
+59
+00:03:28,480 --> 00:03:34,080
+let's kick this off. Let's kick this
+
+60
+00:03:31,200 --> 00:03:36,560
+off.
+
+61
+00:03:34,080 --> 00:03:40,159
+So um one of the most fundamental things
+
+62
+00:03:36,560 --> 00:03:42,400
+is you need to have your specifications.
+
+63
+00:03:40,159 --> 00:03:44,080
+It doesn't matter about the tool that
+
+64
+00:03:42,400 --> 00:03:47,040
+you use, the coding harness or what else
+
+65
+00:03:44,080 --> 00:03:49,440
+have you. It's it's more about thinking
+
+66
+00:03:47,040 --> 00:03:51,840
+about this from first principles. It's
+
+67
+00:03:49,440 --> 00:03:55,120
+all about from first principles.
+
+68
+00:03:51,840 --> 00:03:57,599
+Anthropic has released their plugin that
+
+69
+00:03:55,120 --> 00:03:59,200
+does Ralph and I'm thankful for that
+
+70
+00:03:57,599 --> 00:04:02,640
+because it's just created this
+
+71
+00:03:59,200 --> 00:04:07,360
+inflection point. But the way that that
+
+72
+00:04:02,640 --> 00:04:09,920
+works is uh not not it. You're going to
+
+73
+00:04:07,360 --> 00:04:11,680
+get better outcomes if you do these
+
+74
+00:04:09,920 --> 00:04:14,000
+concepts by hand. This is the
+
+75
+00:04:11,680 --> 00:04:15,760
+screwdriver. Now, if you give me a
+
+76
+00:04:14,000 --> 00:04:17,759
+moment, it looks like my Roomba is
+
+77
+00:04:15,760 --> 00:04:19,680
+kicking off, which is kind of hilarious
+
+78
+00:04:17,759 --> 00:04:23,720
+considering we're about to program a
+
+79
+00:04:19,680 --> 00:04:23,720
+Roomba. So, give me a check.
+
+80
+00:04:35,040 --> 00:04:41,360
+There we go. All right. So, the physical
+
+81
+00:04:37,360 --> 00:04:44,240
+room is done. Let's do the virtual room.
+
+82
+00:04:41,360 --> 00:04:46,479
+So, here is Loom. Loom is where I'm kind
+
+83
+00:04:44,240 --> 00:04:49,360
+of reimagining what software development
+
+84
+00:04:46,479 --> 00:04:52,560
+will be, what we need to throw away.
+
+85
+00:04:49,360 --> 00:04:55,120
+Everything that exists today
+
+86
+00:04:52,560 --> 00:04:58,320
+is all been designed for humans. If you
+
+87
+00:04:55,120 --> 00:05:00,800
+think about the user space in Unix,
+
+88
+00:04:58,320 --> 00:05:02,000
+that's all we've got TTY and all that
+
+89
+00:05:00,800 --> 00:05:04,800
+stuff. That's everything has been
+
+90
+00:05:02,000 --> 00:05:07,840
+compounding on a design for humans for
+
+91
+00:05:04,800 --> 00:05:09,680
+humans for humans. Even agile and how we
+
+92
+00:05:07,840 --> 00:05:11,680
+do software development and all the rest
+
+93
+00:05:09,680 --> 00:05:14,479
+of the engineering practices, it's all
+
+94
+00:05:11,680 --> 00:05:17,759
+been designed around humans. So if you
+
+95
+00:05:14,479 --> 00:05:20,240
+go in a loop of essentially invalidating
+
+96
+00:05:17,759 --> 00:05:22,000
+uh was this designed for humans, you can
+
+97
+00:05:20,240 --> 00:05:23,919
+do like the five W's and maybe you're
+
+98
+00:05:22,000 --> 00:05:25,680
+able to cut it. And if you're able to
+
+99
+00:05:23,919 --> 00:05:27,600
+cut it, you need then need to think
+
+100
+00:05:25,680 --> 00:05:29,360
+about okay, how do I mitigate cutting
+
+101
+00:05:27,600 --> 00:05:31,520
+that? Was it adding value? Was it not
+
+102
+00:05:29,360 --> 00:05:33,440
+adding value?
+
+103
+00:05:31,520 --> 00:05:35,840
+And this is what Loom is. Loom is an
+
+104
+00:05:33,440 --> 00:05:40,000
+experiment in essentially
+
+105
+00:05:35,840 --> 00:05:45,120
+self-evolutionary software. It's uh the
+
+106
+00:05:40,000 --> 00:05:47,440
+idea is if instead of having humans
+
+107
+00:05:45,120 --> 00:05:50,160
+in the loop,
+
+108
+00:05:47,440 --> 00:05:52,960
+what happens if humans instead are on
+
+109
+00:05:50,160 --> 00:05:54,880
+the loop or programming the loop?
+
+110
+00:05:52,960 --> 00:05:57,199
+And that's going to require a heavy
+
+111
+00:05:54,880 --> 00:05:58,720
+engineering mindset.
+
+112
+00:05:57,199 --> 00:05:59,759
+Um, and this is going to be very
+
+113
+00:05:58,720 --> 00:06:01,919
+different to software development
+
+114
+00:05:59,759 --> 00:06:03,759
+because software development is now
+
+115
+00:06:01,919 --> 00:06:07,840
+fundamentally automated with the most
+
+116
+00:06:03,759 --> 00:06:10,560
+trivial of bash loops and techniques.
+
+117
+00:06:07,840 --> 00:06:13,120
+And uh, this is just the start. Um, this
+
+118
+00:06:10,560 --> 00:06:16,560
+is going to cause an inspiration for
+
+119
+00:06:13,120 --> 00:06:19,360
+other people to build their own things
+
+120
+00:06:16,560 --> 00:06:20,800
+that are smarter than Ralph.
+
+121
+00:06:19,360 --> 00:06:22,400
+Smarter than Ralph. I'm already seeing
+
+122
+00:06:20,800 --> 00:06:27,880
+that taking place.
+
+123
+00:06:22,400 --> 00:06:27,880
+So, Loom is of many things right now.
+
+124
+00:06:28,479 --> 00:06:33,600
+Loom is uh essentially GitHub code
+
+125
+00:06:31,840 --> 00:06:37,199
+hosting. It's its own source control
+
+126
+00:06:33,600 --> 00:06:38,960
+that uses JJ. It's GitHub code spaces.
+
+127
+00:06:37,199 --> 00:06:41,199
+So, I can remotely provision
+
+128
+00:06:38,960 --> 00:06:44,479
+infrastructure.
+
+129
+00:06:41,199 --> 00:06:48,960
+Um, it's got its own coding agent very
+
+130
+00:06:44,479 --> 00:06:51,280
+similar to AMP or Claude code. um except
+
+131
+00:06:48,960 --> 00:06:53,280
+that it alloys multiple different LLM
+
+132
+00:06:51,280 --> 00:06:56,400
+providers together
+
+133
+00:06:53,280 --> 00:06:58,880
+and it has the ability to
+
+134
+00:06:56,400 --> 00:07:01,199
+spawn remote infrastructure and run not
+
+135
+00:06:58,880 --> 00:07:04,639
+locally on the computer
+
+136
+00:07:01,199 --> 00:07:08,400
+and I'm very much building in a actor
+
+137
+00:07:04,639 --> 00:07:11,199
+pub sub type of mind where I want to be
+
+138
+00:07:08,400 --> 00:07:15,120
+looking at creating chains of these
+
+139
+00:07:11,199 --> 00:07:18,560
+agents or creating loops on loops on
+
+140
+00:07:15,120 --> 00:07:20,720
+loops on Ralph and it extends way past
+
+141
+00:07:18,560 --> 00:07:23,440
+software development. It crosses into
+
+142
+00:07:20,720 --> 00:07:27,120
+the feature space or the product design
+
+143
+00:07:23,440 --> 00:07:29,680
+space. Last night I added uh essentially
+
+144
+00:07:27,120 --> 00:07:32,000
+feature flags or feature experiments uh
+
+145
+00:07:29,680 --> 00:07:34,880
+by giving some prompts to essentially
+
+146
+00:07:32,000 --> 00:07:37,360
+hey we want to clone launch darkly and
+
+147
+00:07:34,880 --> 00:07:39,599
+we've got it now. So, the next thing
+
+148
+00:07:37,360 --> 00:07:41,759
+really is, okay, I I'm missing some
+
+149
+00:07:39,599 --> 00:07:45,680
+analytics and I've got this SAS company
+
+150
+00:07:41,759 --> 00:07:48,160
+that wants to charge me $900 of $900 to
+
+151
+00:07:45,680 --> 00:07:50,080
+renew and it's such a simple product and
+
+152
+00:07:48,160 --> 00:07:51,759
+I'm going to need this functionality in
+
+153
+00:07:50,080 --> 00:07:54,879
+Loom
+
+154
+00:07:51,759 --> 00:07:56,879
+if I want to take Ralph to the to the
+
+155
+00:07:54,879 --> 00:08:00,639
+product access. And that's something I
+
+156
+00:07:56,879 --> 00:08:03,840
+do want to do. I want autonomous agents.
+
+157
+00:08:00,639 --> 00:08:05,840
+I call them weavers that autonomously
+
+158
+00:08:03,840 --> 00:08:08,080
+deploy
+
+159
+00:08:05,840 --> 00:08:10,479
+software without any code review. It's
+
+160
+00:08:08,080 --> 00:08:12,800
+already it's already doing it now.
+
+161
+00:08:10,479 --> 00:08:14,639
+There's been so many failure domains. I
+
+162
+00:08:12,800 --> 00:08:16,319
+can probably hear your objections. If
+
+163
+00:08:14,639 --> 00:08:19,039
+Ralph the idea of running Ralph makes
+
+164
+00:08:16,319 --> 00:08:21,919
+you want a Ralph, listen to it.
+
+165
+00:08:19,039 --> 00:08:24,720
+Listen to it and then engineer away
+
+166
+00:08:21,919 --> 00:08:26,400
+those concerns. That is now the job.
+
+167
+00:08:24,720 --> 00:08:29,280
+That is now our job as software
+
+168
+00:08:26,400 --> 00:08:31,520
+engineers is to keep the locomotive on
+
+169
+00:08:29,280 --> 00:08:33,599
+the track. We are locomotive engineers
+
+170
+00:08:31,520 --> 00:08:37,120
+now.
+
+171
+00:08:33,599 --> 00:08:41,200
+We're no long we're no longer carrying
+
+172
+00:08:37,120 --> 00:08:44,159
+cargo by hand onto the ship. We have the
+
+173
+00:08:41,200 --> 00:08:46,959
+uh the box the boxes here. Um the
+
+174
+00:08:44,159 --> 00:08:50,640
+shipping containers are here. So Loom is
+
+175
+00:08:46,959 --> 00:08:53,360
+of many things. Um the way that Loom was
+
+176
+00:08:50,640 --> 00:08:56,320
+built is really simple.
+
+177
+00:08:53,360 --> 00:08:59,440
+It starts with a conversation
+
+178
+00:08:56,320 --> 00:09:01,760
+and the conversation creates specs.
+
+179
+00:08:59,440 --> 00:09:04,399
+The conversation creates specs. I see a
+
+180
+00:09:01,760 --> 00:09:08,560
+lot of people out there saying, "Hey, I
+
+181
+00:09:04,399 --> 00:09:10,320
+want to uh do like they handcraft their
+
+182
+00:09:08,560 --> 00:09:14,399
+specs and they say they don't have time
+
+183
+00:09:10,320 --> 00:09:16,880
+to create specs." No. Would you believe
+
+184
+00:09:14,399 --> 00:09:20,160
+I don't create my specs. I generate
+
+185
+00:09:16,880 --> 00:09:22,399
+them. Then I review them and edit them
+
+186
+00:09:20,160 --> 00:09:25,279
+by hand. And then I just let it rip with
+
+187
+00:09:22,399 --> 00:09:28,160
+Ralph. So let's do this now. Like I've
+
+188
+00:09:25,279 --> 00:09:31,360
+got this SAS analytics company. I'm
+
+189
+00:09:28,160 --> 00:09:34,399
+going to need analytics because I want
+
+190
+00:09:31,360 --> 00:09:36,959
+my Weavers to be able to look at product
+
+191
+00:09:34,399 --> 00:09:38,320
+metrics. I've got the ability for
+
+192
+00:09:36,959 --> 00:09:40,640
+feature experiments to turn
+
+193
+00:09:38,320 --> 00:09:43,040
+functionality on and off. And I'm
+
+194
+00:09:40,640 --> 00:09:46,080
+engineering in a way that there is no
+
+195
+00:09:43,040 --> 00:09:49,760
+code review. We have autonomous software
+
+196
+00:09:46,080 --> 00:09:51,839
+or agents or weavers that will
+
+197
+00:09:49,760 --> 00:09:55,360
+automatically when it's introducing a
+
+198
+00:09:51,839 --> 00:09:58,880
+feature put a feature flag in
+
+199
+00:09:55,360 --> 00:10:00,640
+deploy it look at the analytics decide
+
+200
+00:09:58,880 --> 00:10:02,880
+whether it's actually fixed any errors
+
+201
+00:10:00,640 --> 00:10:05,200
+or maybe it can do some optimizations
+
+202
+00:10:02,880 --> 00:10:07,839
+and the landing page this is where we're
+
+203
+00:10:05,200 --> 00:10:09,839
+going folks this is 2026 strap yourself
+
+204
+00:10:07,839 --> 00:10:12,480
+in where we're getting towards
+
+205
+00:10:09,839 --> 00:10:14,959
+essentially autonomous systems
+
+206
+00:10:12,480 --> 00:10:16,959
+um Ralph is really just a malicking
+
+207
+00:10:14,959 --> 00:10:19,920
+orchestrator
+
+208
+00:10:16,959 --> 00:10:23,200
+that avoids context rot and compaction.
+
+209
+00:10:19,920 --> 00:10:25,920
+Compaction is the is the devil
+
+210
+00:10:23,200 --> 00:10:29,279
+that basically considers the entire
+
+211
+00:10:25,920 --> 00:10:32,160
+system including the operating system as
+
+212
+00:10:29,279 --> 00:10:34,399
+the complete unit. If you have some
+
+213
+00:10:32,160 --> 00:10:37,279
+external functionality like some
+
+214
+00:10:34,399 --> 00:10:39,440
+external vendor or API or whatever that
+
+215
+00:10:37,279 --> 00:10:41,920
+is also part of the system. It's not
+
+216
+00:10:39,440 --> 00:10:44,320
+just your application. Now, a lot of
+
+217
+00:10:41,920 --> 00:10:46,160
+those external systems that exist today
+
+218
+00:10:44,320 --> 00:10:48,320
+that we use in software engineering have
+
+219
+00:10:46,160 --> 00:10:50,720
+been designed for humans.
+
+220
+00:10:48,320 --> 00:10:53,120
+You might see me on a loop about this.
+
+221
+00:10:50,720 --> 00:10:55,600
+So,
+
+222
+00:10:53,120 --> 00:10:58,399
+what would they look like if they were
+
+223
+00:10:55,600 --> 00:11:00,800
+designed for robots and how can we
+
+224
+00:10:58,399 --> 00:11:03,600
+change that design so they're designed
+
+225
+00:11:00,800 --> 00:11:05,760
+for robots? If we control the entire
+
+226
+00:11:03,600 --> 00:11:08,560
+stack, then we can start doing
+
+227
+00:11:05,760 --> 00:11:11,920
+optimization like serialization formats.
+
+228
+00:11:08,560 --> 00:11:14,800
+JSON is not a great uh protocol when it
+
+229
+00:11:11,920 --> 00:11:17,440
+comes to uh serialization and
+
+230
+00:11:14,800 --> 00:11:19,600
+tokenization. It's not a great protocol.
+
+231
+00:11:17,440 --> 00:11:22,800
+If we control the entire stack, then we
+
+232
+00:11:19,600 --> 00:11:25,360
+can improve how tokenization works to
+
+233
+00:11:22,800 --> 00:11:29,519
+drive these reactive agents and all of a
+
+234
+00:11:25,360 --> 00:11:31,600
+sudden you can now operate cheaper
+
+235
+00:11:29,519 --> 00:11:34,079
+than anyone else because you're
+
+236
+00:11:31,600 --> 00:11:36,079
+optimizing. Like we need to be thinking
+
+237
+00:11:34,079 --> 00:11:39,200
+about software engineering again. We got
+
+238
+00:11:36,079 --> 00:11:41,360
+a brand new computer. What is something
+
+239
+00:11:39,200 --> 00:11:42,640
+from something?
+
+240
+00:11:41,360 --> 00:11:45,279
+Like for example, what is garbage
+
+241
+00:11:42,640 --> 00:11:47,680
+collection now? What is Malo? What is
+
+242
+00:11:45,279 --> 00:11:49,360
+Erlang? OTP principles and message
+
+243
+00:11:47,680 --> 00:11:52,240
+passing.
+
+244
+00:11:49,360 --> 00:11:53,839
+Why do we have user space?
+
+245
+00:11:52,240 --> 00:11:56,160
+Like and all these things. Why do we
+
+246
+00:11:53,839 --> 00:11:58,160
+have JSON? Why do we have TTY? And you
+
+247
+00:11:56,160 --> 00:11:59,680
+start just cutting and start optimizing
+
+248
+00:11:58,160 --> 00:12:05,040
+just to be the bare minimum that the
+
+249
+00:11:59,680 --> 00:12:07,680
+machine needs. So let's go folks. Today
+
+250
+00:12:05,040 --> 00:12:11,800
+we're going to
+
+251
+00:12:07,680 --> 00:12:11,800
+show you how you create specs.
+
+252
+00:12:13,040 --> 00:12:17,040
+Going to kick off cla code. Claw code's
+
+253
+00:12:15,120 --> 00:12:18,320
+going to do its thing. yada yada yada.
+
+254
+00:12:17,040 --> 00:12:20,800
+So the first thing you want to do and
+
+255
+00:12:18,320 --> 00:12:23,920
+one of the first principles of Ralph is
+
+256
+00:12:20,800 --> 00:12:26,800
+essentially deterministically malicking
+
+257
+00:12:23,920 --> 00:12:29,040
+the array. Context windows are arrays.
+
+258
+00:12:26,800 --> 00:12:31,120
+The less that you use in that array, the
+
+259
+00:12:29,040 --> 00:12:33,279
+less the window needs to slide, the
+
+260
+00:12:31,120 --> 00:12:34,560
+better outcomes you get. very much
+
+261
+00:12:33,279 --> 00:12:36,720
+different to the anthropic which
+
+262
+00:12:34,560 --> 00:12:38,800
+basically just completely keeps pounding
+
+263
+00:12:36,720 --> 00:12:41,360
+the model in a loop until it gets
+
+264
+00:12:38,800 --> 00:12:43,680
+compaction and then the compaction is a
+
+265
+00:12:41,360 --> 00:12:47,839
+lossy function and then it can result in
+
+266
+00:12:43,680 --> 00:12:52,120
+the loss of the the the pin and what I
+
+267
+00:12:47,839 --> 00:12:52,120
+call the pin is this
+
+268
+00:12:52,639 --> 00:12:57,760
+I've been incrementally building up loom
+
+269
+00:12:54,880 --> 00:12:59,600
+through conversations just like this and
+
+270
+00:12:57,760 --> 00:13:01,839
+this is my specifications and every time
+
+271
+00:12:59,600 --> 00:13:02,959
+I add a new feature or adjust I
+
+272
+00:13:01,839 --> 00:13:06,399
+continually continually evolve and
+
+273
+00:13:02,959 --> 00:13:09,200
+update my specifications.
+
+274
+00:13:06,399 --> 00:13:12,079
+And cool, this is now my pin. It's got
+
+275
+00:13:09,200 --> 00:13:14,880
+my frame of reference of what this is
+
+276
+00:13:12,079 --> 00:13:17,200
+all about. And I haven't injected it
+
+277
+00:13:14,880 --> 00:13:19,360
+all. But what I've done, if I look at
+
+278
+00:13:17,200 --> 00:13:21,440
+this file, is it's a whole bunch of
+
+279
+00:13:19,360 --> 00:13:24,639
+lookup tables that link to a particular
+
+280
+00:13:21,440 --> 00:13:27,360
+things and give hints to the search tool
+
+281
+00:13:24,639 --> 00:13:29,440
+for like user authentication. and what
+
+282
+00:13:27,360 --> 00:13:31,680
+are some other words used for user
+
+283
+00:13:29,440 --> 00:13:34,720
+authentication which improves the hit
+
+284
+00:13:31,680 --> 00:13:36,959
+rate of the search tool. The more it's
+
+285
+00:13:34,720 --> 00:13:39,279
+able to find and look up that context,
+
+286
+00:13:36,959 --> 00:13:41,920
+the less it's going to invent. I don't
+
+287
+00:13:39,279 --> 00:13:43,760
+want it to invent anything to do with my
+
+288
+00:13:41,920 --> 00:13:46,079
+current functionality, but I do want to
+
+289
+00:13:43,760 --> 00:13:49,560
+use it as a pin or frame or reference to
+
+290
+00:13:46,079 --> 00:13:49,560
+my current functionality.
+
+291
+00:13:51,360 --> 00:13:57,360
+Okay, let's go. So, how do you build
+
+292
+00:13:53,360 --> 00:14:02,079
+specs? It's really simple. Hey, I want
+
+293
+00:13:57,360 --> 00:14:07,040
+to add product analytics
+
+294
+00:14:02,079 --> 00:14:09,040
+like post hog into
+
+295
+00:14:07,040 --> 00:14:11,040
+uh loom.
+
+296
+00:14:09,040 --> 00:14:15,440
+It
+
+297
+00:14:11,040 --> 00:14:19,040
+would be used uh
+
+298
+00:14:15,440 --> 00:14:22,360
+by products built
+
+299
+00:14:19,040 --> 00:14:22,360
+on loom.
+
+300
+00:14:22,800 --> 00:14:29,120
+Thus we are collecting information about
+
+301
+00:14:27,360 --> 00:14:31,040
+non
+
+302
+00:14:29,120 --> 00:14:35,120
+uh authenticated
+
+303
+00:14:31,040 --> 00:14:40,040
+users. Let's have a discussion
+
+304
+00:14:35,120 --> 00:14:40,040
+and you can interview me.
+
+305
+00:14:41,279 --> 00:14:45,600
+So we got our pin which basically you
+
+306
+00:14:43,519 --> 00:14:47,199
+can use as a lookup source to learn more
+
+307
+00:14:45,600 --> 00:14:50,199
+about the current functionality of the
+
+308
+00:14:47,199 --> 00:14:50,199
+application.
+
+309
+00:14:50,480 --> 00:14:58,079
+And then I just go like four four point
+
+310
+00:14:53,760 --> 00:15:00,800
+four. I don't care about privacy. We
+
+311
+00:14:58,079 --> 00:15:05,360
+collect
+
+312
+00:15:00,800 --> 00:15:08,959
+data. Use the loom secret
+
+313
+00:15:05,360 --> 00:15:10,800
+create for IP addresses. So this is
+
+314
+00:15:08,959 --> 00:15:15,040
+something I've got. I've got a a special
+
+315
+00:15:10,800 --> 00:15:18,399
+wrapper for PII type topics. That way
+
+316
+00:15:15,040 --> 00:15:20,959
+logs for sensitive PII information will
+
+317
+00:15:18,399 --> 00:15:23,120
+never end up any anything like IP
+
+318
+00:15:20,959 --> 00:15:24,959
+addresses and all that stuff will never
+
+319
+00:15:23,120 --> 00:15:26,800
+end up in logs. This is the engineering
+
+320
+00:15:24,959 --> 00:15:29,360
+type topic. So I'm giving it some some
+
+321
+00:15:26,800 --> 00:15:31,199
+direction. Later I'll play with the
+
+322
+00:15:29,360 --> 00:15:33,279
+privacy etc. And this is really low
+
+323
+00:15:31,199 --> 00:15:36,880
+effort just to teach people how simple
+
+324
+00:15:33,279 --> 00:15:42,600
+it is. uh five
+
+325
+00:15:36,880 --> 00:15:42,600
+integration is via web
+
+326
+00:15:42,639 --> 00:15:52,040
+uh API thus clients will be
+
+327
+00:15:48,000 --> 00:15:52,040
+uh the clients will be
+
+328
+00:15:52,959 --> 00:16:01,519
+rust typescript and interact with the
+
+329
+00:15:58,160 --> 00:16:06,560
+loom api.
+
+330
+00:16:01,519 --> 00:16:08,240
+Next up, I guess we need SDKs for this
+
+331
+00:16:06,560 --> 00:16:10,959
+new
+
+332
+00:16:08,240 --> 00:16:14,320
+feature set.
+
+333
+00:16:10,959 --> 00:16:18,079
+So, other applications
+
+334
+00:16:14,320 --> 00:16:21,079
+can run experiments on the Loom
+
+335
+00:16:18,079 --> 00:16:21,079
+platform.
+
+336
+00:16:33,839 --> 00:16:39,560
+And this is it's a dance and dance in
+
+337
+00:16:36,320 --> 00:16:39,560
+and out.
+
+338
+00:16:41,920 --> 00:16:47,120
+I don't want any uh like mobile. So I'm
+
+339
+00:16:44,480 --> 00:16:51,519
+going to say no mobile event model event
+
+340
+00:16:47,120 --> 00:16:53,040
+model choose best practices. Look how
+
+341
+00:16:51,519 --> 00:16:57,680
+post
+
+342
+00:16:53,040 --> 00:17:02,560
+does it. Three,
+
+343
+00:16:57,680 --> 00:17:06,720
+four, experiments integrate in with our
+
+344
+00:17:02,560 --> 00:17:11,319
+existing flag
+
+345
+00:17:06,720 --> 00:17:11,319
+specifications and system.
+
+346
+00:17:13,760 --> 00:17:21,280
+Fine. For data storage, just store in
+
+347
+00:17:18,640 --> 00:17:23,199
+our current
+
+348
+00:17:21,280 --> 00:17:25,039
+SQL light. Right now I'm using SQL light
+
+349
+00:17:23,199 --> 00:17:27,280
+because it's just really fast for
+
+350
+00:17:25,039 --> 00:17:28,960
+iteration loop versus Postgress. Plus
+
+351
+00:17:27,280 --> 00:17:31,120
+you get these machines that are massive
+
+352
+00:17:28,960 --> 00:17:34,160
+now. They're really cheap. You can fogg
+
+353
+00:17:31,120 --> 00:17:36,559
+a postgress database so hard these days.
+
+354
+00:17:34,160 --> 00:17:38,880
+And uh whilst this is not scalable,
+
+355
+00:17:36,559 --> 00:17:41,440
+that's not a concern I have right now.
+
+356
+00:17:38,880 --> 00:17:43,760
+Um and in the end I'm not locking in my
+
+357
+00:17:41,440 --> 00:17:47,520
+data model because I have a vision
+
+358
+00:17:43,760 --> 00:17:50,400
+towards actors and OTP principles. Um
+
+359
+00:17:47,520 --> 00:17:52,559
+maybe I can merge multiple of these big
+
+360
+00:17:50,400 --> 00:17:55,120
+machines together and we start getting
+
+361
+00:17:52,559 --> 00:17:58,880
+towards virtual actors and Microsoft all
+
+362
+00:17:55,120 --> 00:18:02,440
+things. If you know you know
+
+363
+00:17:58,880 --> 00:18:02,440
+okay identity
+
+364
+00:18:05,520 --> 00:18:13,760
+identity model I don't know how does
+
+365
+00:18:09,280 --> 00:18:16,400
+post hog do it let's discuss.
+
+366
+00:18:13,760 --> 00:18:18,960
+So this is think about this is about
+
+367
+00:18:16,400 --> 00:18:21,120
+you've got some clay on a pottery wheel
+
+368
+00:18:18,960 --> 00:18:23,280
+and you're just like slowly making
+
+369
+00:18:21,120 --> 00:18:25,440
+adjustments. You're you're molding the
+
+370
+00:18:23,280 --> 00:18:27,360
+context window and you're testing what
+
+371
+00:18:25,440 --> 00:18:31,440
+it knows and you're applying the
+
+372
+00:18:27,360 --> 00:18:34,080
+engineering knowledge that you have
+
+373
+00:18:31,440 --> 00:18:37,799
+and we're shaping the specifications.
+
+374
+00:18:34,080 --> 00:18:37,799
+We're shaping the specifications.
+
+375
+00:18:47,039 --> 00:18:50,880
+And it's a dance, folks. This is how you
+
+376
+00:18:49,200 --> 00:18:52,960
+build your specifications. You got all
+
+377
+00:18:50,880 --> 00:18:55,600
+the time in the world. And what's really
+
+378
+00:18:52,960 --> 00:19:00,320
+cool is I could let this rip once it's
+
+379
+00:18:55,600 --> 00:19:02,880
+done in a branch, and then I could like
+
+380
+00:19:00,320 --> 00:19:04,960
+check its outcomes. It's free. It's
+
+381
+00:19:02,880 --> 00:19:07,200
+pretty much free. I think it's like let
+
+382
+00:19:04,960 --> 00:19:09,120
+it do a couple Ralph loops while I'm
+
+383
+00:19:07,200 --> 00:19:12,880
+there
+
+384
+00:19:09,120 --> 00:19:14,320
+and I would I'd be driving it by hand.
+
+385
+00:19:12,880 --> 00:19:15,840
+I'll be malicking and doing the
+
+386
+00:19:14,320 --> 00:19:19,120
+principles by hand. And if I'm okay
+
+387
+00:19:15,840 --> 00:19:21,120
+where it's it's going, then I will just
+
+388
+00:19:19,120 --> 00:19:22,080
+let it rip. Otherwise, if something's
+
+389
+00:19:21,120 --> 00:19:23,840
+wrong, I'll go back to the
+
+390
+00:19:22,080 --> 00:19:26,240
+specifications.
+
+391
+00:19:23,840 --> 00:19:28,640
+I will adjust some of the prompt
+
+392
+00:19:26,240 --> 00:19:30,640
+engineering. Maybe I take some different
+
+393
+00:19:28,640 --> 00:19:31,760
+approaches for the back pressure.
+
+394
+00:19:30,640 --> 00:19:33,600
+There's a lot of things you can do with
+
+395
+00:19:31,760 --> 00:19:35,840
+back pressure. Our job is now
+
+396
+00:19:33,600 --> 00:19:37,840
+engineering back pressure to the
+
+397
+00:19:35,840 --> 00:19:40,000
+generative function to keep the
+
+398
+00:19:37,840 --> 00:19:42,880
+generative function on the rails, the
+
+399
+00:19:40,000 --> 00:19:45,880
+locomotive.
+
+400
+00:19:42,880 --> 00:19:45,880
+Um
+
+401
+00:19:52,799 --> 00:20:03,280
+yeah, we want person profiles inc
+
+402
+00:19:56,720 --> 00:20:07,840
+anonymous and SDK can identify someone.
+
+403
+00:20:03,280 --> 00:20:10,000
+I don't know what does post hogg do
+
+404
+00:20:07,840 --> 00:20:12,559
+three
+
+405
+00:20:10,000 --> 00:20:16,280
+uh
+
+406
+00:20:12,559 --> 00:20:16,280
+multi- tannency
+
+407
+00:20:17,919 --> 00:20:23,600
+ty
+
+408
+00:20:19,919 --> 00:20:29,799
+works by analytics
+
+409
+00:20:23,600 --> 00:20:29,799
+uh tied to a loom or
+
+410
+00:20:30,159 --> 00:20:34,159
+they're tied to a loom organization I've
+
+411
+00:20:32,080 --> 00:20:36,960
+already got aback back. I've already got
+
+412
+00:20:34,159 --> 00:20:39,280
+multi-tenency built in. So, this is me
+
+413
+00:20:36,960 --> 00:20:44,480
+applying the engineering that you should
+
+414
+00:20:39,280 --> 00:20:46,960
+use the search tool to uh learn how like
+
+415
+00:20:44,480 --> 00:20:49,120
+I'm already doing multi-tenency.
+
+416
+00:20:46,960 --> 00:20:50,880
+This is me steering the specification
+
+417
+00:20:49,120 --> 00:20:52,240
+stage or adjusting the clay and the
+
+418
+00:20:50,880 --> 00:20:54,320
+pottery wheel that you got to use the
+
+419
+00:20:52,240 --> 00:20:57,320
+search tool. Don't reinvent yourself
+
+420
+00:20:54,320 --> 00:20:57,320
+here.
+
+421
+00:21:23,200 --> 00:21:26,799
+And the interesting thing is because
+
+422
+00:21:24,799 --> 00:21:29,200
+it's the context window is just an
+
+423
+00:21:26,799 --> 00:21:32,799
+array. There's no reason why you can't
+
+424
+00:21:29,200 --> 00:21:34,880
+like productize just this process. Um
+
+425
+00:21:32,799 --> 00:21:37,200
+even Anthropics doing it like the user
+
+426
+00:21:34,880 --> 00:21:39,360
+ask question tool or the planning tool
+
+427
+00:21:37,200 --> 00:21:41,200
+etc. But that's not good enough because
+
+428
+00:21:39,360 --> 00:21:44,400
+there's no memory server side for
+
+429
+00:21:41,200 --> 00:21:47,039
+inferencing. It's just what's in the RA.
+
+430
+00:21:44,400 --> 00:21:49,919
+There's no reason why you can't preserve
+
+431
+00:21:47,039 --> 00:21:52,080
+this conversation and rehydrate it
+
+432
+00:21:49,919 --> 00:21:54,159
+later. So, you can either create another
+
+433
+00:21:52,080 --> 00:21:55,440
+terminal once you write it out to disk,
+
+434
+00:21:54,159 --> 00:21:57,039
+and we're going to be doing that very
+
+435
+00:21:55,440 --> 00:22:00,799
+shortly,
+
+436
+00:21:57,039 --> 00:22:04,000
+and then let it rip uh attended, and
+
+437
+00:22:00,799 --> 00:22:05,679
+then let it rip unattended,
+
+438
+00:22:04,000 --> 00:22:07,440
+and then come back here and make some
+
+439
+00:22:05,679 --> 00:22:10,559
+adjustments before you let it go. a full
+
+440
+00:22:07,440 --> 00:22:13,200
+hog or like you can make some sort of
+
+441
+00:22:10,559 --> 00:22:16,080
+tool here that just like resumes this
+
+442
+00:22:13,200 --> 00:22:18,000
+type of state resumes the state of the
+
+443
+00:22:16,080 --> 00:22:20,960
+conversation. So you can resume the
+
+444
+00:22:18,000 --> 00:22:23,600
+planning. There's no reason why the
+
+445
+00:22:20,960 --> 00:22:27,919
+source of truth needs to be marked down
+
+446
+00:22:23,600 --> 00:22:30,919
+folks. It can be just this array.
+
+447
+00:22:27,919 --> 00:22:30,919
+Um
+
+448
+00:22:36,559 --> 00:22:46,480
+Just do what post hog does.
+
+449
+00:22:42,240 --> 00:22:50,880
+Okay. Then update specar.md
+
+450
+00:22:46,480 --> 00:22:53,520
+and create a implementation plan at
+
+451
+00:22:50,880 --> 00:22:55,280
+hostth hog.mmd.
+
+452
+00:22:53,520 --> 00:22:57,520
+And this is the key is if you want to
+
+453
+00:22:55,280 --> 00:23:00,240
+improve the ability for it to track the
+
+454
+00:22:57,520 --> 00:23:02,799
+plan. I've seen people go JSON and other
+
+455
+00:23:00,240 --> 00:23:04,880
+JSON etc. All you need to do is think
+
+456
+00:23:02,799 --> 00:23:06,480
+about like the generative function into
+
+457
+00:23:04,880 --> 00:23:08,400
+the search tool.
+
+458
+00:23:06,480 --> 00:23:11,120
+strong linkage. You just got to do
+
+459
+00:23:08,400 --> 00:23:16,520
+linkage
+
+460
+00:23:11,120 --> 00:23:16,520
+and as bullet points
+
+461
+00:23:16,559 --> 00:23:24,480
+and site the specification or source
+
+462
+00:23:20,799 --> 00:23:27,480
+code that needs to be adjusted
+
+463
+00:23:24,480 --> 00:23:27,480
+specification.
+
+464
+00:23:32,640 --> 00:23:35,919
+And then you can you can start really
+
+465
+00:23:34,240 --> 00:23:38,000
+playing with this because like the way
+
+466
+00:23:35,919 --> 00:23:41,039
+that the read tool works is it works in
+
+467
+00:23:38,000 --> 00:23:42,880
+hunks, folks. It works in hunks. So you
+
+468
+00:23:41,039 --> 00:23:44,960
+can actually tell it to actually give
+
+469
+00:23:42,880 --> 00:23:46,640
+specifics of what hunks in each file
+
+470
+00:23:44,960 --> 00:23:48,559
+need to be done. I'm not going to do it
+
+471
+00:23:46,640 --> 00:23:50,480
+here. I just need to let this rip. I've
+
+472
+00:23:48,559 --> 00:23:54,840
+got about seven minutes to get this
+
+473
+00:23:50,480 --> 00:23:54,840
+going and then I'm going to be AFK.
+
+474
+00:24:15,120 --> 00:24:17,919
+Okay, let's call out something that's
+
+475
+00:24:16,720 --> 00:24:19,919
+happening here. It's creating the new
+
+476
+00:24:17,919 --> 00:24:21,919
+specification, but not only is it
+
+477
+00:24:19,919 --> 00:24:24,240
+creating the new specification, it's
+
+478
+00:24:21,919 --> 00:24:27,240
+updating my lookup table. The specs
+
+479
+00:24:24,240 --> 00:24:27,240
+readme,
+
+480
+00:24:27,279 --> 00:24:33,440
+it's updating the specs dot the lookup
+
+481
+00:24:30,080 --> 00:24:35,760
+table. It's just a lookup table.
+
+482
+00:24:33,440 --> 00:24:38,480
+And it has many different generative
+
+483
+00:24:35,760 --> 00:24:41,120
+words to explain
+
+484
+00:24:38,480 --> 00:24:44,640
+what each spec does. And those
+
+485
+00:24:41,120 --> 00:24:46,559
+generative words act as essentially by
+
+486
+00:24:44,640 --> 00:24:49,679
+having more descriptors of what the
+
+487
+00:24:46,559 --> 00:24:53,200
+specification is. That lookup table will
+
+488
+00:24:49,679 --> 00:24:54,480
+get more hits for the search tool.
+
+489
+00:24:53,200 --> 00:24:56,240
+You need to think about these things
+
+490
+00:24:54,480 --> 00:24:58,080
+from first principles because you can
+
+491
+00:24:56,240 --> 00:25:00,720
+drive it all by hand. The more you drive
+
+492
+00:24:58,080 --> 00:25:02,000
+by hand, the better outcomes you get. If
+
+493
+00:25:00,720 --> 00:25:03,760
+you go straight for the jackham
+
+494
+00:25:02,000 --> 00:25:08,520
+jackhammer, you're going to get terrible
+
+495
+00:25:03,760 --> 00:25:08,520
+results. Absolutely terrible results.
+
+496
+00:29:19,840 --> 00:29:26,559
+All righty, we now got a specification.
+
+497
+00:29:23,840 --> 00:29:29,279
+Now, it would be really tempting to kick
+
+498
+00:29:26,559 --> 00:29:31,120
+this off in this context window, but
+
+499
+00:29:29,279 --> 00:29:33,600
+this context window or this array
+
+500
+00:29:31,120 --> 00:29:36,000
+already has one goal. That's to create
+
+501
+00:29:33,600 --> 00:29:38,320
+me some specifications.
+
+502
+00:29:36,000 --> 00:29:42,399
+Now, there's a thing of context rot.
+
+503
+00:29:38,320 --> 00:29:46,559
+This is what Ralph is all about is
+
+504
+00:29:42,399 --> 00:29:51,919
+avoiding compaction by deterministically
+
+505
+00:29:46,559 --> 00:29:53,600
+malicking the array. So question time.
+
+506
+00:29:51,919 --> 00:29:56,320
+It should be no surprise what we need to
+
+507
+00:29:53,600 --> 00:29:57,760
+do is create a new array.
+
+508
+00:29:56,320 --> 00:29:58,960
+We're going to keep this one open. We're
+
+509
+00:29:57,760 --> 00:30:00,720
+going to have a look to see what it
+
+510
+00:29:58,960 --> 00:30:02,559
+does, right? Because I might want to
+
+511
+00:30:00,720 --> 00:30:06,159
+refine my specifications. So I'm just
+
+512
+00:30:02,559 --> 00:30:09,640
+going to like create another session.
+
+513
+00:30:06,159 --> 00:30:09,640
+Hop on over.
+
+514
+00:30:11,200 --> 00:30:15,679
+Cool. And we're going to go to code, go
+
+515
+00:30:13,200 --> 00:30:18,240
+to Loom.
+
+516
+00:30:15,679 --> 00:30:21,279
+And the first thing we're going to do is
+
+517
+00:30:18,240 --> 00:30:23,440
+create a prompt.
+
+518
+00:30:21,279 --> 00:30:27,600
+Prompt of MD.
+
+519
+00:30:23,440 --> 00:30:30,320
+Okay, we need our PIN study
+
+520
+00:30:27,600 --> 00:30:32,240
+specs readme.md.
+
+521
+00:30:30,320 --> 00:30:36,679
+Study. What is this called? It's called
+
+522
+00:30:32,240 --> 00:30:36,679
+the specs implementation plan.
+
+523
+00:30:38,000 --> 00:30:44,399
+and pick the most important thing to do.
+
+524
+00:30:42,320 --> 00:30:46,480
+So instead of this multi-step type of
+
+525
+00:30:44,399 --> 00:30:48,399
+approach, what we're doing is we're
+
+526
+00:30:46,480 --> 00:30:50,480
+allowing the LLM to decide what the most
+
+527
+00:30:48,399 --> 00:30:52,720
+important thing is in our implementation
+
+528
+00:30:50,480 --> 00:30:55,440
+plan.
+
+529
+00:30:52,720 --> 00:30:59,919
+It's uh you you it's not high control,
+
+530
+00:30:55,440 --> 00:31:01,840
+it's low control with high oversight.
+
+531
+00:30:59,919 --> 00:31:05,200
+And by it only just doing one thing in
+
+532
+00:31:01,840 --> 00:31:07,200
+lots of loops, then each loop only has
+
+533
+00:31:05,200 --> 00:31:09,760
+one goal, one objective, and you you're
+
+534
+00:31:07,200 --> 00:31:15,240
+using less of the context window, folks.
+
+535
+00:31:09,760 --> 00:31:15,240
+Very important. Okay. Important.
+
+536
+00:31:17,440 --> 00:31:22,159
+Entropic likes you to yell at the LM.
+
+537
+00:31:20,240 --> 00:31:25,279
+Let's give us some completion promises
+
+538
+00:31:22,159 --> 00:31:29,120
+or give us give some objectives. It's
+
+539
+00:31:25,279 --> 00:31:38,080
+important. uh
+
+540
+00:31:29,120 --> 00:31:40,960
+use the loom web i18 where uh and loom
+
+541
+00:31:38,080 --> 00:31:42,720
+for typescript
+
+542
+00:31:40,960 --> 00:31:45,720
+and I will just say this is like loom
+
+543
+00:31:42,720 --> 00:31:45,720
+18n
+
+544
+00:31:47,200 --> 00:31:51,080
+patterns for typescript
+
+545
+00:31:51,840 --> 00:32:00,720
+or the loom iain n patterns for rust.
+
+546
+00:31:59,200 --> 00:32:04,279
+Okay.
+
+547
+00:32:00,720 --> 00:32:04,279
+Uh build
+
+548
+00:32:04,480 --> 00:32:12,559
+author property based tests
+
+549
+00:32:08,320 --> 00:32:15,600
+or unit tests whichever is best. I'm
+
+550
+00:32:12,559 --> 00:32:16,799
+giving the judgment to the LLM to decide
+
+551
+00:32:15,600 --> 00:32:19,039
+whether it should be a property based
+
+552
+00:32:16,799 --> 00:32:21,039
+test or unit test. I'm not going to get
+
+553
+00:32:19,039 --> 00:32:22,399
+into that dogma of where you should use
+
+554
+00:32:21,039 --> 00:32:24,960
+each. This is your engineering
+
+555
+00:32:22,399 --> 00:32:30,679
+knowledge.
+
+556
+00:32:24,960 --> 00:32:30,679
+After making chain, after make
+
+557
+00:32:35,279 --> 00:32:39,399
+run cargo test
+
+558
+00:32:40,080 --> 00:32:43,080
+run
+
+559
+00:32:43,840 --> 00:32:47,159
+the tests.
+
+560
+00:32:47,200 --> 00:32:55,440
+When tests pass, commit and push to
+
+561
+00:32:52,480 --> 00:32:59,039
+deploy the changes. Now, Loom
+
+562
+00:32:55,440 --> 00:33:03,200
+automatically deploys. There is no CI.
+
+563
+00:32:59,039 --> 00:33:06,559
+There is no CI. Um, it has full access
+
+564
+00:33:03,200 --> 00:33:08,960
+to do pseudo. It's been programmed in
+
+565
+00:33:06,559 --> 00:33:10,880
+loops. So, it can introspect the
+
+566
+00:33:08,960 --> 00:33:13,679
+automatic deployment using pseudo. And
+
+567
+00:33:10,880 --> 00:33:18,240
+pseudo is very safe in this case for
+
+568
+00:33:13,679 --> 00:33:20,960
+bootstrapping up because uh I use Nixos.
+
+569
+00:33:18,240 --> 00:33:23,120
+And if you know, you know.
+
+570
+00:33:20,960 --> 00:33:25,440
+Now, I'm kind of halfassing this to be
+
+571
+00:33:23,120 --> 00:33:27,039
+honest. Um because I'm depressed on
+
+572
+00:33:25,440 --> 00:33:28,399
+time,
+
+573
+00:33:27,039 --> 00:33:29,679
+you normally would do something a little
+
+574
+00:33:28,399 --> 00:33:32,880
+bit better. So I'm just going to kick
+
+575
+00:33:29,679 --> 00:33:35,919
+this off while true. Let's do the Ralph
+
+576
+00:33:32,880 --> 00:33:41,679
+cat prompt. MD
+
+577
+00:33:35,919 --> 00:33:46,240
+to claude dangerously skip permissions.
+
+578
+00:33:41,679 --> 00:33:49,240
+Done. And no matter typo while true
+
+579
+00:33:46,240 --> 00:33:49,240
+do
+
+580
+00:33:50,000 --> 00:33:53,000
+Cool.
+
+581
+00:33:55,120 --> 00:33:59,919
+We're now doing the Rap Wigum. While
+
+582
+00:33:56,960 --> 00:34:03,840
+true, we're deterministically malicking
+
+583
+00:33:59,919 --> 00:34:05,919
+the harness or the or harness. And in
+
+584
+00:34:03,840 --> 00:34:07,679
+the bigger picture of this, Loom is the
+
+585
+00:34:05,919 --> 00:34:09,839
+thing that actually deterministically
+
+586
+00:34:07,679 --> 00:34:13,280
+malics or is the Ralph loop. And it's
+
+587
+00:34:09,839 --> 00:34:16,000
+running many Ralph loops and they're
+
+588
+00:34:13,280 --> 00:34:19,280
+chain reactive as as much as need be
+
+589
+00:34:16,000 --> 00:34:23,200
+like Erlang style.
+
+590
+00:34:19,280 --> 00:34:25,280
+And uh it is
+
+591
+00:34:23,200 --> 00:34:27,280
+uh let me just check. I think I made a
+
+592
+00:34:25,280 --> 00:34:29,200
+mistake here. So this is the idea. You
+
+593
+00:34:27,280 --> 00:34:31,440
+don't have to immediately go into full
+
+594
+00:34:29,200 --> 00:34:34,800
+blown raft.
+
+595
+00:34:31,440 --> 00:34:39,760
+You can do it attended. I forgot to
+
+596
+00:34:34,800 --> 00:34:44,399
+update the implementation plan when the
+
+597
+00:34:39,760 --> 00:34:46,480
+task is done. Y.
+
+598
+00:34:44,399 --> 00:34:49,599
+Cool.
+
+599
+00:34:46,480 --> 00:34:52,000
+And this sets up our state checkpoints.
+
+600
+00:34:49,599 --> 00:34:53,839
+Let's kick off Ralph again. So, this is
+
+601
+00:34:52,000 --> 00:34:56,320
+the practice backwards, forwards. You
+
+602
+00:34:53,839 --> 00:34:58,400
+like you don't just let it rip. You you
+
+603
+00:34:56,320 --> 00:35:00,240
+you watch this. Well, you're watching
+
+604
+00:34:58,400 --> 00:35:01,520
+it. I'll call out anything that I notice
+
+605
+00:35:00,240 --> 00:35:03,280
+that's a little bit weird and I'll
+
+606
+00:35:01,520 --> 00:35:06,240
+cancel this. I'll go back and adjust my
+
+607
+00:35:03,280 --> 00:35:10,000
+prompt. Maybe this was a little bit more
+
+608
+00:35:06,240 --> 00:35:11,839
+effort. I would like inspect the code to
+
+609
+00:35:10,000 --> 00:35:16,320
+make sure it's following conventions.
+
+610
+00:35:11,839 --> 00:35:18,000
+But like for me, at least with Loom, it
+
+611
+00:35:16,320 --> 00:35:21,280
+really doesn't matter if it outputs
+
+612
+00:35:18,000 --> 00:35:23,440
+something bad because I would just sit
+
+613
+00:35:21,280 --> 00:35:25,599
+down there with a highlighter and have a
+
+614
+00:35:23,440 --> 00:35:28,880
+look what if it's bad. And that's just
+
+615
+00:35:25,599 --> 00:35:30,640
+another Ralph loop to pull and curate
+
+616
+00:35:28,880 --> 00:35:32,320
+and refactor the codebase to follow
+
+617
+00:35:30,640 --> 00:35:34,800
+conventions. If if it gets
+
+618
+00:35:32,320 --> 00:35:36,480
+internationalization,
+
+619
+00:35:34,800 --> 00:35:38,560
+I would just that's just a raph loop to
+
+620
+00:35:36,480 --> 00:35:41,520
+force it to do that. If it doesn't use
+
+621
+00:35:38,560 --> 00:35:43,920
+aback uh for security, that's just
+
+622
+00:35:41,520 --> 00:35:46,079
+another RA loop. It's just different
+
+623
+00:35:43,920 --> 00:35:48,079
+techniques of the RA loop to automate
+
+624
+00:35:46,079 --> 00:35:49,440
+things. So, this is now running. So,
+
+625
+00:35:48,079 --> 00:35:53,040
+let's just kick off some music. I'm
+
+626
+00:35:49,440 --> 00:35:55,119
+going to go AFK and uh gonna go out
+
+627
+00:35:53,040 --> 00:35:56,720
+tonight. So, cheers folks. Thanks for
+
+628
+00:35:55,119 --> 00:35:58,079
+tuning in. I hope this answers a lot of
+
+629
+00:35:56,720 --> 00:36:01,040
+questions.
+
+630
+00:35:58,079 --> 00:36:02,880
+Um it is you got to approach this from
+
+631
+00:36:01,040 --> 00:36:06,880
+first level's principles and you can do
+
+632
+00:36:02,880 --> 00:36:12,280
+Ralph by hand because it's all about
+
+633
+00:36:06,880 --> 00:36:12,280
+deterministically malicking the array.
+
