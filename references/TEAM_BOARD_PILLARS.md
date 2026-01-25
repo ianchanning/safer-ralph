@@ -32,12 +32,11 @@
    * Three Vibe Keywords: RUGGED, KINETIC, UNFILTERED.
    * The Visual Soul: Base Tailwind in a Submarine. A high-end industrial dashboard found in the belly of a submarine, expressed through the clean utility-first patterns of Tailwind CSS. It is a dense, high-information interface that prioritizes tactile feedback and functional purpose over decorative fluff.
 
-  5. The Failure Domains: The Gremlin we kill first
+  5. The Failure Domains: Maintaining Hull Integrity
 
-  The most dangerous gremlin is Ghost State (Desynchronization).
+  In the high-pressure environment of the Submarine, failure is not an option—it is a certainty to be managed. We relentlessly hunt for the gremlins that threaten the integrity of the swarm. (⁂)
 
-  This is the failure where the Octopus (the Board) thinks a Tentacle (the Sprite) is working on Task-A, but the Cave has crashed, or the ralph.sh loop has entered an infinite
-  recursion of "Self-Correction" that produces no code.
-   * The Kill Switch: We implement a Heartbeat Watchdog. If a Sprite in "WIP" doesn't update its Entropy_Signature (via a small OOB fragment update) within a defined TTL, the board
-     declares it a "Ghost."
-   * The Action: The board doesn't just show an error; it provides a "Purge & Re-Summon" button that executes ./lsprite.sh destroy and ./lsprite.sh create in one click, pulling the last known good state from the Event Source.
+   * Depth-Crush (Ghost State): When a Sprite (🦂A) enters an infinite loop or its Docker cave collapses silently. The **Heartbeat Watchdog** acts as a pressure gauge; if the Entropy_Signature stops pulsing within a defined TTL, the hull is considered breached and the sigil reflects the failure.
+   * Bulkhead Failure (Context Pollution): The danger of a Sprite carrying "debris" from one Note to the next. Ruggedness demands a **Clean-Room Protocol**: every time a Sprite is leashed to a new Note, it must verify its surroundings (git status/clean) to ensure no leakage between intents.
+   * Signal Jamming (UI Desync): When the HTMX heartbeat is interrupted by browser or network instability. The UI must be **Self-Healing**; upon reconnection, it performs a "Sonar Ping" (re-sync) to ensure the visual sigils accurately reflect the backend Ledger.
+   * The Emergency Blow (Purge & Re-Summon): Our ultimate failsafe. If any component of the system feels "heavy" or desynchronized, the Carpenter has the **Red Handle**: a single-click command to destroy the Cave, wipe the transient state, and re-summon the Sprite from the last known good commit in the Ledger.
