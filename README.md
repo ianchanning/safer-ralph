@@ -33,7 +33,7 @@ This single command spins up the isolated container, waits for identity generati
 ### 3. Claim a Target (Project Clone)
 Tell the Sprite which repository to work on. It will clone it into the isolated workspace.
 ```bash
-./lsprite.sh clone tentacle-1 git@github.com:ianchanning/snake-htmx.git
+./lsprite.sh clone tentacle-1 git@github.com:ianchanning/kanban-rust-htmx.git
 ```
 
 ### 4. Jack In (The Pirate Parley)

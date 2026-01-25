@@ -1,26 +1,37 @@
-# Product Requirements Document: Project Reaper
+# PRD: Rust + HTMX Kanban Board
 
-This document defines the tasks required to build the "Reaper" agent fleet.
+**Goal:** Build a minimalist, high-performance Kanban board to manage the chaos. This is a tool for carpenters to build more tools.
 
-## Phase 1: The Skeleton
-- [ ] **Forge Soul: The Killer**
-    - Create `souls/killer.md`.
-    - Role: High-velocity coder.
-    - System Prompt: Focus on concise, correct code modification. No chatter.
-- [ ] **Forge Soul: The Architect**
-    - Create `souls/architect.md`.
-    - Role: Planner and Designer.
-    - System Prompt: Focus on architectural integrity, file structure, and clear specifications.
-- [ ] **Forge The Reaper Script**
-    - Create `reap.sh`.
-    - Function: Takes a soul name and a task string.
-    - Logic: Spawns/Reuses a sprite, injects the soul, runs the task.
-    - *Note:* Since we are already inside a sprite (via Ralph), `reap.sh` might need to adapt. Are we nesting? Or is `reap.sh` intended for the *host* to use?
-    - *Clarification:* `reap.sh` is likely for the *host* usage, but we are simulating the build *inside* the cave. We should write the script so it can be used by the Dreamer on the host.
-- [ ] **The Gauntlet (Verification)**
-    - Create `gauntlet.sh`.
-    - Function: A simple test that uses `reap.sh` to fix a dummy bug.
+## Core Tech Stack
+- **Backend:** Rust (Axum or Actix-web).
+- **Frontend:** HTML + HTMX + Tailwind CSS.
+- **Persistence:** SQLite (via SQLx).
 
-## Phase 2: The Swarm (Future)
-- [ ] Create `assemble.sh` (The Factory Pipeline).
-- [ ] Create `HIVE_MIND.md` (Global Context).
+## Functional Requirements
+- **Columns:** Backlog, In Progress, Done.
+- **Tasks:** 
+    - Create new tasks via a modal or inline form.
+    - Drag-and-drop (or simple move buttons) between columns using HTMX.
+    - Delete tasks.
+    - Edit task descriptions.
+- **Live Updates:** Ensure the UI stays snappy without full page reloads.
+
+## Architectural Requirements (The "Carpenter" Way)
+- **Modular Components:** Clear separation between Rust handlers and HTML fragments.
+- **Fast Feedback Loop:** Optimize for rapid iteration.
+- **Simplicity:** No over-engineering. The code should be the documentation.
+
+## Phase 1: The Foundation
+- [ ] Initialize Rust project with dependencies (Axum, SQLx, Askama/maud for templating).
+- [ ] Setup basic SQLite schema.
+- [ ] Serve a static index page with Tailwind and HTMX injected.
+- [ ] Implement "List Tasks" endpoint and view.
+
+## Phase 2: Interactivity
+- [ ] Implement "Create Task" via HTMX.
+- [ ] Implement "Move Task" (updating status in DB).
+- [ ] Implement "Delete Task".
+
+## Phase 3: Polish
+- [ ] Tailwind styling for a clean, professional "Tool-Builder" aesthetic.
+- [ ] Error handling and validation.

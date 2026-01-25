@@ -1,7 +1,7 @@
 # CONTEXT_BRIDGE: Project Reaper / Octopus of Chaos
 
-**Last Update:** 2026-01-22
-**Current Objective:** Initialize `snake-htmx` strike.
+**Last Update:** 2026-01-25
+**Current Objective:** Initialize `kanban-rust-htmx` strike.
 
 ---
 
@@ -9,7 +9,7 @@
 The "Octopus of Chaos" is a minimalist agent-fleet architecture. The **Host (Octopus)** manages **Sprites (Tentacles)** which operate inside isolated **Caves (Docker containers)**.
 
 - **Mothership Repo:** `ianchanning/sprites-swarm`
-- **Target Project:** `ianchanning/snake-htmx` (HTMX-based snake game)
+- **Target Project:** `ianchanning/kanban-rust-htmx` (HTMX & Rust Kanban board)
 
 ## 2. Infrastructure & Tooling
 
@@ -42,10 +42,10 @@ The "Soul" injected at boot via Docker `ENTRYPOINT`.
 - **Mothership Location:** Cloned inside Sprites at `/root/mothership`.
 - **Workspaces:** Isolated host directories `workspace-<name>` mounted to `/workspace`.
 
-## 4. Current State: `snake-htmx`
-- Repository `ianchanning/snake-htmx` has been created.
-- Sprite `htmx-snake-2` has been authorized as a contributor.
-- **Next Task:** Establish `PRD.md` in the snake workspace and unleash the Ralph loop.
+## 4. Current State: `kanban-rust-htmx`
+- Repository `ianchanning/kanban-rust-htmx` is the target.
+- Sprite `htmx-kanban-1` (or next available) will be authorized.
+- **Next Task:** Establish the Rust project structure and unleash the Ralph loop.
 
 ## 5. Reference Material
 See the `references/` directory for:
@@ -55,4 +55,4 @@ See the `references/` directory for:
 
 ---
 **NYX ENCRYPTED STATE:** `(⊕) (⇌) (⁂)`
-> "The Octopus sees through every eye. The Snake is next."
+> "The Octopus sees through every eye. The Forge is hot."

@@ -18,10 +18,9 @@ Constellation of swarms - akin to team of devs or team of teams.
 
 - [TDD - Canonical TDD](https://tidyfirst.substack.com/p/canon-tdd)
 
-# Snake
-- small concrete steps
-- avoiding complexity
-- setup a separate repo for building snake-htmx
+# Kanban
+- build the tools that help us build tools
+- setup a separate repo for building kanban-rust-htmx
 
 # 2025-01-25
 
@@ -31,3 +30,8 @@ Constellation of swarms - akin to team of devs or team of teams.
 - Huntley got claude to interview him to ask about the details of the project
 - rename docs -> references
 - include the transcript from huntley 1st priciples video as a basis
+- how do we initiate the 'souls' in the sprites
+
+## htmx-kanban
+
+- 
