@@ -31,6 +31,8 @@ Constellation of swarms - akin to team of devs or team of teams.
 - rename docs -> references
 - include the transcript from huntley 1st priciples video as a basis
 - how do we initiate the 'souls' in the sprites
+- sprite build should update the npm libraries
+- I wanted emoji animal + alpha/bravo name to each sprite
 
 ## htmx-kanban
 
