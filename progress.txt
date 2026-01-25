@@ -36,4 +36,8 @@
 - [2026-01-25] Implemented 'inject_gemini_auth' in 'lsprite.sh' to automatically copy host Gemini credentials into Sprites during startup.
 - [2026-01-25] Upgraded 'lsprite.sh gh-key' to support targeted repository deployment, enabling precise SSH key management for multi-project strikes.
 - [2026-01-25] Resolved Sprite push permissions by relocating 'scorpion-alpha' deploy key from Mothership to the target 'kanban-rust-htmx' repository.
+- [2026-01-25] Refactored 'lsprite.sh' to move 'gh-key' and identity wait logic from 'create' to 'clone', enabling multi-repo support and faster Sprite initialization.
+- [2026-01-25] Optimized 'gh-key' command to handle its own identity generation wait-loop, making it a self-contained, robust gateway for GitHub access.
+- [2026-01-25] Implemented conditional Mothership cloning in 'gh-key' to avoid "key in use" conflicts when targeting separate project repositories.
+
 

@@ -77,18 +77,6 @@ case "$1" in
     
     # 1. Bring up the container (low-level)
     $0 up "$NAME"
-    
-    # 2. Wait for identity generation (key in logs)
-    echo "Waiting for Identity generation..."
-    count=0
-    while ! $DOCKER_CMD logs "$NAME" 2>&1 | grep -q "ssh-ed25519"; do
-        sleep 1
-        ((count++))
-        if [ $count -ge 10 ]; then echo "Timed out waiting for SSH key."; exit 1; fi
-    done
-    
-    # 3. Automate Key & Mothership Clone
-    $0 gh-key "$NAME"
     ;;
   up)
     NAME=$2
@@ -139,7 +127,17 @@ case "$1" in
     NAME=$2
     REPO=$3
     if [ -z "$NAME" ]; then echo "Usage: $0 gh-key <name> [repo]"; exit 1; fi
-    # Extract key
+    
+    # 1. Wait for identity generation (key in logs) if not already there
+    echo "Waiting for Identity generation in '$NAME'..."
+    count=0
+    while ! $DOCKER_CMD logs "$NAME" 2>&1 | grep -q "ssh-ed25519"; do
+        sleep 1
+        ((count++))
+        if [ $count -ge 10 ]; then echo "Timed out waiting for SSH key in $NAME."; exit 1; fi
+    done
+
+    # 2. Extract key
     KEY=$($DOCKER_CMD logs "$NAME" 2>&1 | grep "ssh-ed25519" | tail -n 1)
     if [ -z "$KEY" ]; then echo "Error: No SSH key found in logs for $NAME"; exit 1; fi
     
@@ -158,9 +156,13 @@ case "$1" in
     if eval "$GH_CMD"; then
        echo "✓ Deploy key added successfully!"
        
-       # Trigger Mothership Clone now that we have access
-       echo "Triggering Mothership clone inside Sprite..."
-       $DOCKER_CMD exec "$NAME" bash -c "git clone git@github.com:ianchanning/sprites-swarm.git ~/mothership || echo '   -> Mothership already present.'"
+       # Trigger Mothership Clone only if we have access (i.e. targeting it or no repo specified)
+       if [ -z "$REPO" ] || [[ "$REPO" == *"sprites-swarm"* ]]; then
+           echo "Triggering Mothership clone inside Sprite..."
+           $DOCKER_CMD exec "$NAME" bash -c "git clone git@github.com:ianchanning/sprites-swarm.git ~/mothership || echo '   -> Mothership already present.'"
+       else
+           echo "   -> Skipping Mothership clone (deploy key assigned to $REPO)."
+       fi
     else
        echo "✗ Failed to add deploy key."
     fi
@@ -175,6 +177,10 @@ case "$1" in
         echo "Usage: $0 clone <name> <repo_url> [target_dir]"
         exit 1 
     fi
+    
+    # 1. Add deploy key to the target repo first
+    REPO_PATH=$(echo $REPO_URL | sed -E 's/.*github.com[:\/]//; s/\.git$//')
+    $0 gh-key "$NAME" "$REPO_PATH"
     
     echo "👾 Sprite '$NAME' is cloning $REPO_URL..."
     
