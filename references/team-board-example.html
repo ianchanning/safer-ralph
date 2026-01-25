@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Standup Board</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            background-image: 
+                linear-gradient(45deg, #e5e7eb 25%, transparent 25%), 
+                linear-gradient(-45deg, #e5e7eb 25%, transparent 25%), 
+                linear-gradient(45deg, transparent 75%, #e5e7eb 75%), 
+                linear-gradient(-45deg, transparent 75%, #e5e7eb 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+        }
+        .card-shadow {
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        }
+        .sticky-card {
+            transition: transform 0.1s ease;
+        }
+        .sticky-card:hover {
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body class="p-4 font-sans text-gray-800">
+
+    <!-- Header -->
+    <div class="mb-4">
+        <h1 class="text-xl font-medium text-gray-500">Standup</h1>
+    </div>
+
+    <!-- Main Board -->
+    <div class="max-w-[1600px] mx-auto bg-white/80 border border-gray-300 p-4 rounded shadow-lg min-h-[900px]">
+        <div class="grid grid-cols-6 gap-4 h-full">
+            
+            <!-- Column 1: Ideas -->
+            <div class="bg-white border border-gray-200 rounded p-2 flex flex-col space-y-4 shadow-sm">
+                <h2 class="text-center font-bold text-lg mb-2">Ideas</h2>
+                <div class="space-y-3 px-2">
+                    <div class="bg-blue-400 p-2 text-[10px] text-white rounded card-shadow sticky-card">Collaborating across teams building Friendly Boots</div>
+                    <div class="bg-blue-400 p-2 text-[10px] text-white rounded card-shadow sticky-card ml-8">Validating tool improvements with early adopters</div>
+                    <div class="bg-blue-400 p-2 text-[10px] text-white rounded card-shadow sticky-card">Automated compliance checks via agent</div>
+                    <div class="bg-blue-400 p-2 text-[10px] text-white rounded card-shadow sticky-card ml-8">Scenario builder for risk assessment</div>
+                    <div class="h-16"></div> <!-- Space -->
+                    <div class="bg-pink-400 p-2 text-[10px] text-white rounded card-shadow sticky-card ml-4">Move repo deployments to GitHub Actions</div>
+                    <div class="bg-red-400 p-2 text-[10px] text-white rounded card-shadow sticky-card ml-8">AWS - S3 bucket deletion</div>
+                    <div class="bg-red-400 p-4 text-[14px] text-black font-bold text-center rounded card-shadow sticky-card border-l-4 border-red-600">Snapshot Bloat</div>
+                    <div class="bg-red-300 p-2 text-[10px] text-black rounded card-shadow sticky-card">Detection rule isn't working</div>
+                    <div class="flex items-center space-x-1">
+                        <div class="bg-gray-400 w-8 h-8 rounded-full border-2 border-white flex items-center justify-center text-white font-bold text-xs">C</div>
+                        <span class="text-[10px]">Scan-time attrib for credentials MCP configs</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Column 2: Risk Next -->
+            <div class="bg-orange-50 border border-gray-200 rounded p-2 flex flex-col space-y-4 shadow-sm">
+                <h2 class="text-center font-bold text-lg mb-2">Risk Next</h2>
+                <div class="space-y-4 px-2">
+                    <div class="bg-purple-300 p-2 text-[10px] text-black rounded card-shadow sticky-card w-3/4 mx-auto text-center mt-12">Risk detections for recently added...</div>
+                    <div class="grid grid-cols-2 gap-2 mt-20">
+                        <div class="bg-purple-300 p-2 text-[10px] text-black rounded card-shadow sticky-card">Missing system prompt improvement</div>
+                        <div class="bg-purple-300 p-2 text-[10px] text-black rounded card-shadow sticky-card">Unvetted tool improvement</div>
+                    </div>
+                    <div class="bg-purple-300 p-2 text-[10px] text-black rounded card-shadow sticky-card w-3/4 mx-auto text-center">Risk detections for recently added Platforms</div>
+                    <div class="bg-pink-200 p-4 text-[12px] text-black font-bold text-center rounded card-shadow sticky-card border border-pink-400">Establish Risk On-Call</div>
+                    <div class="bg-pink-200 p-2 text-[9px] text-black rounded card-shadow sticky-card w-3/4 mx-auto text-center">Regression testing / schema validation for risk scenarios</div>
+                </div>
+            </div>
+
+            <!-- Column 3: Next -->
+            <div class="bg-yellow-50 border border-gray-200 rounded p-2 flex flex-col space-y-4 shadow-sm">
+                <h2 class="text-center font-bold text-lg mb-2">Next</h2>
+                <div class="space-y-4 px-2">
+                    <div class="bg-pink-200 p-4 text-[12px] text-black font-bold text-center rounded card-shadow sticky-card border border-pink-400 mt-10">Stale annotations</div>
+                    <div class="bg-blue-300 p-2 text-[10px] text-black rounded card-shadow sticky-card w-4/5 mx-auto text-center border-b-2 border-blue-500">Multi-user endpoint scanner support</div>
+                    <div class="bg-blue-300 p-2 text-[10px] text-black rounded card-shadow sticky-card w-4/5 mx-auto text-center border-b-2 border-blue-500">Scan status Detail (what actually went wrong)</div>
+                    <div class="bg-blue-100 p-4 text-[12px] text-black font-bold text-center rounded card-shadow sticky-card border border-blue-300">Finish migration</div>
+                    <div class="bg-pink-200 p-4 text-[12px] text-black font-bold text-center rounded card-shadow sticky-card border border-pink-400">Forge Standard compatibility</div>
+                </div>
+            </div>
+
+            <!-- Column 4-5: WIP/Risk Intel/Asks/OOO -->
+            <div class="col-span-2 grid grid-cols-2 gap-4">
+                
+                <!-- Sub-column Left -->
+                <div class="flex flex-col space-y-4">
+                    <div class="bg-blue-50 border border-blue-200 rounded p-2 min-h-[120px] relative">
+                        <span class="absolute top-1 right-2 text-blue-500 text-[10px] font-bold">Meet</span>
+                        <h3 class="font-bold text-sm mb-2 text-center">WIP</h3>
+                        <div class="flex items-start space-x-2">
+                            <div class="bg-blue-400 p-2 text-[9px] text-white rounded card-shadow w-2/3">I want agent owners to manage their own risks (Jimmy)</div>
+                            <div class="flex flex-col space-y-1">
+                                <img src="https://i.pravatar.cc/30?u=1" class="w-8 h-8 rounded border-2 border-white shadow-sm" />
+                                <img src="https://i.pravatar.cc/30?u=2" class="w-8 h-8 rounded border-2 border-white shadow-sm" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-blue-50 border border-blue-200 rounded p-2 min-h-[140px] relative">
+                        <span class="absolute top-1 right-2 text-blue-500 text-[10px] font-bold">Meet</span>
+                        <h3 class="font-bold text-sm mb-2 text-center">WIP</h3>
+                        <div class="flex items-start space-x-2">
+                            <div class="bg-blue-400 p-2 text-[9px] text-white rounded card-shadow w-2/3 h-12"></div>
+                            <div class="flex flex-col space-y-1">
+                                <div class="w-8 h-8 bg-yellow-400 rounded flex items-center justify-center text-lg">🤔</div>
+                                <img src="https://i.pravatar.cc/30?u=3" class="w-8 h-8 rounded border-2 border-white shadow-sm" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-yellow-50 border border-yellow-200 rounded p-2 min-h-[140px] relative">
+                        <span class="absolute top-1 right-2 text-blue-500 text-[10px] font-bold">Meet</span>
+                        <h3 class="font-bold text-sm mb-4 text-center">Asks/Issues Rota/LR</h3>
+                        <div class="flex items-center justify-between">
+                            <div class="bg-pink-100 border-2 border-pink-500 p-2 text-[12px] font-bold text-pink-700 rounded card-shadow text-center w-1/2">Establish On-Call</div>
+                            <img src="https://i.pravatar.cc/30?u=4" class="w-10 h-10 rounded border-2 border-white shadow-sm" />
+                        </div>
+                    </div>
+
+                    <div class="bg-pink-50 border border-pink-200 rounded p-2 min-h-[140px]">
+                        <h3 class="font-bold text-sm mb-2 text-center">Meetings & Interrupts</h3>
+                        <div class="flex justify-center mt-4">
+                             <img src="https://i.pravatar.cc/40?u=5" class="w-12 h-12 rounded border-2 border-white shadow-sm" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sub-column Right -->
+                <div class="flex flex-col space-y-4">
+                    <div class="bg-blue-50 border border-blue-200 rounded p-2 min-h-[120px] relative">
+                        <span class="absolute top-1 right-2 text-blue-500 text-[10px] font-bold">Meet</span>
+                        <h3 class="font-bold text-sm mb-2 text-center">WIP</h3>
+                        <div class="flex items-center space-x-2 mt-4">
+                            <img src="https://i.pravatar.cc/40?u=6" class="w-10 h-10 rounded border-2 border-white shadow-sm" />
+                            <div class="bg-blue-300 p-2 text-[9px] text-white rounded card-shadow w-full h-8"></div>
+                        </div>
+                    </div>
+
+                    <div class="bg-yellow-300 border border-yellow-400 rounded p-2 min-h-[280px] relative">
+                        <span class="absolute top-1 right-2 text-blue-500 text-[10px] font-bold">Meet</span>
+                        <h3 class="font-bold text-sm mb-4 text-center">Risk Intel</h3>
+                        <div class="space-y-2">
+                            <div class="grid grid-cols-2 gap-1">
+                                <div class="bg-purple-300 p-1 text-[8px] rounded card-shadow h-8"></div>
+                                <div class="bg-purple-300 p-1 text-[8px] rounded card-shadow h-8"></div>
+                            </div>
+                            <div class="flex items-center justify-between space-x-2">
+                                <div class="bg-pink-300 p-4 text-[11px] font-bold text-center rounded card-shadow w-full">Data collation</div>
+                                <div class="flex flex-col space-y-1">
+                                    <img src="https://i.pravatar.cc/30?u=7" class="w-8 h-8 rounded border-2 border-white shadow-sm" />
+                                    <img src="https://i.pravatar.cc/30?u=8" class="w-8 h-8 rounded border-2 border-white shadow-sm" />
+                                </div>
+                            </div>
+                            <div class="bg-purple-300 p-2 text-[9px] rounded card-shadow w-2/3 mx-auto text-center mt-4">Risk detections</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-indigo-50 border border-indigo-200 rounded p-2 min-h-[140px]">
+                        <h3 class="font-bold text-sm mb-2 text-center">OOO</h3>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Column 6: Done -->
+            <div class="bg-green-100 border border-gray-200 rounded p-2 flex flex-col space-y-3 shadow-sm">
+                <h2 class="text-center font-bold text-lg mb-2 text-green-800">Done</h2>
+                <div class="space-y-3 px-2">
+                    <div class="relative pt-6">
+                        <div class="bg-red-300 p-2 text-[10px] text-black rounded card-shadow sticky-card absolute -top-2 left-0 w-full z-10 opacity-80">Refactor accessibility</div>
+                        <div class="bg-red-300 p-4 text-[14px] font-bold text-center rounded card-shadow sticky-card border-l-4 border-red-600">Reliability</div>
+                    </div>
+                    <div class="bg-blue-500 p-2 text-[10px] text-white rounded card-shadow sticky-card text-center">Fix Platform Connections on...</div>
+                    <div class="bg-blue-300 p-3 text-[10px] text-black rounded card-shadow sticky-card h-12"></div>
+                    <div class="bg-blue-300 p-3 text-[10px] text-black rounded card-shadow sticky-card h-12"></div>
+                    <div class="bg-blue-400 p-2 text-[10px] text-white rounded card-shadow sticky-card text-center border-b-2 border-blue-600">Surface Platform Connection / Scan results to users</div>
+                    <div class="bg-blue-300 p-3 text-[10px] text-black rounded card-shadow sticky-card h-8 w-2/3 mx-auto"></div>
+                    <div class="bg-blue-400 p-2 text-[10px] text-white rounded card-shadow sticky-card text-center border-b-2 border-blue-600">Agent-Risk Report</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Bottom Legend and Tags -->
+    <div class="max-w-[1600px] mx-auto mt-12 space-y-8">
+        
+        <!-- Key -->
+        <div class="flex justify-center space-x-6">
+            <div class="flex flex-col items-center">
+                <div class="bg-pink-400 w-16 h-8 rounded card-shadow"></div>
+                <span class="text-xs font-bold mt-1">Retro Action</span>
+            </div>
+            <div class="flex flex-col items-center">
+                <div class="bg-red-300 w-16 h-8 rounded card-shadow"></div>
+                <span class="text-xs font-bold mt-1 text-center leading-tight">Bugs /<br>Papercuts</span>
+            </div>
+            <div class="flex flex-col items-center">
+                <div class="bg-blue-400 w-16 h-8 rounded card-shadow"></div>
+                <span class="text-xs font-bold mt-1">Planned Build</span>
+            </div>
+            <div class="flex flex-col items-center">
+                <div class="bg-purple-300 w-16 h-8 rounded card-shadow"></div>
+                <span class="text-xs font-bold mt-1 text-center leading-tight">Planned<br>Intelligence</span>
+            </div>
+            <div class="flex flex-col items-center">
+                <div class="bg-yellow-200 w-16 h-8 rounded card-shadow"></div>
+                <span class="text-xs font-bold mt-1 text-center leading-tight">Customer<br>Need</span>
+            </div>
+        </div>
+
+        <!-- Green Project Blocks -->
+        <div class="grid grid-cols-5 gap-6 px-10">
+            <div class="bg-green-800 h-40 rounded flex flex-col items-center justify-center p-4 text-white relative">
+                <span class="font-bold text-lg mb-2">Project A</span>
+                <div class="bg-yellow-300 text-black px-4 py-2 font-bold rounded shadow-lg text-sm">ACME</div>
+            </div>
+            <div class="bg-green-800 h-40 rounded flex items-center justify-center text-white font-bold text-lg">Jimmy</div>
+            <div class="bg-green-800 h-40 rounded flex items-center justify-center text-white font-bold text-lg">Salalah</div>
+            <div class="bg-green-800 h-40 rounded flex flex-col items-center justify-end p-4 text-white relative">
+                <span class="font-bold text-lg absolute top-8">Project D</span>
+                <div class="bg-yellow-300 text-black px-4 py-2 font-bold rounded shadow-lg text-sm absolute top-20 right-4">Funky</div>
+                <div class="bg-yellow-100 text-black p-2 text-[10px] font-bold rounded shadow w-3/4 mb-2 text-center">Endpoint machine identity</div>
+            </div>
+            <div class="bg-green-800 h-40 rounded flex flex-col items-center p-4 text-white relative overflow-visible">
+                <span class="font-bold text-lg mb-4">Semafor</span>
+                <div class="bg-yellow-100 text-black p-2 text-[10px] font-bold rounded shadow w-3/4 text-center">Internal</div>
+                <div class="bg-yellow-300 text-black px-4 py-2 font-bold rounded shadow-lg text-sm absolute -bottom-4 -right-4 border border-gray-400">Sly Hunter</div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

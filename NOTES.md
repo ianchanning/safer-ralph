@@ -62,3 +62,5 @@ Constellation of swarms - akin to team of devs or team of teams.
 ## htmx-kanban
 
 - 
+
+Hey could you try generating a HTML version using tailwind that matches exactly the  [Image ...rd-example.jpg] image? We have made one attempt before, but I'd like a fresh attempt. Its quite tricky as there is a lot of text and boxes. 
