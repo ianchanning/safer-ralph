@@ -33,6 +33,25 @@ generate_name() {
     echo "${ANIMAL}-${NATO[$NEXT_INDEX]}"
 }
 
+inject_gemini_auth() {
+    local NAME=$1
+    local GEMINI_DIR="$HOME/.gemini"
+    
+    if [ -d "$GEMINI_DIR" ]; then
+        echo "   -> Injecting Gemini credentials for '$NAME'..."
+        # Copy oauth_creds.json if it exists
+        if [ -f "$GEMINI_DIR/oauth_creds.json" ]; then
+            $DOCKER_CMD cp "$GEMINI_DIR/oauth_creds.json" "$NAME:/root/.gemini/oauth_creds.json"
+        fi
+        # Copy google_accounts.json if it exists
+        if [ -f "$GEMINI_DIR/google_accounts.json" ]; then
+            $DOCKER_CMD cp "$GEMINI_DIR/google_accounts.json" "$NAME:/root/.gemini/google_accounts.json"
+        fi
+    else
+        echo "   -> No Gemini credentials found on host. Skipping injection."
+    fi
+}
+
 # Auto-detect if sudo is needed for docker
 if ! docker ps >/dev/null 2>&1; then
     DOCKER_CMD="sudo docker"
@@ -77,6 +96,7 @@ case "$1" in
     if [ "$($DOCKER_CMD ps -a -q -f name=^/${NAME}$)" ]; then
         echo "Sprite '$NAME' already exists. Starting it..."
         $DOCKER_CMD start "$NAME"
+        inject_gemini_auth "$NAME"
     else
         # Create a dedicated workspace for this sprite
         WORKSPACE_DIR="$(pwd)/workspace-$NAME"
@@ -88,6 +108,7 @@ case "$1" in
         echo "Launching sprite: $NAME"
         # Mount the dedicated workspace to /workspace
         $DOCKER_CMD run -d --name "$NAME" -e SPRITE_NAME="$NAME" -v "$WORKSPACE_DIR:/workspace" $IMAGE_NAME
+        inject_gemini_auth "$NAME"
     fi
     ;;
   in)
@@ -116,7 +137,8 @@ case "$1" in
     ;;
   gh-key)
     NAME=$2
-    if [ -z "$NAME" ]; then echo "Usage: $0 gh-key <name>"; exit 1; fi
+    REPO=$3
+    if [ -z "$NAME" ]; then echo "Usage: $0 gh-key <name> [repo]"; exit 1; fi
     # Extract key
     KEY=$($DOCKER_CMD logs "$NAME" 2>&1 | grep "ssh-ed25519" | tail -n 1)
     if [ -z "$KEY" ]; then echo "Error: No SSH key found in logs for $NAME"; exit 1; fi
@@ -126,8 +148,14 @@ case "$1" in
     TMP_KEY_FILE="/tmp/${NAME}_key.pub"
     echo "$KEY" > "$TMP_KEY_FILE"
     
+    # Construct gh command
+    GH_CMD="gh repo deploy-key add \"$TMP_KEY_FILE\" --allow-write --title \"$NAME\""
+    if [ -n "$REPO" ]; then
+        GH_CMD="$GH_CMD --repo \"$REPO\""
+    fi
+
     # Use gh cli to add the deploy key (requires gh to be authenticated)
-    if gh repo deploy-key add "$TMP_KEY_FILE" --allow-write --title "$NAME"; then
+    if eval "$GH_CMD"; then
        echo "✓ Deploy key added successfully!"
        
        # Trigger Mothership Clone now that we have access

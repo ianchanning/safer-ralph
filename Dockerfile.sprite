@@ -19,6 +19,10 @@ ADD https://registry.npmjs.org/@google/gemini-cli/latest /tmp/gemini-version.jso
 ADD https://registry.npmjs.org/@anthropic-ai/claude-code/latest /tmp/claude-version.json
 RUN npm install -g @google/gemini-cli @anthropic-ai/claude-code --unsafe-perm
 
+# Pre-configure Gemini CLI settings
+RUN mkdir -p /root/.gemini && \
+    echo '{"general": {"previewFeatures": true}, "security": {"auth": {"selectedType": "oauth-personal"}}}' > /root/.gemini/settings.json
+
 # Set up a working directory
 WORKDIR /workspace
 
