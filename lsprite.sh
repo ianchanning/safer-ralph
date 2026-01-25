@@ -8,8 +8,29 @@ NATO=("alpha" "bravo" "charlie" "delta" "echo" "foxtrot" "golf" "hotel" "india" 
 
 generate_name() {
     local ANIMAL=${ANIMALS[$RANDOM % ${#ANIMALS[@]}]}
-    local PHONETIC=${NATO[$RANDOM % ${#NATO[@]}]}
-    echo "${ANIMAL}-${PHONETIC}"
+    
+    # Find the next NATO index by checking existing containers
+    local EXISTING_NAMES=$($DOCKER_CMD ps -a --format '{{.Names}}')
+    local MAX_INDEX=-1
+    
+    for NAME in $EXISTING_NAMES; do
+        # Extract the phonetic part (everything after the last dash)
+        local PHONETIC=${NAME##*-}
+        for i in "${!NATO[@]}"; do
+            if [[ "${NATO[$i]}" == "${PHONETIC}" ]]; then
+                if (( i > MAX_INDEX )); then
+                    MAX_INDEX=$i
+                fi
+            fi
+        done
+    done
+    
+    local NEXT_INDEX=$((MAX_INDEX + 1))
+    if (( NEXT_INDEX >= ${#NATO[@]} )); then
+        NEXT_INDEX=0 # Wrap around if we exceed Zulu
+    fi
+    
+    echo "${ANIMAL}-${NATO[$NEXT_INDEX]}"
 }
 
 # Auto-detect if sudo is needed for docker
