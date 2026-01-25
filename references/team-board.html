@@ -46,6 +46,16 @@
             line-height: 1.4;
             font-weight: 500;
         }
+        .card a {
+            color: #0056b3;
+            text-decoration: underline;
+            cursor: pointer;
+            word-wrap: break-word;
+        }
+        .card a:hover {
+            color: #003d80;
+            text-decoration: none;
+        }
         .avatar { width: 16px; height: 16px; background: #555; border-radius: 50%; display: inline-block; margin-right: 6px; vertical-align: middle; }
 
         /* Card Type Styles */
@@ -102,12 +112,12 @@
     <div class="column">
         <div class="column-header" style="background: var(--bg-gray);">Ideas</div>
         <div class="content">
-            <div class="card build">Categorizing risks / Friendly Name</div>
-            <div class="card build">Severity scoring (CVSS/AVSS)</div>
-            <div class="card build">Expose framework mappings</div>
-            <div class="card retro">Move demo deployments to Actions</div>
-            <div class="card retro">Cloud Storage cleanup</div>
-            <div class="card bug">Snapshot Bloat management</div>
+            <div class="card build"><a href="#">Categorizing risks / Friendly Name</a></div>
+            <div class="card build"><a href="#">Severity scoring (CVSS/AVSS)</a></div>
+            <div class="card build"><a href="#">Expose framework mappings</a></div>
+            <div class="card retro"><a href="#">Move demo deployments to Actions</a></div>
+            <div class="card retro"><a href="#">Cloud Storage cleanup</a></div>
+            <div class="card bug"><a href="#">Snapshot Bloat management</a></div>
         </div>
     </div>
 
@@ -115,11 +125,11 @@
     <div class="column">
         <div class="column-header" style="background: var(--header-orange);">Risk Next</div>
         <div class="content">
-            <div class="card intel">Risk detections for LLM Provider A</div>
-            <div class="card intel">System prompt optimization</div>
-            <div class="card build">Internal tool improvement</div>
-            <div class="card retro">Establish Risk On-Call</div>
-            <div class="card retro">Regression / Schema testing</div>
+            <div class="card intel"><a href="#">Risk detections for LLM Provider A</a></div>
+            <div class="card intel"><a href="#">System prompt optimization</a></div>
+            <div class="card build"><a href="#">Internal tool improvement</a></div>
+            <div class="card retro"><a href="#">Establish Risk On-Call</a></div>
+            <div class="card retro"><a href="#">Regression / Schema testing</a></div>
         </div>
     </div>
 
@@ -127,11 +137,11 @@
     <div class="column">
         <div class="column-header" style="background: var(--header-yellow);">Next</div>
         <div class="content">
-            <div class="card bug">Stale annotations cleanup</div>
-            <div class="card build">Multi-user endpoint support</div>
-            <div class="card build">Scan status detail logging</div>
-            <div class="card build">Environment migration</div>
-            <div class="card retro">Telemetry compatibility</div>
+            <div class="card bug"><a href="#">Stale annotations cleanup</a></div>
+            <div class="card build"><a href="#">Multi-user endpoint support</a></div>
+            <div class="card build"><a href="#">Scan status detail logging</a></div>
+            <div class="card build"><a href="#">Environment migration</a></div>
+            <div class="card retro"><a href="#">Telemetry compatibility</a></div>
         </div>
     </div>
 
@@ -141,13 +151,13 @@
             <div class="sub-box" style="background: #eef4ff;">
                 <div class="sub-header">WIP</div>
                 <div class="content">
-                    <div class="card build"><span class="avatar"></span>Agent Owner management</div>
+                    <div class="card build"><span class="avatar"></span><a href="#">Agent Owner management</a></div>
                 </div>
             </div>
             <div class="sub-box" style="background: #eef4ff;">
                 <div class="sub-header">WIP</div>
                 <div class="content">
-                    <div class="card build"><span class="avatar"></span>Endpoint enrollment logic</div>
+                    <div class="card build"><span class="avatar"></span><a href="#">Endpoint enrollment logic</a></div>
                 </div>
             </div>
         </div>
@@ -185,12 +195,12 @@
     <div class="column">
         <div class="column-header" style="background: var(--header-green);">Done</div>
         <div class="content">
-            <div class="card bug">VPN Service Connectivity</div>
-            <div class="card build">Fix Platform Connections</div>
-            <div class="card build">Telemetry Access Roles</div>
-            <div class="card build">Drop Public SSH Access</div>
-            <div class="card build">Cloud Studio Integration</div>
-            <div class="card build">Risk Report Automation</div>
+            <div class="card bug"><a href="#">VPN Service Connectivity</a></div>
+            <div class="card build"><a href="#">Fix Platform Connections</a></div>
+            <div class="card build"><a href="#">Telemetry Access Roles</a></div>
+            <div class="card build"><a href="#">Drop Public SSH Access</a></div>
+            <div class="card build"><a href="#">Cloud Studio Integration</a></div>
+            <div class="card build"><a href="#">Risk Report Automation</a></div>
         </div>
     </div>
 </div>
