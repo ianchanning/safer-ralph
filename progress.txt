@@ -39,5 +39,7 @@
 - [2026-01-25] Refactored 'lsprite.sh' to move 'gh-key' and identity wait logic from 'create' to 'clone', enabling multi-repo support and faster Sprite initialization.
 - [2026-01-25] Optimized 'gh-key' command to handle its own identity generation wait-loop, making it a self-contained, robust gateway for GitHub access.
 - [2026-01-25] Implemented conditional Mothership cloning in 'gh-key' to avoid "key in use" conflicts when targeting separate project repositories.
+- [2026-01-25] Optimized 'Dockerfile.sprite' for Node 24 (Bookworm Slim): integrated 'npm@latest' upgrade and removed the deprecated '--unsafe-perm' flag for a cleaner build.
+
 
 
