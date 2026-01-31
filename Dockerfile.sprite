@@ -1,5 +1,5 @@
 # Use a modern Node image as the base
-FROM node:22-bullseye
+FROM node:24-bookworm-slim
 
 # Install basic development tools
 RUN apt-get update && apt-get install -y \
@@ -13,11 +13,14 @@ RUN apt-get update && apt-get install -y \
     sudo \
     && rm -rf /var/lib/apt/lists/*
 
+# Update npm to the latest version first
+RUN npm install -g npm@latest
+
 # Install the Gemini and Claude CLIs globally
 # We use ADD to fetch the latest version info from NPM, which busts the cache only when a new version is released
 ADD https://registry.npmjs.org/@google/gemini-cli/latest /tmp/gemini-version.json
 ADD https://registry.npmjs.org/@anthropic-ai/claude-code/latest /tmp/claude-version.json
-RUN npm install -g @google/gemini-cli @anthropic-ai/claude-code --unsafe-perm
+RUN npm install -g @google/gemini-cli @anthropic-ai/claude-code
 
 # Pre-configure Gemini CLI settings
 RUN mkdir -p /root/.gemini && \
