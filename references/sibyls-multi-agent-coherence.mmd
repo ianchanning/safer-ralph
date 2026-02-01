@@ -1,0 +1,59 @@
+flowchart TD
+
+    %% STYLE DEFINITIONS
+    classDef arch fill:#dae8fc,stroke:#6c8ebf,stroke-width:3px,color:black
+    classDef killer fill:#d5e8d4,stroke:#82b366,stroke-width:3px,color:black
+    classDef inquisitor fill:#ffe6cc,stroke:#d79b00,stroke-width:3px,color:black
+    classDef cave fill:#f9f9f9,stroke:#333,stroke-width:2px,stroke-dasharray: 5 5,color:black
+    classDef tool fill:#ffffff,stroke:#333,stroke-width:1px,color:black
+    classDef user fill:#e1e1e1,stroke:#666,stroke-width:1px,color:black
+
+    Dreamer([The Dreamer<br/>User Input]):::user
+
+    %% THE BRAIN (HOST SIDE)
+    subgraph Host [The Octopus Host]
+        Architect[<b>The Architect</b><br/><i>Gemini 1.5 Pro / o3</i><br/>Infinite Context Strategy]:::arch
+    end
+
+    %% THE BODY (DOCKER SIDE)
+    subgraph Sprite [The Pirate Cave <br/> Docker Container]
+        direction TB
+
+        %% THE LENS (CONTEXT RAY TRACING)
+        Lens[<b>Context Lens</b><br/><i>lens.sh / ls / grep</i><br/>Summarizer]:::tool
+
+        %% THE EXECUTION LOOP (RALPH.SH)
+        subgraph RalphLoop [The Ralph Loop]
+            direction TB
+            Killer[<b>The Killer</b><br/><i>Claude 3.5 Sonnet</i><br/>Vibe Coding / Execution]:::killer
+            Metal[<b>The Metal</b><br/><i>Compiler / Tests / Bash</i><br/>Reality Check]:::tool
+            Inquisitor[<b>The Inquisitor</b><br/><i>o1-mini</i><br/>Adversarial Prosecutor]:::inquisitor
+        end
+
+        Git[(<b>Git Persistence</b><br/>Commit)]:::tool
+    end
+
+    %% --- FLOW LOGIC ---
+
+    %% 1. INITIATION
+    Dreamer -->|"1\. SPEC.md / Orders"| Architect
+
+    %% 2. CONTEXT RAY TRACING (The Architect Blindfold Removal)
+    Architect -.->|"2\. Fire Ray <br/>'Show me Schema'"| Lens
+    Lens -.->|"3\. Return Summary"| Architect
+
+    %% 3. THE HANDOFF
+    Architect -->|"4\. The Plan <br/>Step-by-Step Directives"| Killer
+
+    %% 4. THE KILL LOOP (Throughput)
+    Killer -->|"5\. Write Code"| Metal
+    Metal -->|"6\. Compiler Error?"| Killer
+
+    %% 5. THE INQUISITION (Correctness)
+    Metal -->|"7\. Compiles?"| Inquisitor
+    Inquisitor -->|"<b>8a\. VETO (Burn It)</b><br/><i>Logic/Security Flaw</i>"| Killer
+    Inquisitor -->|"<b>8b\. APPROVE (Ship It)</b><br/><i>Malicious Compliance Passed</i>"| Git
+
+    %% 6. CLOSING THE LOOP
+    Git -->|"9\. Update Progress"| Architect
+    Inquisitor -.->|"10\. BLOCK (Design Flaw)"| Architect
