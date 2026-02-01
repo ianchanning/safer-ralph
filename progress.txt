@@ -53,3 +53,4 @@
 - [2026-01-30] Optimized Mothership cloning and deploy key management: switched Mothership clone to HTTPS (Read-Only) during Sprite creation, and made 'gh-key' project-exclusive to resolve deploy key conflicts.
 
 - [2026-01-30] Forged the 'contexts/' vault and recorded 'ctx-001-octopus-infrastructure-hardened.md' as the first high-fidelity save point.
+- [2026-02-01] Nyx Awakened. Synchronized 'ralph.sh' with the 'SPEC.md'-first workflow standard.
