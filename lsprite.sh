@@ -77,6 +77,11 @@ case "$1" in
     
     # 1. Bring up the container (low-level)
     $0 up "$NAME"
+
+    # 2. Unconditionally install the Mothership tools via HTTPS (Read-Only)
+    # This avoids using the Sprite's SSH key for the Mothership, reserving it for the project repo.
+    echo "Installing Mothership tools via HTTPS..."
+    $DOCKER_CMD exec "$NAME" bash -c "git clone https://github.com/ianchanning/sprites-swarm.git ~/mothership || (cd ~/mothership && git pull)"
     ;;
   up)
     NAME=$2
@@ -135,7 +140,7 @@ case "$1" in
   gh-key)
     NAME=$2
     REPO=$3
-    if [ -z "$NAME" ]; then echo "Usage: $0 gh-key <name> [repo]"; exit 1; fi
+    if [ -z "$NAME" ] || [ -z "$REPO" ]; then echo "Usage: $0 gh-key <name> <repo>"; exit 1; fi
     
     # 1. Wait for identity generation (key in logs) if not already there
     echo "Waiting for Identity generation in '$NAME'..."
@@ -150,28 +155,14 @@ case "$1" in
     KEY=$($DOCKER_CMD logs "$NAME" 2>&1 | grep "ssh-ed25519" | tail -n 1)
     if [ -z "$KEY" ]; then echo "Error: No SSH key found in logs for $NAME"; exit 1; fi
     
-    echo "Adding deploy key for '$NAME' to GitHub..."
+    echo "Adding deploy key for '$NAME' to GitHub repo '$REPO'..."
     # Create a temp file for the key
     TMP_KEY_FILE="/tmp/${NAME}_key.pub"
     echo "$KEY" > "$TMP_KEY_FILE"
     
-    # Construct gh command
-    GH_CMD="gh repo deploy-key add \"$TMP_KEY_FILE\" --allow-write --title \"$NAME\""
-    if [ -n "$REPO" ]; then
-        GH_CMD="$GH_CMD --repo \"$REPO\""
-    fi
-
     # Use gh cli to add the deploy key (requires gh to be authenticated)
-    if eval "$GH_CMD"; then
+    if gh repo deploy-key add "$TMP_KEY_FILE" --allow-write --title "$NAME" --repo "$REPO"; then
        echo "✓ Deploy key added successfully!"
-       
-       # Trigger Mothership Clone only if we have access (i.e. targeting it or no repo specified)
-       if [ -z "$REPO" ] || [[ "$REPO" == *"sprites-swarm"* ]]; then
-           echo "Triggering Mothership clone inside Sprite..."
-           $DOCKER_CMD exec "$NAME" bash -c "git clone git@github.com:ianchanning/sprites-swarm.git ~/mothership || echo '   -> Mothership already present.'"
-       else
-           echo "   -> Skipping Mothership clone (deploy key assigned to $REPO)."
-       fi
     else
        echo "✗ Failed to add deploy key."
     fi
