@@ -24,22 +24,22 @@ Forge the base Docker image that all Sprites will use.
 ```
 
 ### 2. Summon a Cave (Sprite)
-This single command spins up the isolated container, waits for identity generation, and uploads the SSH key to GitHub (via `gh` CLI).
+This single command spins up an isolated container, generates a unique identity (e.g., `scorpion-alpha`), and uploads the SSH key to GitHub. If you omit the name, one will be generated for you.
 ```bash
-./lsprite.sh create tentacle-1
+./lsprite.sh create
 ```
-*(If you don't use `gh` CLI, use `./lsprite.sh up` followed by `./lsprite.sh key` manually).*
+*(Note the generated name in the output, e.g., "Generated Sprite Name: scorpion-alpha")*
 
 ### 3. Claim a Target (Project Clone)
 Tell the Sprite which repository to work on. It will clone it into the isolated workspace.
 ```bash
-./lsprite.sh clone tentacle-1 git@github.com:ianchanning/kanban-rust-htmx.git
+./lsprite.sh clone scorpion-alpha git@github.com:ianchanning/kanban-rust-htmx.git
 ```
 
 ### 4. Jack In (The Pirate Parley)
 Enter the Cave. You will land in the `/workspace` containing your cloned project.
 ```bash
-./lsprite.sh in tentacle-1
+./lsprite.sh in scorpion-alpha
 ```
 
 ### 5. Unleash the Ralph Loop
