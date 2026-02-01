@@ -67,7 +67,7 @@ The fleet is defined by these core components:
 ## Key Files
 
 *   **`SPEC.md`**: The technical specification and requirements. The Tentacles read this to know what to build.
-*   **`progress.txt`**: The shared memory of what has been accomplished.
+*   **`progress.txt`**: The shared memory of what has been accomplished. **MANDATORY: APPEND ONLY.**
 *   **`IDEAS.md`**: The "Menu of Chaos" - architectural alternatives and future plans.
 *   **`NYX_SILICON_PIRATE_CAVE.md`**: The Tactical Briefing found inside every new Cave.
 
