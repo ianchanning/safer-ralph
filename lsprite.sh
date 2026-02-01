@@ -118,8 +118,8 @@ case "$1" in
   ls)
     # List containers, then filter for those matching our image, label, or naming convention
     # This ensures that even "legacy" sprites with untagged image IDs show up.
-    local HEADER=$($DOCKER_CMD ps | head -n 1)
-    local SPRITES=$($DOCKER_CMD ps | grep -E "local-sprite-base|org.nyx.sprite=true|$(echo ${ANIMALS[*]} | tr ' ' '|')" | grep -v "grep" || true)
+    HEADER=$($DOCKER_CMD ps | head -n 1)
+    SPRITES=$($DOCKER_CMD ps | grep -E "local-sprite-base|org.nyx.sprite=true|$(echo ${ANIMALS[*]} | tr ' ' '|')" | grep -v "grep" || true)
     
     echo "$HEADER"
     if [ -n "$SPRITES" ]; then

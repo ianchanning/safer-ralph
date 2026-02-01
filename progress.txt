@@ -48,3 +48,4 @@
 - [2026-01-30] Forged the 'Mothership Logging Protocol' in 'NYX_SILICON_PIRATE_CAVE.md': Mandated append-only logging for 'progress.txt' to preserve chronological state.
 - [2026-01-30] Updated 'README.md' to reinforce the 'APPEND ONLY' requirement for 'progress.txt'.
 - [2026-01-30] Upgraded 'lsprite.sh rm' to use a temporary Docker container for workspace cleanup, successfully bypassing host-side 'Permission denied' errors on root-owned files.
+- [2026-01-30] Fixed 'lsprite.sh' error where 'local' variables were used outside of a function in the 'ls' command.
