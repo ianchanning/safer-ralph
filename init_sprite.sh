@@ -57,4 +57,8 @@ else
 fi
 
 # 5. Hand over control to the main command
-exec "$@"
+if [ $# -gt 0 ]; then
+    exec "$@"
+else
+    echo "👾 Sprite initialized and ready for duty."
+fi
