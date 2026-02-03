@@ -78,7 +78,13 @@ Only work on ONE task per iteration."
     # but for now, we let the Tentacle run wild.
     
     echo "--- Strike $i Complete ---"
-    sleep 1
+    # Wait for the server-side capacity to replenish.
+    # Defaults to 10 seconds, but can be overridden.
+    DELAY=${STRIKE_DELAY:-10}
+    if [ $i -lt $ITERATIONS ]; then
+        echo "   -> Cooling down for $DELAY seconds..."
+        sleep $DELAY
+    fi
 done
 
 echo "👾 Tentacle retracted. Loop finished."
