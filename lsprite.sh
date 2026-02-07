@@ -137,10 +137,16 @@ case "$1" in
   rm)
     NAME=$2
     if [ -z "$NAME" ]; then echo "Usage: $0 rm <name>"; exit 1; fi
+    echo "Removing sprite container: $NAME"
     $DOCKER_CMD rm -f "$NAME"
+    ;;
+  purge)
+    NAME=$2
+    if [ -z "$NAME" ]; then echo "Usage: $0 purge <name>"; exit 1; fi
+    $0 rm "$NAME"
     WORKSPACE_DIR="$(pwd)/workspace-$NAME"
     if [ -d "$WORKSPACE_DIR" ]; then
-        echo "Removing workspace (via Docker to handle root-owned files): $WORKSPACE_DIR"
+        echo "Purging workspace (via Docker to handle root-owned files): $WORKSPACE_DIR"
         # We use a tiny alpine container to rm the host directory since it might contain root-owned .git files
         $DOCKER_CMD run --rm -v "$(pwd):/host" alpine rm -rf "/host/workspace-$NAME"
     fi
