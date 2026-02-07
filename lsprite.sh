@@ -115,8 +115,8 @@ case "$1" in
         fi
         
         echo "Launching sprite: $NAME (from lair: $LAIR)"
-        # Mount the dedicated workspace to /workspace
-        $DOCKER_CMD run -d --name "$NAME" --label org.nyx.sprite=true -e SPRITE_NAME="$NAME" -v "$WORKSPACE_DIR:/workspace" "$LAIR"
+        # Mount the dedicated workspace to /workspace and expose port 3000
+        $DOCKER_CMD run -d --name "$NAME" --label org.nyx.sprite=true -p 3000:3000 -e SPRITE_NAME="$NAME" -v "$WORKSPACE_DIR:/workspace" "$LAIR"
         inject_gemini_auth "$NAME"
     fi
     ;;
