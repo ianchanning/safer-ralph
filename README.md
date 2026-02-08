@@ -28,21 +28,21 @@ This single command spins up an isolated container, generates a unique **Identit
 ```bash
 ./sandbox.sh create
 ```
-*(Note the generated name in the output, e.g., "Generated Sandbox Name: scorpion-alpha")*
+*(Note the generated name in the output, e.g., "Generated Sandbox Name: hawk-alpha")*
 
-This creates an ignored persistant storage at e.g. `/workspace-scorpion-alpha` within the repo.
+This creates an ignored persistant storage at e.g. `/workspace-hawk-alpha` within the repo.
 
 ### 2. Claim a Target (Project Clone)
 Tell the Identity which repository to work on. It will clone it into the isolated workspace.  
 ```bash
-./sandbox.sh clone scorpion-alpha git@github.com:ianchanning/kanban-rust-htmx.git .
+./sandbox.sh clone hawk-alpha git@github.com:ianchanning/kanban-rust-htmx.git .
 ```
 *(Note the final `.` to simplify the installation to the root of the workspace. A deployment key is added to the cloned repository)*
 
 ### 3. Jack In
 Enter the Sandbox. You will land in the `/workspace` containing your cloned project.
 ```bash
-./sandbox.sh in scorpion-alpha
+./sandbox.sh in hawk-alpha
 ```
 
 ### 4. Unleash Ralph
@@ -54,17 +54,17 @@ Run the autonomous heartbeat. Because the Identity is isolated, you must invoke 
 This runs 5 iterations of **Ralph**, reading `SPEC.md` or the `specs/` directory from the current directory.
 
 ### 5. Purge
-Delete the Sandbox. This will remove the container and delete the persistant storage directory at `/workspace-scorpion-alpha`.
+Delete the Sandbox. This will remove the container and delete the persistant storage directory at `/workspace-hawk-alpha`.
 ```bash
-./sandbox.sh purge scorpion-alpha
+./sandbox.sh purge hawk-alpha
 ```
 
 ### 6. Setup the Sandbox (Creating a Template)
 If you've installed specialized tools (like Rust or Go) inside a Sandbox and want to preserve that environment for future use, you can **Save** it into a **Template**.
 
-Setup `'scorpion-alpha'` then save it into a new `'rust-template'`.
+Setup `'hawk-alpha'` then save it into a new `'rust-template'`.
 ```bash
-./sandbox.sh save scorpion-alpha rust-template
+./sandbox.sh save hawk-alpha rust-template
 ```
 
 Later, summon a new Sandbox directly into that Template.
