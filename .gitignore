@@ -1,5 +1,6 @@
 .aider*
 workspace-*
+build.log
 # Agent context files (Mothership internals)
 AGENTS.md
 GEMINI.md
