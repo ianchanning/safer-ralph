@@ -4,40 +4,40 @@
 
 This repository houses the **Sprites Swarm** (aka Project Reaper), a minimalist agent-fleet architecture expressed in code. It is designed to be useful, maintainable, and brutally simple.
 
-## Core Philosophy: The Octopus & The Cave
+## Core Philosophy: The Octopus & The Sandbox
 
 We reject the idea of "managing agents." Instead, we extend our consciousness.
 
-1.  **The Octopus (Host):** The central intelligence. You (The Dreamer) and Nyx Prime reside on the Host machine.
-2.  **The Cave (Container):** An isolated Docker container. A safe harbor where work happens without risking the Host.
-3.  **The Sprite (Agent):** The active manifestation of a **Soul** performing work inside a **Cave**. 
-4.  **The Soul (Persona):** Before a Sprite enters a Cave, it dons a "Soul" (System Prompt) that defines its behavior (e.g., `killer`, `architect`).
+1.  **The Octopus (Concept):** The central intelligence. You (The Dreamer) orchestrate the swarm from your **Host** machine.
+2.  **The Sandbox (Container):** An isolated Docker container. A safe harbor where work happens without risking the Host.
+3.  **The Sprite (Agent):** The active manifestation of a **Persona** performing work inside a **Sandbox**. 
+4.  **The Persona (Soul):** Before a Sprite enters a Sandbox, it dons a "Persona" (System Prompt) that defines its behavior (e.g., `killer`, `craftsman`).
 
 ## Quick Start: Summoning a Sprite
 
-Follow these steps to spin up your own local Silicon Pirate Cave.
+Follow these steps to spin up your own local Silicon Pirate Sandbox.
 
 ### 1. Build the Golden Image
-Forge the base Docker image that all Caves will use.
+Forge the base Docker image that all Sandboxes will use.
 ```bash
 ./lsprite.sh build
 ```
 
-### 2. Summon a Cave (Sprite)
-This single command spins up an isolated container, generates a unique **Sigil** (e.g., 🦅 A), and uploads the SSH key to GitHub. 
+### 2. Summon a Sandbox (Sprite)
+This single command spins up an isolated container, generates a unique **Identity** (e.g., 🦅 A), and uploads the SSH key to GitHub. 
 ```bash
 ./lsprite.sh create
 ```
 *(Note the generated name in the output, e.g., "Generated Sprite Name: scorpion-alpha")*
 
-### 3. Seasoning the Cave (Creating a Lair)
-If you've installed specialized tools (like Rust or Go) inside a Cave and want to preserve that environment for future use, you can **Season** it into a **Lair**.
+### 3. Seasoning the Sandbox (Creating a Template)
+If you've installed specialized tools (like Rust or Go) inside a Sandbox and want to preserve that environment for future use, you can **Enshrine** it into a **Template**.
 ```bash
-# Season 'scorpion-alpha' into a new 'rust-lair'
-./lsprite.sh season scorpion-alpha rust-lair
+# Season 'scorpion-alpha' into a new 'rust-template'
+./lsprite.sh season scorpion-alpha rust-template
 
-# Later, summon a new Cave directly into that Lair
-./lsprite.sh create rust-lair
+# Later, summon a new Sandbox directly into that Template
+./lsprite.sh create rust-template
 ```
 
 ### 4. Claim a Target (Project Clone)
@@ -47,7 +47,7 @@ Tell the Sprite which repository to work on. It will clone it into the isolated 
 ```
 
 ### 5. Jack In (The Pirate Parley)
-Enter the Cave. You will land in the `/workspace` containing your cloned project.
+Enter the Sandbox. You will land in the `/workspace` containing your cloned project.
 ```bash
 ./lsprite.sh in scorpion-alpha
 ```
@@ -60,26 +60,26 @@ Run the autonomous loop. Because the Sprite is isolated, you must invoke Ralph f
 ```
 This runs 5 iterations of the **Ralph Loop**, reading `SPEC.md` or the `specs/` directory from the current directory.
 
-## Architecture: Souls & Sprites
+## Architecture: Personas & Sprites
 
 The fleet is defined by these core components:
 
-*   **`souls/*.md`**: The personalities.
+*   **`souls/*.md`**: The Personas (System Prompts).
     *   **`killer.md`**: The ruthless implementer. High-velocity coding. "Safe YOLO Mode" enabled.
     *   **`architect.md`**: The planner. Doesn't write code, just specs.
-*   **`lsprite.sh`**: The bridge between the Octopus and the Cave.
-*   **`ralph.sh`**: The heartbeat loop that runs *inside* the Cave, driving the Sprite.
+*   **`lsprite.sh`**: The bridge between the Host and the Sandbox.
+*   **`ralph.sh`**: The heartbeat loop that runs *inside* the Sandbox, driving the Sprite.
+
+## Key Files
+
+*   **`SPEC.md` (or `specs/`)**: The technical specification and requirements. The Sprites read this to know what to build.
+*   **`progress.txt`**: The **Ledger** of what has been accomplished. **MANDATORY: APPEND ONLY.**
+*   **`GLOSSARY.md`**: The technical definitions of the system.
 
 ## The Goal
-
 To have a Swarm expressed in code that has "sufficient behaviors to be useful."
-
 *   **Useful:** It produces working code via `ralph.sh`.
-
 *   **Expressed in Code:** The fleet is just `souls/` and bash scripts.
-
 *   **Sufficient:** It plans, codes, reviews, and commits.
-
-
 
 *"Sharpen the axe. Burn the logs. Build the future."*

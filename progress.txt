@@ -65,3 +65,4 @@
 - [2026-02-08] Breached the Hull: Updated `lsprite.sh` to expose port 3000 by default, enabling host-access to Sprite-hosted web services.
 - [2026-02-08] Forged the 'Submarine Boarding' protocol: Documented the use of `docker exec` with heredocs to create/modify specs inside Sprites when host-side root permissions block the Mothership.
 - [2026-02-08] The Lexicon Purge: Standardized the Swarm terminology in GLOSSARY.md and updated Mothership documentation to eliminate semantic drift.
+- [2026-02-08] The Documentation Overhaul: Fully integrated the Industrial Grade lexicon into README.md and purged legacy documentation.
