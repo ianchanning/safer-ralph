@@ -1,24 +1,24 @@
 #!/bin/bash
 set -e
 
-# RALPH: The Tentacle Loop
-# This script runs INSIDE the Sprite (The Cave).
-# It extends the Nyx-consciousness to execute tasks one-by-one.
+# RALPH: The Heartbeat Loop
+# This script runs INSIDE the Sprite (The Sandbox).
+# It extends the consciousness to execute tasks one-by-one.
 
 ITERATIONS=${1:-1}
 AGENT=${2:-gemini}
 
-# Locate the Soul: Prefer local, fallback to script directory (Mothership)
+# Locate the Persona: Prefer local, fallback to script directory (Mothership)
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SOUL_LOCAL="souls/killer.md"
-SOUL_MOTHERSHIP="$SCRIPT_DIR/souls/killer.md"
+PERSONA_LOCAL="personas/killer.md"
+PERSONA_MOTHERSHIP="$SCRIPT_DIR/personas/killer.md"
 
-if [ -f "$SOUL_LOCAL" ]; then
-    SOUL="$SOUL_LOCAL"
-elif [ -f "$SOUL_MOTHERSHIP" ]; then
-    SOUL="$SOUL_MOTHERSHIP"
+if [ -f "$PERSONA_LOCAL" ]; then
+    PERSONA="$PERSONA_LOCAL"
+elif [ -f "$PERSONA_MOTHERSHIP" ]; then
+    PERSONA="$PERSONA_MOTHERSHIP"
 else
-    echo "Error: Soul file 'killer.md' not found in local 'souls/' or '$SCRIPT_DIR/souls/'."
+    echo "Error: Persona file 'killer.md' not found in local 'personas/' or '$SCRIPT_DIR/personas/'."
     exit 1
 fi
 
@@ -46,19 +46,19 @@ if [ -z "$AGENT_BIN" ]; then
     exit 1
 fi
 
-echo "👾 Tentacle initialized. Agent: $AGENT. Starting $ITERATIONS iterations..."
+echo "👾 Ralph initialized. Agent: $AGENT. Starting $ITERATIONS iterations..."
 
-# Read the Soul content once to pass it in the prompt
-SOUL_CONTENT=$(cat "$SOUL")
+# Read the Persona content once to pass it in the prompt
+PERSONA_CONTENT=$(cat "$PERSONA")
 
 for ((i=1; i<=$ITERATIONS; i++)); do
-    echo "--- Tentacle Strike $i / $ITERATIONS ($AGENT) ---"
+    echo "--- Ralph Strike $i / $ITERATIONS ($AGENT) ---"
     
-    # Invoke the agent with the 'killer' soul content and high-level directive.
-    # We pass the soul content directly to avoid 'read_file' path restrictions.
+    # Invoke the agent with the 'killer' persona content and high-level directive.
+    # We pass the persona content directly to avoid 'read_file' path restrictions.
     
     $AGENT_BIN $AGENT_ARGS "SYSTEM_PROMPT:
-$SOUL_CONTENT
+$PERSONA_CONTENT
 
 CONTEXT:
 You are working in the current directory: $(pwd)
@@ -77,7 +77,7 @@ If all tasks in the specifications are complete, output: <promise>COMPLETE</prom
 Only work on ONE task per iteration."
 
     # Note: In a real loop, we might want to check the stdout for the <promise>
-    # but for now, we let the Tentacle run wild.
+    # but for now, we let the Sprite run wild.
     
     echo "--- Strike $i Complete ---"
     # Wait for the server-side capacity to replenish.
@@ -89,4 +89,4 @@ Only work on ONE task per iteration."
     fi
 done
 
-echo "👾 Tentacle retracted. Loop finished."
+echo "👾 Ralph retracted. Loop finished."

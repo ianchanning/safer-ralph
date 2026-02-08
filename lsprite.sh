@@ -73,13 +73,13 @@ case "$1" in
     $DOCKER_CMD build -t $IMAGE_NAME -f Dockerfile.sprite .
     ;;
   create)
-    # Detection logic: If $2 is an image, it's the LAIR. Otherwise, it's the NAME.
+    # Detection logic: If $2 is an image, it's the TEMPLATE. Otherwise, it's the NAME.
     ARG=$2
     if [ -n "$ARG" ] && $DOCKER_CMD image inspect "$ARG" >/dev/null 2>&1; then
-        LAIR="$ARG"
+        TEMPLATE="$ARG"
         NAME=$3
     else
-        LAIR="$IMAGE_NAME"
+        TEMPLATE="$IMAGE_NAME"
         NAME="$ARG"
     fi
 
@@ -89,11 +89,11 @@ case "$1" in
         while [ "$($DOCKER_CMD ps -a -q -f name=^/${NAME}$)" ]; do
             NAME=$(generate_name)
         done
-        echo "Generated Sprite Name: $NAME"
+        echo "Generated Sandbox Name: $NAME"
     fi
     
     # 1. Bring up the container (low-level)
-    $0 up "$NAME" "$LAIR"
+    $0 up "$NAME" "$TEMPLATE"
 
     # 2. Unconditionally install the Mothership tools via HTTPS (Read-Only)
     # This avoids using the Sprite's SSH key for the Mothership, reserving it for the project repo.
@@ -106,16 +106,16 @@ case "$1" in
     ;;
   up)
     NAME=$2
-    LAIR=$3
-    if [ -z "$NAME" ]; then echo "Usage: $0 up <name> [lair]"; exit 1; fi
-    if [ -z "$LAIR" ]; then LAIR="$IMAGE_NAME"; fi
+    TEMPLATE=$3
+    if [ -z "$NAME" ]; then echo "Usage: $0 up <name> [template]"; exit 1; fi
+    if [ -z "$TEMPLATE" ]; then TEMPLATE="$IMAGE_NAME"; fi
 
     if [ "$($DOCKER_CMD ps -a -q -f name=^/${NAME}$)" ]; then
-        echo "Sprite '$NAME' already exists. Starting it..."
+        echo "Sandbox '$NAME' already exists. Starting it..."
         $DOCKER_CMD start "$NAME"
         inject_gemini_auth "$NAME"
     else
-        # Create a dedicated workspace for this sprite
+        # Create a dedicated workspace for this sandbox
         WORKSPACE_DIR="$(pwd)/workspace-$NAME"
         if [ ! -d "$WORKSPACE_DIR" ]; then
             echo "Creating workspace: $WORKSPACE_DIR"
@@ -123,20 +123,20 @@ case "$1" in
         fi
         
         PORT=$(find_free_port)
-        echo "Launching sprite: $NAME (from lair: $LAIR) on port $PORT"
+        echo "Launching Sandbox: $NAME (from template: $TEMPLATE) on port $PORT"
         # Mount the dedicated workspace to /workspace and expose the allocated port
-        $DOCKER_CMD run -d --name "$NAME" --label org.nyx.sprite=true -p $PORT:3000 -e SPRITE_NAME="$NAME" -v "$WORKSPACE_DIR:/workspace" "$LAIR"
+        $DOCKER_CMD run -d --name "$NAME" --label org.nyx.sprite=true -p $PORT:3000 -e SPRITE_NAME="$NAME" -v "$WORKSPACE_DIR:/workspace" "$TEMPLATE"
         inject_gemini_auth "$NAME"
     fi
     ;;
-  season)
+  save-template)
     NAME=$2
-    LAIR_NAME=$3
-    if [ -z "$NAME" ] || [ -z "$LAIR_NAME" ]; then echo "Usage: $0 season <sprite_name> <lair_name>"; exit 1; fi
-    echo "Seasoning '$NAME' into a new lair: '$LAIR_NAME'..."
+    TEMPLATE_NAME=$3
+    if [ -z "$NAME" ] || [ -z "$TEMPLATE_NAME" ]; then echo "Usage: $0 save-template <sandbox_name> <template_name>"; exit 1; fi
+    echo "Saving Sandbox '$NAME' into a new template: '$TEMPLATE_NAME'..."
     # Preserve the label so it shows up in 'ls'
-    $DOCKER_CMD commit --change 'LABEL org.nyx.sprite="true"' "$NAME" "$LAIR_NAME"
-    echo "✓ Lair '$LAIR_NAME' is ready for summoning."
+    $DOCKER_CMD commit --change 'LABEL org.nyx.sprite="true"' "$NAME" "$TEMPLATE_NAME"
+    echo "✓ Template '$TEMPLATE_NAME' is ready for use."
     ;;
   in)
     NAME=$2
@@ -146,7 +146,7 @@ case "$1" in
   rm)
     NAME=$2
     if [ -z "$NAME" ]; then echo "Usage: $0 rm <name>"; exit 1; fi
-    echo "Removing sprite container: $NAME"
+    echo "Removing Sandbox container: $NAME"
     $DOCKER_CMD rm -f "$NAME"
     ;;
   purge)
@@ -233,7 +233,7 @@ case "$1" in
     $DOCKER_CMD exec "$NAME" bash -c "$GIT_CMD"
     ;;
   *)
-    echo "Usage: $0 {build|create|up|in|rm|ls|key|gh-key|clone}"
+    echo "Usage: $0 {build|create|up|in|rm|purge|ls|key|gh-key|clone|save-template}"
     exit 1
     ;;
 esac

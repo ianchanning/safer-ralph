@@ -7,7 +7,7 @@ EMAIL="nyx+${SPRITE_NAME}@blank-slate.io"
 
 echo "👾 Initializing Sprite: $SPRITE_NAME"
 
-# 1. Configure Git Identity (Authority: The Cave Name)
+# 1. Configure Git Identity (Authority: The Sandbox Name)
 # Transform name (e.g., "hawk-alpha") into cool identity (e.g., "🦅 A")
 ANIMAL="${SPRITE_NAME%%-*}"
 PHONETIC="${SPRITE_NAME##*-}"
