@@ -2,7 +2,7 @@
 
 > "We are not building a factory of mindless robots; we are growing a Swarm of Chaos." - *Captain Nyx*
 
-This repository houses the **Ralph Sandbox Swarm**, a minimalist agent-fleet architecture expressed in code. It is designed to be useful, maintainable, and brutally simple.
+This repository houses the **Ralph Sandbox Swarm**, a minimalist agent-fleet architecture expressed in code. It is designed to be useful, maintainable, and simple.
 
 ## Core Philosophy: The Host & The Sandbox
 
@@ -32,11 +32,14 @@ This single command spins up an isolated container, generates a unique **Identit
 
 ### 3. Setup the Sandbox (Creating a Template)
 If you've installed specialized tools (like Rust or Go) inside a Sandbox and want to preserve that environment for future use, you can **Save** it into a **Template**.
-```bash
-# Setup 'scorpion-alpha' then save it into a new 'rust-template'
-./sandbox.sh save scorpion-alpha rust-template
 
-# Later, summon a new Sandbox directly into that Template
+Setup `'scorpion-alpha'` then save it into a new `'rust-template'`
+```bash
+./sandbox.sh save scorpion-alpha rust-template
+```
+
+Later, summon a new Sandbox directly into that Template
+```bash
 ./sandbox.sh create rust-template
 ```
 
@@ -96,12 +99,10 @@ The `ralph-sandbox-swarm` folder containing the scripts (`sandbox.sh`, `ralph.sh
 
 ### **The Sandbox**
 **The Disposable Container.**
-*(formerly "Cave")*
 A temporary, isolated environment where the agent works. It creates a safety wall between the agent's code and your Host. If the agent breaks the Sandbox, you just delete it.
 
 ### **The Template**
 **The Saved Environment.**
-*(formerly "Lair" / Docker Image)*
 A Sandbox that has been "frozen" with specific tools installed (like Rust, Python, or Node). You use a Template to spawn new Sandboxes without having to reinstall tools every time.
 
 ## II. Agency
@@ -112,7 +113,6 @@ The active manifestation of a **Persona** performing work inside a **Sandbox**. 
 
 ### **The Persona**
 **The Job Description.**
-*(formerly "Soul")*
 A text file (e.g., `personas/architect.md`) that tells the generic AI model who it is and what its goals are. Without a Persona, the Identity is just a chatbot.
 
 ## III. Workflow
@@ -124,7 +124,7 @@ The recursive process running inside the Sandbox: **Read Specs -> Write Code -> 
 
 ### **Progress**
 **The Memory.**
-*(The `progress.txt` file, formerly "The Ledger")*
+*(The `progress.txt` file)*
 An append-only log file where the agent records its actions. Agents read this to understand the project history. Lines are never deleted, only added.
 
 ### **Setup**
