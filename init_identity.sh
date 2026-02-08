@@ -6,7 +6,7 @@ set -e
 
 # Default to hostname if IDENTITY_NAME not set
 IDENTITY_NAME=${IDENTITY_NAME:-$(hostname)}
-EMAIL="nyx+${IDENTITY_NAME}@blank-slate.io"
+EMAIL="ralph+${IDENTITY_NAME}@example.com"
 
 echo "👾 Initializing Identity: $IDENTITY_NAME"
 
