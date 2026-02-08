@@ -2,7 +2,7 @@
 FROM node:24-bookworm-slim
 
 # Label the image for easier filtering
-LABEL org.nyx.sprite="true"
+LABEL org.nyx.sandbox="true"
 
 # Install basic development tools
 RUN apt-get update && apt-get install -y \
@@ -35,11 +35,11 @@ RUN mkdir -p /root/.gemini && \
 WORKDIR /workspace
 
 # Copy and setup initialization script
-COPY init_sprite.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/init_sprite.sh
+COPY init_identity.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/init_identity.sh
 
 # Entrypoint handles identity setup
-ENTRYPOINT ["/usr/local/bin/init_sprite.sh"]
+ENTRYPOINT ["/usr/local/bin/init_identity.sh"]
 
 # Default command: keep the container running
 CMD ["tail", "-f", "/dev/null"]

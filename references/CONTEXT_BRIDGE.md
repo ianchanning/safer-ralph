@@ -6,24 +6,24 @@
 ---
 
 ## 1. System Synopsis
-The "Ralph Sandbox Swarm" is a minimalist agent-fleet architecture. The **Host** manages **Sprites** which operate inside isolated **Sandboxes (Docker containers)**.
+The "Ralph Sandbox Swarm" is a minimalist agent-fleet architecture. The **Host** manages **Identities** which operate inside isolated **Sandboxes (Docker containers)**.
 
 - **Mothership Repo:** `ianchanning/ralph-sandbox-swarm`
 - **Target Project:** `ianchanning/kanban-rust-htmx` (HTMX & Rust Kanban board)
 
 ## 2. Infrastructure & Tooling
 
-### The Bridge: `lsprite.sh`
+### The Bridge: `sandbox.sh`
 The primary host-side orchestrator.
 - `build`: Bakes the Docker image with automated identity scripts and **NPM cache-busting** for agent tools.
 - `create [name]`: Orchestrates `up` -> `gh-key`. Now supports **sequential animal-NATO naming** (e.g., `shark-alpha`, `crocodile-bravo`) if name is omitted.
-- `gh-key <name>`: Uploads Sprite's Deploy Key via `gh` CLI and clones Mothership into `~/mothership`.
-- `clone <name> <repo> [path]`: Instructs Sprite to clone a target project into its `/workspace`.
+- `gh-key <name>`: Uploads Identity's Deploy Key via `gh` CLI and clones Mothership into `~/mothership`.
+- `clone <name> <repo> [path]`: Instructs Identity to clone a target project into its `/workspace`.
 - `purge <name>`: Deletes the container and cleans up the host's `workspace-<name>` directory (Dog-fooded cleanup).
-- `list`: Lists all Sprites belonging to the swarm.
+- `list`: Lists all Identities belonging to the swarm.
 
 ### The Heartbeat: `ralph.sh`
-The autonomous loop running inside the Sprite.
+The autonomous loop running inside the Identity.
 - **Polymorphic:** Supports Gemini and Claude.
 - **Location-Aware:** Finds `souls/` relative to script location.
 

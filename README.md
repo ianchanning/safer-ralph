@@ -10,23 +10,23 @@ We reject the idea of "managing agents." Instead, we extend our consciousness.
 
 1.  **The Host (Local Machine):** The central intelligence. You orchestrate the swarm from your **Host** machine.
 2.  **The Sandbox (Container):** An isolated Docker container. A safe harbor where work happens without risking the Host.
-3.  **The Sprite (Agent):** The active manifestation of a **Persona** performing work inside a **Sandbox**. 
-4.  **The Persona (Description):** Before a Sprite enters a Sandbox, it dons a "Persona" (System Prompt) that defines its behavior (e.g., `killer`, `craftsman`).
+3.  **The Identity (Agent):** The active manifestation of a **Persona** performing work inside a **Sandbox**. 
+4.  **The Persona (Description):** Before an Identity enters a Sandbox, it dons a "Persona" (System Prompt) that defines its behavior (e.g., `killer`, `craftsman`).
 
-## Quick Start: Summoning a Sprite
+## Quick Start: Summoning an Identity
 
 Follow these steps to spin up your own local Silicon Pirate Sandbox.
 
 ### 1. Build the Golden Image
 Forge the base Docker image that all Sandboxes will use.
 ```bash
-./lsprite.sh build
+./sandbox.sh build
 ```
 
-### 2. Summon a Sandbox (Sprite)
+### 2. Summon a Sandbox (Identity)
 This single command spins up an isolated container, generates a unique **Identity** (e.g., 🦅 A), and uploads the SSH key to GitHub. 
 ```bash
-./lsprite.sh create
+./sandbox.sh create
 ```
 *(Note the generated name in the output, e.g., "Generated Sandbox Name: scorpion-alpha")*
 
@@ -34,43 +34,43 @@ This single command spins up an isolated container, generates a unique **Identit
 If you've installed specialized tools (like Rust or Go) inside a Sandbox and want to preserve that environment for future use, you can **Save** it into a **Template**.
 ```bash
 # Setup 'scorpion-alpha' then save it into a new 'rust-template'
-./lsprite.sh save scorpion-alpha rust-template
+./sandbox.sh save scorpion-alpha rust-template
 
 # Later, summon a new Sandbox directly into that Template
-./lsprite.sh create rust-template
+./sandbox.sh create rust-template
 ```
 
 ### 4. Claim a Target (Project Clone)
-Tell the Sprite which repository to work on. It will clone it into the isolated workspace.
+Tell the Identity which repository to work on. It will clone it into the isolated workspace.
 ```bash
-./lsprite.sh clone scorpion-alpha git@github.com:ianchanning/kanban-rust-htmx.git
+./sandbox.sh clone scorpion-alpha git@github.com:ianchanning/kanban-rust-htmx.git
 ```
 
 ### 5. Jack In
 Enter the Sandbox. You will land in the `/workspace` containing your cloned project.
 ```bash
-./lsprite.sh in scorpion-alpha
+./sandbox.sh in scorpion-alpha
 ```
 
 ### 6. Unleash Ralph
-Run the autonomous heartbeat. Because the Sprite is isolated, you must invoke Ralph from the **Mothership** toolset.
+Run the autonomous heartbeat. Because the Identity is isolated, you must invoke Ralph from the **Mothership** toolset.
 ```bash
 # Inside the container
 ~/mothership/ralph.sh 5
 ```
 This runs 5 iterations of **Ralph**, reading `SPEC.md` or the `specs/` directory from the current directory.
 
-## Architecture: Personas & Sprites
+## Architecture: Personas & Identities
 
 The fleet is defined by these core components:
 
 *   **`personas/*.md`**: The Personas (System Prompts).
-*   **`lsprite.sh`**: The bridge between the Host and the Sandbox.
-*   **`ralph.sh`**: The heartbeat loop that runs *inside* the Sandbox, driving the Sprite.
+*   **`sandbox.sh`**: The bridge between the Host and the Sandbox.
+*   **`ralph.sh`**: The heartbeat loop that runs *inside* the Sandbox, driving the Identity.
 
 ## Key Files
 
-*   **`SPEC.md` (or `specs/`)**: The technical specification and requirements. The Sprites read this to know what to build.
+*   **`SPEC.md` (or `specs/`)**: The technical specification and requirements. The Identities read this to know what to build.
 *   **`progress.txt`**: **Progress**. The record of what has been accomplished. **MANDATORY: APPEND ONLY.**
 *   **`GLOSSARY.md`**: The technical definitions of the system.
 

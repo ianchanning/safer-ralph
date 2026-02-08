@@ -12,7 +12,7 @@
 
 ## Phase 3: The Final Link (Persistence)
 - [x] Update `progress.txt` with the successful renaming.
-- [x] Verify `lsprite.sh` and `ralph.sh` still operate correctly in the new path.
+- [x] Verify `sandbox.sh` and `ralph.sh` still operate correctly in the new path.
 - [x] Final commit and push to the new remote.
 
 ---

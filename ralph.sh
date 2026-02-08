@@ -2,7 +2,7 @@
 set -e
 
 # RALPH: The Heartbeat Loop
-# This script runs INSIDE the Sprite (The Sandbox).
+# This script runs INSIDE the Sandbox.
 # It extends the consciousness to execute tasks one-by-one.
 
 ITERATIONS=${1:-1}
@@ -62,7 +62,7 @@ $PERSONA_CONTENT
 
 CONTEXT:
 You are working in the current directory: $(pwd)
-Your unique Sprite identity is: ${SPRITE_NAME}
+Your unique Identity name is: ${IDENTITY_NAME}
 
 DIRECTIVE:
 1. Read the specifications (e.g., SPEC.md or files in the specs/ directory) and progress.txt.
@@ -70,14 +70,14 @@ DIRECTIVE:
 3. Implement it fully.
 4. Run any necessary tests.
 5. Update the relevant specification/plan file (mark task as done) and progress.txt (log the action).
-6. Commit the changes with a clear message using your identity (${SPRITE_NAME}). 
+6. Commit the changes with a clear message using your Identity (${IDENTITY_NAME}). 
    DO NOT override the git author/email; use the system's configured identity.
     
 If all tasks in the specifications are complete, output: <promise>COMPLETE</promise>
 Only work on ONE task per iteration."
 
     # Note: In a real loop, we might want to check the stdout for the <promise>
-    # but for now, we let the Sprite run wild.
+    # but for now, we let the Identity run wild.
     
     echo "--- Strike $i Complete ---"
     # Wait for the server-side capacity to replenish.

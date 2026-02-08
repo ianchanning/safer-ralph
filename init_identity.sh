@@ -1,16 +1,19 @@
 #!/bin/bash
 set -e
 
-# Default to hostname if SPRITE_NAME not set
-SPRITE_NAME=${SPRITE_NAME:-$(hostname)}
-EMAIL="nyx+${SPRITE_NAME}@blank-slate.io"
+# RALPH: Identity Bootstrap
+# This script runs ONCE inside a new Sandbox to establish its Identity.
 
-echo "👾 Initializing Sprite: $SPRITE_NAME"
+# Default to hostname if IDENTITY_NAME not set
+IDENTITY_NAME=${IDENTITY_NAME:-$(hostname)}
+EMAIL="nyx+${IDENTITY_NAME}@blank-slate.io"
+
+echo "👾 Initializing Identity: $IDENTITY_NAME"
 
 # 1. Configure Git Identity (Authority: The Sandbox Name)
 # Transform name (e.g., "hawk-alpha") into cool identity (e.g., "🦅 A")
-ANIMAL="${SPRITE_NAME%%-*}"
-PHONETIC="${SPRITE_NAME##*-}"
+ANIMAL="${IDENTITY_NAME%%-*}"
+PHONETIC="${IDENTITY_NAME##*-}"
 INITIAL="$(echo "${PHONETIC:0:1}" | tr '[:lower:]' '[:upper:]')"
 
 case "$ANIMAL" in
@@ -60,5 +63,5 @@ fi
 if [ $# -gt 0 ]; then
     exec "$@"
 else
-    echo "👾 Sprite initialized and ready for duty."
+    echo "👾 Identity initialized and ready for duty."
 fi

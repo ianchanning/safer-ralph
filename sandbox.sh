@@ -1,6 +1,6 @@
 #!/bin/bash
 
-IMAGE_NAME="local-sprite-base"
+IMAGE_NAME="local-sandbox-base"
 
 # Naming Strategy Lists
 ANIMALS=("shark" "crocodile" "tiger" "eagle" "wolf" "bear" "dragon" "octopus" "viper" "raven" "panther" "cobra" "hawk" "orca" "lynx" "scorpion" "falcon" "bull" "ram" "mantis")
@@ -70,7 +70,7 @@ fi
 case "$1" in
   build)
     echo "Building $IMAGE_NAME..."
-    $DOCKER_CMD build -t $IMAGE_NAME -f Dockerfile.sprite .
+    $DOCKER_CMD build -t $IMAGE_NAME -f Dockerfile.sandbox .
     ;;
   create)
     # Detection logic: If $2 is an image, it's the TEMPLATE. Otherwise, it's the NAME.
@@ -96,13 +96,13 @@ case "$1" in
     $0 up "$NAME" "$TEMPLATE"
 
     # 2. Unconditionally install the Mothership tools via HTTPS (Read-Only)
-    # This avoids using the Sprite's SSH key for the Mothership, reserving it for the project repo.
+    # This avoids using the Identity's SSH key for the Mothership, reserving it for the project repo.
     echo "Installing Mothership tools via HTTPS..."
     $DOCKER_CMD exec "$NAME" bash -c "git clone https://github.com/ianchanning/ralph-sandbox-swarm.git ~/mothership || (cd ~/mothership && git pull)"
     
     # 3. Symlink the latest init script over the baked-in one
     echo "   -> Linking latest init tools..."
-    $DOCKER_CMD exec "$NAME" ln -sf /root/mothership/init_sprite.sh /usr/local/bin/init_sprite.sh
+    $DOCKER_CMD exec "$NAME" ln -sf /root/mothership/init_identity.sh /usr/local/bin/init_identity.sh
     ;;
   up)
     NAME=$2
@@ -125,7 +125,7 @@ case "$1" in
         PORT=$(find_free_port)
         echo "Launching Sandbox: $NAME (from template: $TEMPLATE) on port $PORT"
         # Mount the dedicated workspace to /workspace and expose the allocated port
-        $DOCKER_CMD run -d --name "$NAME" --label org.nyx.sprite=true -p $PORT:3000 -e SPRITE_NAME="$NAME" -v "$WORKSPACE_DIR:/workspace" "$TEMPLATE"
+        $DOCKER_CMD run -d --name "$NAME" --label org.nyx.sandbox=true -p $PORT:3000 -e IDENTITY_NAME="$NAME" -v "$WORKSPACE_DIR:/workspace" "$TEMPLATE"
         inject_gemini_auth "$NAME"
     fi
     ;;
@@ -135,7 +135,7 @@ case "$1" in
     if [ -z "$NAME" ] || [ -z "$TEMPLATE_NAME" ]; then echo "Usage: $0 save <sandbox_name> <template_name>"; exit 1; fi
     echo "Saving Sandbox '$NAME' into a new template: '$TEMPLATE_NAME'..."
     # Preserve the label so it shows up in 'list'
-    $DOCKER_CMD commit --change 'LABEL org.nyx.sprite="true"' "$NAME" "$TEMPLATE_NAME"
+    $DOCKER_CMD commit --change 'LABEL org.nyx.sandbox="true"' "$NAME" "$TEMPLATE_NAME"
     echo "✓ Template '$TEMPLATE_NAME' is ready for use."
     ;;
   in)
@@ -157,13 +157,13 @@ case "$1" in
     ;;
   list)
     # List containers, then filter for those matching our image, label, or naming convention
-    # This ensures that even "legacy" sprites with untagged image IDs show up.
+    # This ensures that even "legacy" identities with untagged image IDs show up.
     HEADER=$($DOCKER_CMD ps | head -n 1)
-    SPRITES=$($DOCKER_CMD ps | grep -E "local-sprite-base|org.nyx.sprite=true|$(echo ${ANIMALS[*]} | tr ' ' '|')" | grep -v "grep" || true)
+    IDENTITIES=$($DOCKER_CMD ps | grep -E "local-sandbox-base|org.nyx.sandbox=true|$(echo ${ANIMALS[*]} | tr ' ' '|')" | grep -v "grep" || true)
     
     echo "$HEADER"
-    if [ -n "$SPRITES" ]; then
-        echo "$SPRITES"
+    if [ -n "$IDENTITIES" ]; then
+        echo "$IDENTITIES"
     fi
     ;;
   key)
@@ -217,7 +217,7 @@ case "$1" in
     REPO_PATH=$(echo $REPO_URL | sed -E 's/.*github.com[:\/]//; s/\.git$//')
     $0 gh-key "$NAME" "$REPO_PATH"
     
-    echo "👾 Sprite '$NAME' is cloning $REPO_URL..."
+    echo "👾 Identity '$NAME' is cloning $REPO_URL..."
     
     # Construct the command
     GIT_CMD="git clone $REPO_URL"
@@ -232,4 +232,3 @@ case "$1" in
       exit 1
       ;;
   esac
-  
