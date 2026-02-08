@@ -134,7 +134,7 @@ case "$1" in
     TEMPLATE_NAME=$3
     if [ -z "$NAME" ] || [ -z "$TEMPLATE_NAME" ]; then echo "Usage: $0 save <sandbox_name> <template_name>"; exit 1; fi
     echo "Saving Sandbox '$NAME' into a new template: '$TEMPLATE_NAME'..."
-    # Preserve the label so it shows up in 'ls'
+    # Preserve the label so it shows up in 'list'
     $DOCKER_CMD commit --change 'LABEL org.nyx.sprite="true"' "$NAME" "$TEMPLATE_NAME"
     echo "✓ Template '$TEMPLATE_NAME' is ready for use."
     ;;

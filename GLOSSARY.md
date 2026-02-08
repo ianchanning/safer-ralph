@@ -55,7 +55,5 @@ An append-only log file where the agent records its actions. Agents read this to
 The act of installing tools/dependencies inside a Sandbox to prepare it for work.
 
 ### **Save Template**
-
 **Enshrining.**
-
 The command (`lsprite.sh save`) that saves a running Sandbox as a permanent **Template**.

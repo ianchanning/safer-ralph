@@ -16,8 +16,8 @@
 *   `create [name]`: Orchestrates `up` -> `Mothership Clone` (HTTPS). Generates names if omitted.
 *   `gh-key <name> <repo>`: Uploads Sprite's Deploy Key to a **specific project repo** (not Mothership) via `gh` CLI.
 *   `clone <name> <repo> [path]`: Instructs Sprite to clone a project into its `/workspace`.
-*   `rm <name>`: **Root-Safe Reaper.** Uses an Alpine container to purge host-side root-owned `.git` files without permission errors.
-*   `ls`: Tracks sprites by image, label (`org.nyx.sprite=true`), or name pattern.
+*   `purge <name>`: **Root-Safe Reaper.** Uses an Alpine container to purge host-side root-owned `.git` files without permission errors.
+*   `list`: Tracks sprites by image, label (`org.nyx.sprite=true`), or name pattern.
 
 ## 3. The Heartbeat (`ralph.sh`)
 *   **Polymorphic:** Supports Gemini and Claude.

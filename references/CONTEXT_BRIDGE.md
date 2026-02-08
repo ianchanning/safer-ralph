@@ -19,8 +19,8 @@ The primary host-side orchestrator.
 - `create [name]`: Orchestrates `up` -> `gh-key`. Now supports **sequential animal-NATO naming** (e.g., `shark-alpha`, `crocodile-bravo`) if name is omitted.
 - `gh-key <name>`: Uploads Sprite's Deploy Key via `gh` CLI and clones Mothership into `~/mothership`.
 - `clone <name> <repo> [path]`: Instructs Sprite to clone a target project into its `/workspace`.
-- `rm <name>`: Deletes the container and cleans up the host's `workspace-<name>` directory (Dog-fooded cleanup).
-- `ls`: Lists all Sprites belonging to the swarm.
+- `purge <name>`: Deletes the container and cleans up the host's `workspace-<name>` directory (Dog-fooded cleanup).
+- `list`: Lists all Sprites belonging to the swarm.
 
 ### The Heartbeat: `ralph.sh`
 The autonomous loop running inside the Sprite.

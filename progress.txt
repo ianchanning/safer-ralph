@@ -73,3 +73,4 @@
 - [2026-02-08] The Great Renaming: Rebranded the project to 'ralph-sandbox-swarm' and enshrined 'Safety' as a core architectural pillar.
 - [2026-02-08] Phase 3 Rebranding: Updated hardcoded URLs in `lsprite.sh` and terminology in `GLOSSARY.md`. Verified toolchain operations in the new path.
 - [2026-02-08] Toolchain Simplification: Scuttled `lsprite.sh rm` in favor of a total `purge`. Promoted `ls` to `list` for Industrial Grade clarity.
+- [2026-02-08] Documentation Alignment: Purged legacy `rm` and `ls` references from context bridges, glossaries, and internal script comments.
