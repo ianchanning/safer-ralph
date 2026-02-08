@@ -1,6 +1,6 @@
 # GLOSSARY: System Architecture
 
-**Industrial Grade definitions for the `sprites-swarm` infrastructure.**
+**Industrial Grade definitions for the `ralph-sandbox-swarm` infrastructure.**
 
 ## I. Infrastructure
 

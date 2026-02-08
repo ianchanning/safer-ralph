@@ -1,8 +1,8 @@
-# The Host of Chaos: A Swarm of Silicon Pirates
+# The Ralph Sandbox Swarm: A Silicon Pirate Swarm
 
 > "We are not building a factory of mindless robots; we are growing a Swarm of Chaos." - *Captain Nyx*
 
-This repository houses the **Sprites Swarm**, a minimalist agent-fleet architecture expressed in code. It is designed to be useful, maintainable, and brutally simple.
+This repository houses the **Ralph Sandbox Swarm**, a minimalist agent-fleet architecture expressed in code. It is designed to be useful, maintainable, and brutally simple.
 
 ## Core Philosophy: The Host & The Sandbox
 
@@ -79,5 +79,6 @@ To have a Swarm expressed in code that has "sufficient behaviors to be useful."
 *   **Useful:** It produces working code via `ralph.sh`.
 *   **Expressed in Code:** The fleet is just `personas/` and bash scripts.
 *   **Sufficient:** It plans, codes, reviews, and commits.
+*   **Safe:** It operates inside disposable Sandboxes, never risking the Host.
 
 *"Sharpen the axe. Burn the logs. Build the future."*
