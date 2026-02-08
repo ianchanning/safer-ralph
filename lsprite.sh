@@ -143,16 +143,11 @@ case "$1" in
     if [ -z "$NAME" ]; then echo "Usage: $0 in <name>"; exit 1; fi
     $DOCKER_CMD exec -it "$NAME" bash
     ;;
-  rm)
-    NAME=$2
-    if [ -z "$NAME" ]; then echo "Usage: $0 rm <name>"; exit 1; fi
-    echo "Removing Sandbox container: $NAME"
-    $DOCKER_CMD rm -f "$NAME"
-    ;;
   purge)
     NAME=$2
     if [ -z "$NAME" ]; then echo "Usage: $0 purge <name>"; exit 1; fi
-    $0 rm "$NAME"
+    echo "Removing Sandbox container: $NAME"
+    $DOCKER_CMD rm -f "$NAME"
     WORKSPACE_DIR="$(pwd)/workspace-$NAME"
     if [ -d "$WORKSPACE_DIR" ]; then
         echo "Purging workspace (via Docker to handle root-owned files): $WORKSPACE_DIR"
@@ -160,7 +155,7 @@ case "$1" in
         $DOCKER_CMD run --rm -v "$(pwd):/host" alpine rm -rf "/host/workspace-$NAME"
     fi
     ;;
-  ls)
+  list)
     # List containers, then filter for those matching our image, label, or naming convention
     # This ensures that even "legacy" sprites with untagged image IDs show up.
     HEADER=$($DOCKER_CMD ps | head -n 1)
@@ -233,7 +228,7 @@ case "$1" in
     $DOCKER_CMD exec "$NAME" bash -c "$GIT_CMD"
     ;;
     *)
-      echo "Usage: $0 {build|create|up|in|rm|purge|ls|key|gh-key|clone|save}"
+      echo "Usage: $0 {build|create|up|in|purge|list|key|gh-key|clone|save}"
       exit 1
       ;;
   esac
