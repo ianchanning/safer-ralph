@@ -8,7 +8,7 @@ This repository houses the **Ralph Sandbox Swarm**, a minimalist agent-fleet arc
 
 We reject the idea of "managing agents." Instead, we extend our consciousness.
 
-1.  **The Host (Local Machine):** The central intelligence. You orchestrate the swarm from your **Host** machine.
+1.  **The Host (Local Machine):** The central intelligence. You control the swarm from your **Host** machine.
 2.  **The Sandbox (Container):** An isolated Docker container. A safe harbor where work happens without risking the Host.
 3.  **The Identity (Agent):** The active manifestation of a **Persona** performing work inside a **Sandbox**. 
 4.  **The Persona (Description):** Before an Identity enters a Sandbox, it dons a "Persona" (System Prompt) that defines its behavior (e.g., `killer`, `craftsman`).
@@ -68,16 +68,10 @@ The fleet is defined by these core components:
 *   **`sandbox.sh`**: The bridge between the Host and the Sandbox.
 *   **`ralph.sh`**: The heartbeat loop that runs *inside* the Sandbox, driving the Identity.
 
-## Key Files
-
-*   **`SPEC.md` (or `specs/`)**: The technical specification and requirements. The Identities read this to know what to build.
-*   **`progress.txt`**: **Progress**. The record of what has been accomplished. **MANDATORY: APPEND ONLY.**
-*   **`GLOSSARY.md`**: [The Lexicon](#glossary).
-
 ## The Goal
 To have a Swarm expressed in code that has "sufficient behaviors to be useful."
 *   **Useful:** It produces working code via `ralph.sh`.
-*   **Expressed in Code:** The fleet is just `personas/` and bash scripts.
+*   **Expressed in Code:** The fleet is just `personas/`, bash scripts and Dockerfiles.
 *   **Sufficient:** It plans, codes, reviews, and commits.
 *   **Safe:** It operates inside disposable Sandboxes, never risking the Host.
 
