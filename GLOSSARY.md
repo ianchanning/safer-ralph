@@ -10,7 +10,7 @@ The computer where you run the commands. It holds the source code, the credentia
 
 ### **The Mothership**
 **The Control Repository.**
-The `sprites-swarm` folder containing the scripts (`lsprite.sh`, `ralph.sh`) and logic. It is mounted into every container so all agents share the same tools.
+The `ralph-sandbox-swarm` folder containing the scripts (`lsprite.sh`, `ralph.sh`) and logic. It is mounted into every container so all agents share the same tools.
 
 ### **The Sandbox**
 **The Disposable Container.**

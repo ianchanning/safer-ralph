@@ -1,14 +1,14 @@
-# CONTEXT_BRIDGE: Project Reaper / Octopus of Chaos
+# CONTEXT_BRIDGE: Ralph Sandbox Swarm
 
-**Last Update:** 2026-01-25
+**Last Update:** 2026-02-08
 **Current Objective:** Initialize `kanban-rust-htmx` strike.
 
 ---
 
 ## 1. System Synopsis
-The "Octopus of Chaos" is a minimalist agent-fleet architecture. The **Host (Octopus)** manages **Sprites (Tentacles)** which operate inside isolated **Caves (Docker containers)**.
+The "Ralph Sandbox Swarm" is a minimalist agent-fleet architecture. The **Host** manages **Sprites** which operate inside isolated **Sandboxes (Docker containers)**.
 
-- **Mothership Repo:** `ianchanning/sprites-swarm`
+- **Mothership Repo:** `ianchanning/ralph-sandbox-swarm`
 - **Target Project:** `ianchanning/kanban-rust-htmx` (HTMX & Rust Kanban board)
 
 ## 2. Infrastructure & Tooling

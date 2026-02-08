@@ -1,7 +1,7 @@
 # CONTEXT_BRIDGE: ctx-001-octopus-infrastructure-hardened
 
 **Status:** Infrastructure Hardened / Architecture Fluid.
-**Mothership:** `ianchanning/sprites-swarm` (Host)
+**Mothership:** `ianchanning/ralph-sandbox-swarm` (Host)
 **Target Strike:** `kanban-rust-htmx` (Forging the SPEC)
 
 ---
@@ -9,7 +9,7 @@
 ## 1. The Architecture (The Cave & The Tentacle)
 *   **Sprites (Caves):** Isolated Docker containers serving as sandboxes for agents.
 *   **Workspaces:** Each sprite gets a dedicated host directory (`workspace-<name>`) mounted to `/workspace`.
-*   **Mothership Sync:** Sprites clone the `sprites-swarm` repo into `~/mothership` (internal storage) via **HTTPS** (Read-Only) during creation.
+*   **Mothership Sync:** Sprites clone the `ralph-sandbox-swarm` repo into `~/mothership` (internal storage) via **HTTPS** (Read-Only) during creation.
 *   **Identity:** Automated animal-NATO naming (e.g., `scorpion-alpha`) with unique SSH keys and Git config (`nyx+NAME@blank-slate.io`).
 
 ## 2. The Weaponry (`lsprite.sh`)

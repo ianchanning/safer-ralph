@@ -98,7 +98,7 @@ case "$1" in
     # 2. Unconditionally install the Mothership tools via HTTPS (Read-Only)
     # This avoids using the Sprite's SSH key for the Mothership, reserving it for the project repo.
     echo "Installing Mothership tools via HTTPS..."
-    $DOCKER_CMD exec "$NAME" bash -c "git clone https://github.com/ianchanning/sprites-swarm.git ~/mothership || (cd ~/mothership && git pull)"
+    $DOCKER_CMD exec "$NAME" bash -c "git clone https://github.com/ianchanning/ralph-sandbox-swarm.git ~/mothership || (cd ~/mothership && git pull)"
     
     # 3. Symlink the latest init script over the baked-in one
     echo "   -> Linking latest init tools..."
