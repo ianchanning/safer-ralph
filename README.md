@@ -1,6 +1,6 @@
-# Ralph Sandbox Swarm
+# Safer Ralph
 
-Brutally simple agent-fleet architecture.
+[Ralph](https://ghuntley.com/loop/)... but safer. 
 
 **create → clone → (ralph) → purge**
 
