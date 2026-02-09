@@ -2,10 +2,8 @@
 
 Brutally simple agent-fleet architecture.
 
-## The Loop
 **create → clone → (ralph) → purge**
 
-## Operations
 ```bash
 ./sandbox.sh build          # Forge Golden Image
 ./sandbox.sh create         # Summon Identity
@@ -15,9 +13,8 @@ Brutally simple agent-fleet architecture.
 ./sandbox.sh purge ID       # Scuttle
 ```
 
-## Lexicon
 - **Host:** Your machine.
 - **Sandbox:** Isolated container.
-- **Identity:** Persona + Body + Keys.
+- **Identity:** Persona + Sandbox + Keys.
 - **Ralph:** The heartbeat loop.
 - **Progress:** Append-only memory (`progress.txt`).
