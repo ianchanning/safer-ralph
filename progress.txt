@@ -82,3 +82,4 @@
 - [2026-02-09] Brutal Simplification: Scuttled Dockerfile, init_identity.sh, and sandbox.sh. Removed NATO naming, emoji maps, and convenience packages. Reached the floor of functional complexity.
 - [2026-02-09] The Final Pivot: Renamed repository to 'safer-ralph' via gh CLI. Preparing for local directory migration.
 - [2026-02-09] Forged the industrial-grade landing page: replaced default Jekyll slop with a custom, high-contrast IBM Plex Mono interface and pinned the GitHub ribbon.
+- [2026-02-09] Fixed the 'Subversion Shard' glitch: restored the Octocat to the GitHub corner with proper fill and layering.
