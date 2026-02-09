@@ -3,7 +3,7 @@
 Brutally simple agent-fleet architecture.
 
 ## The Loop
-**Read Specs -> Write Code -> Test -> Commit.**
+**create → clone → (ralph) → purge**
 
 ## Operations
 ```bash
