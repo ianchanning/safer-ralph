@@ -73,6 +73,7 @@ case "$1" in
     $DOCKER_CMD build -t $IMAGE_NAME -f Dockerfile.sandbox .
     ;;
   create)
+    # Detection logic: If $2 is an image, it's the TEMPLATE. Otherwise, it's the NAME.
     ARG=$2
     if [ -n "$ARG" ] && $DOCKER_CMD image inspect "$ARG" >/dev/null 2>&1; then
         TEMPLATE="$ARG"
@@ -91,7 +92,7 @@ case "$1" in
         echo "Generated Sandbox Name: $NAME" >&2
     fi
 
-    # 1. Bring up the container
+    # 1. Bring up the container (low-level)
     $0 up "$NAME" "$TEMPLATE" >&2
 
     # 2. Unconditionally install the Mothership tools via HTTPS
@@ -101,41 +102,25 @@ case "$1" in
     # 3. Symlink the latest init script
     echo "   -> Linking latest init tools..." >&2
     $DOCKER_CMD exec "$NAME" ln -sf /root/mothership/init_identity.sh /usr/local/bin/init_identity.sh >&2
-    
-    # Return the name for composition
+
+    # Emit name to stdout for command composition
     echo "$NAME"
     ;;
-
   go)
     REPO_URL=$2
-    NAME_OR_IMAGE=$3
-    TEMPLATE=$4
+    if [ -z "$REPO_URL" ]; then echo "Usage: $0 go <repo_url>"; exit 1; fi
 
-    if [ -z "$REPO_URL" ]; then 
-        echo "Usage: $0 go <repo_url_or_name> [name/template] [template]"
-        exit 1 
-    fi
+    echo "LFG: Initializing environment for $REPO_URL..." >&2
 
-    # 1. Determine if we are entering an existing sandbox or creating a new one
-    if [ "$($DOCKER_CMD ps -a -q -f name=^/${REPO_URL}$)" ]; then
-        NAME="$REPO_URL"
-    else
-        # 2. Check if the first argument is a repository URL
-        if [[ "$REPO_URL" == http* ]] || [[ "$REPO_URL" == git@* ]]; then
-            echo "👾 Initializing new environment for: $REPO_URL"
-            # Create the sandbox and capture the name
-            NAME=$($0 create "$NAME_OR_IMAGE" "$TEMPLATE")
-            
-            # 3. Clone the repository
-            $0 clone "$NAME" "$REPO_URL"
-        else
-            # First argument wasn't a container and wasn't a URL; assume it's a name to create
-            NAME=$($0 create "$REPO_URL" "$NAME_OR_IMAGE")
-        fi
-    fi
+    # 1. Create a random sandbox and capture the name
+    # We call create with no args to trigger the auto-generation logic
+    NAME=$($0 create)
 
-    # 4. Enter the sandbox
-    echo "Entering Sandbox: $NAME"
+    # 2. Add deploy key and clone the repository
+    $0 clone "$NAME" "$REPO_URL"
+
+    # 3. Jump in
+    echo "Entering Sandbox: $NAME" >&2
     $0 in "$NAME"
     ;;
   up)
