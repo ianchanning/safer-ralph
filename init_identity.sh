@@ -40,14 +40,14 @@ chmod 700 "$HOME/.ssh"
 # Pre-populate known_hosts for GitHub to avoid interactive prompts
 if ! grep -q "github.com" "$HOME/.ssh/known_hosts" 2>/dev/null; then
     echo "   -> Scanning GitHub SSH fingerprint..."
-    ssh-keyscan -H github.com >> "$HOME/.ssh/known_hosts" 2>/dev/null
+    # Use || true to prevent set -e from killing the script if offline
+    ssh-keyscan -H github.com >> "$HOME/.ssh/known_hosts" 2>/dev/null || echo "      ! Warning: Could not scan GitHub fingerprint (offline?)"
 fi
 
 # 4. Generate SSH Key (if missing)
 KEY_PATH="$HOME/.ssh/id_ed25519"
 if [ ! -f "$KEY_PATH" ]; then
     echo "   -> Forging new SSH Key for $EMAIL..."
-    mkdir -p "$HOME/.ssh"
     ssh-keygen -t ed25519 -C "$EMAIL" -f "$KEY_PATH" -N ""
     
     echo ""
@@ -60,10 +60,14 @@ else
 fi
 
 # 5. Inject API Keys into tool configurations
-if [ -n "$MOONSHOT_API_KEY" ] && [ -f "$HOME/.pi/agent/models.json" ]; then
-    echo "   -> Updating Moonshot API Key in Pi configuration..."
-    # Robustly replace the value of the apiKey field
-    sed -i 's/"apiKey": "[^"]*"/"apiKey": "'"$MOONSHOT_API_KEY"'"/g' "$HOME/.pi/agent/models.json"
+if [ -f "$HOME/.pi/agent/models.json" ]; then
+    if [ -n "$MOONSHOT_API_KEY" ]; then
+        echo "   -> Updating Moonshot API Key in Pi configuration..."
+        # Robustly replace the value of the apiKey field
+        sed -i 's/"apiKey": "[^"]*"/"apiKey": "'"$MOONSHOT_API_KEY"'"/g' "$HOME/.pi/agent/models.json"
+    else
+        echo "   -> Skipping Pi API Key injection (MOONSHOT_API_KEY not set)."
+    fi
 fi
 
 # 6. Hand over control to the main command

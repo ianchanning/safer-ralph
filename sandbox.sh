@@ -47,8 +47,6 @@ inject_gemini_auth() {
         if [ -f "$GEMINI_DIR/google_accounts.json" ]; then
             $DOCKER_CMD cp "$GEMINI_DIR/google_accounts.json" "$NAME:/root/.gemini/google_accounts.json"
         fi
-    else
-        echo "   -> No Gemini credentials found on host. Skipping injection."
     fi
 }
 
@@ -61,10 +59,18 @@ find_free_port() {
 }
 
 # Auto-detect if sudo is needed for docker
-if ! docker ps >/dev/null 2>&1; then
-    DOCKER_CMD="sudo docker"
+if command -v docker >/dev/null 2>&1; then
+    if docker ps >/dev/null 2>&1; then
+        DOCKER_CMD="docker"
+    elif sudo docker ps >/dev/null 2>&1; then
+        DOCKER_CMD="sudo docker"
+    else
+        echo "Error: Docker found but 'docker ps' failed. Check your service." >&2
+        exit 1
+    fi
 else
-    DOCKER_CMD="docker"
+    echo "Error: 'docker' command not found. Please install Docker." >&2
+    exit 1
 fi
 
 case "$1" in
@@ -81,6 +87,12 @@ case "$1" in
     else
         TEMPLATE="$IMAGE_NAME"
         NAME="$ARG"
+    fi
+
+    # Verify template exists before proceeding
+    if ! $DOCKER_CMD image inspect "$TEMPLATE" >/dev/null 2>&1; then
+        echo "Error: Template image '$TEMPLATE' not found. Run '$0 build' first." >&2
+        exit 1
     fi
 
     if [ -z "$NAME" ]; then
@@ -200,6 +212,20 @@ case "$1" in
     REPO=$3
     if [ -z "$NAME" ] || [ -z "$REPO" ]; then echo "Usage: $0 gh-key <name> <repo>"; exit 1; fi
     
+    # Guard: Check for gh CLI
+    if ! command -v gh >/dev/null 2>&1; then
+        echo "   -> 'gh' (GitHub CLI) not found. Skipping automatic deploy key registration." >&2
+        echo "      (Install 'gh' and run 'gh auth login' to enable this feature)" >&2
+        return 0
+    fi
+
+    # Guard: Check gh auth
+    if ! gh auth status >/dev/null 2>&1; then
+        echo "   -> 'gh' CLI is not authenticated. Skipping automatic deploy key registration." >&2
+        echo "      (Run 'gh auth login' to enable this feature)" >&2
+        return 0
+    fi
+
     # 1. Wait for identity generation (key in logs) if not already there
     echo "Waiting for Identity generation in '$NAME'..."
     count=0
@@ -238,7 +264,7 @@ case "$1" in
     
     # 1. Add deploy key to the target repo first
     REPO_PATH=$(echo $REPO_URL | sed -E 's/.*github.com[:\/]//; s/\.git$//')
-    $0 gh-key "$NAME" "$REPO_PATH"
+    $0 gh-key "$NAME" "$REPO_PATH" || { echo "   ! Skipping deploy key injection." >&2; }
     
     echo "👾 Identity '$NAME' is cloning $REPO_URL..."
     
