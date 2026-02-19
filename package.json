@@ -1,0 +1,28 @@
+{
+  "name": "safer-ralph",
+  "version": "1.0.0",
+  "description": "[Ralph](https://ghuntley.com/loop/)... but safer.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node build.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ianchanning/safer-ralph.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ianchanning/safer-ralph/issues"
+  },
+  "homepage": "https://github.com/ianchanning/safer-ralph#readme",
+  "dependencies": {
+    "markdown-it": "^14.1.1"
+  }
+}
