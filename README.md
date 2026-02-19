@@ -2,6 +2,8 @@
 
 [Ralph](https://ghuntley.com/loop/)... but safer. 
 
+A bash-based orchestration system for running AI coding agents in Docker containers. 
+
 **create → clone → (ralph) → purge**
 
 ```bash
@@ -27,6 +29,17 @@
 - **Ralph:** The heartbeat loop.
 
 ## Docs
+
+- **Container lifecycle**: `sandbox.sh` handles build/create/up/in/purge/list/save with Docker
+- **Identity management**: Animal-NATO naming (hawk-alpha, shark-bravo), unique Ed25519 SSH keys per container, emoji Git identities
+- **Agent execution loop**: `ralph.sh` runs inside containers as a heartbeat loop supporting Gemini CLI, Claude Code, and Pi agent (Moonshot)
+- **Personas**: Markdown files injected as system prompts ("killer" for YOLO velocity, "step-wise" for single-task precision)
+- **Workspace isolation**: Dedicated host directories per container, deploy key injection for GitHub
+- **Credential management**: API keys hydrated from env vars on init, never leaked to host
+
+**Architecture choice**: "Monolithic Script" — bash wrapping CLIs with system prompts. Deliberately minimal: zero infrastructure overhead.
+
+**What it doesn't do**: No programmatic SDK integration, no agent-to-agent coordination, no feedback loops beyond ralph.sh iterations, no structured output capture, no state management beyond git commits and progress.txt.
 
 - [Templates](docs/TEMPLATES.md)
 - [Deploy Keys](docs/DEPLOY_KEYS.md)
