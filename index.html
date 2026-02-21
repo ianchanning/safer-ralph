@@ -139,13 +139,13 @@
 <li><strong>Identity:</strong> Persona + Sandbox + Keys.</li>
 <li><strong>Ralph:</strong> The heartbeat loop.</li>
 </ul>
-<p><strong>go → (ralph)</strong></p>
+<p class="loop"><strong>go → (ralph)</strong></p>
 <pre><code class="language-bash">./sandbox.sh build          # Forge Golden Image
 ./sandbox.sh go URL         # Combines create + clone + in
 ~/mothership/ralph.sh 1     # Unleash Ralph (inside)
 </code></pre>
 <p>You can split out <code>go</code> into its component parts.</p>
-<p><strong>create → clone → (ralph) → purge</strong></p>
+<p class="loop"><strong>create → clone → (ralph) → purge</strong></p>
 <pre><code class="language-bash">./sandbox.sh build          # Forge Golden Image
 ./sandbox.sh create         # Summon Identity
 ./sandbox.sh clone ID URL . # Claim Target
