@@ -1,11 +1,6 @@
----
-layout: default
----
+# Safer Ralph
 
-<header>
-    <h1>Safer Ralph</h1>
-    <p class="tagline"><a href="https://ghuntley.com/loop/">Ralph</a>... but safer.</p>
-</header>
+[Ralph](https://ghuntley.com/loop/)... but safer. 
 
 A bash-based orchestration system for running AI coding agents in Docker containers. 
 
@@ -14,9 +9,7 @@ A bash-based orchestration system for running AI coding agents in Docker contain
 - **Identity:** Persona + Sandbox + Keys.
 - **Ralph:** The heartbeat loop.
 
-<p class="loop">
-    <strong>go → (ralph)</strong>
-</p>
+**go → (ralph)**
 
 ```bash
 ./sandbox.sh build          # Forge Golden Image
@@ -26,9 +19,7 @@ A bash-based orchestration system for running AI coding agents in Docker contain
 
 You can split out `go` into its component parts. 
 
-<p class="loop">
-    <strong>create → clone → (ralph) → purge</strong>
-</p>
+**create → clone → (ralph) → purge**
 
 ```bash
 ./sandbox.sh build          # Forge Golden Image
