@@ -27,35 +27,17 @@
             word-wrap: break-word;
         }
 
-        header {
-            margin-bottom: 3rem;
+        h1 {
+            font-size: 3rem;
+            margin: 0 0 1rem 0;
+            text-transform: uppercase;
+            letter-spacing: -0.05em;
             border-bottom: 4px solid var(--fg);
             padding-bottom: 1rem;
         }
 
-        h1 {
-            font-size: 3rem;
-            margin: 0;
-            text-transform: uppercase;
-            letter-spacing: -0.05em;
-        }
-
-        .tagline {
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin-top: 0.5rem;
-        }
-
-        .tagline a {
-            color: var(--accent);
-            text-decoration: none;
-        }
-
-        .tagline a:hover {
-            text-decoration: underline;
-        }
-
-        .loop {
+        /* Styling for the loop highlights based on Markdown output */
+        p:has(> strong:only-child) {
             font-weight: 700;
             font-size: 1.1rem;
             margin: 2rem 0;
@@ -130,46 +112,7 @@
         </svg>
     </a>
 
-    <h1>Safer Ralph</h1>
-<p><a href="https://ghuntley.com/loop/">Ralph</a>... but safer.</p>
-<p>A bash-based orchestration system for running AI coding agents in Docker containers.</p>
-<ul>
-<li><strong>Host:</strong> Your machine.</li>
-<li><strong>Sandbox:</strong> Docker (node, claude, gemini, python, SSH key, git config, port 3000, persistent  storage).</li>
-<li><strong>Identity:</strong> Persona + Sandbox + Keys.</li>
-<li><strong>Ralph:</strong> The heartbeat loop.</li>
-</ul>
-<p class="loop"><strong>go → (ralph)</strong></p>
-<pre><code class="language-bash">./sandbox.sh build          # Forge Golden Image
-./sandbox.sh go URL         # Combines create + clone + in
-~/mothership/ralph.sh 1     # Unleash Ralph (inside)
-</code></pre>
-<p>You can split out <code>go</code> into its component parts.</p>
-<p class="loop"><strong>create → clone → (ralph) → purge</strong></p>
-<pre><code class="language-bash">./sandbox.sh build          # Forge Golden Image
-./sandbox.sh create         # Summon Identity
-./sandbox.sh clone ID URL . # Claim Target
-./sandbox.sh in ID          # Jack In
-~/mothership/ralph.sh 5     # Unleash Ralph (inside)
-./sandbox.sh purge ID       # Scuttle
-</code></pre>
-<h2>Docs</h2>
-<ul>
-<li><strong>Container lifecycle</strong>: <code>sandbox.sh</code> handles build/create/up/in/purge/list/save with Docker</li>
-<li><strong>Identity management</strong>: Animal-NATO naming (hawk-alpha, shark-bravo), unique Ed25519 SSH keys per container, emoji Git identities</li>
-<li><strong>Agent execution loop</strong>: <code>ralph.sh</code> runs inside containers as a heartbeat loop supporting Gemini CLI, Claude Code, and Pi agent (Moonshot)</li>
-<li><strong>Personas</strong>: Markdown files injected as system prompts (&quot;killer&quot; for YOLO velocity, &quot;step-wise&quot; for single-task precision)</li>
-<li><strong>Workspace isolation</strong>: Dedicated host directories per container, deploy key injection for GitHub</li>
-<li><strong>Credential management</strong>: API keys hydrated from env vars on init, never leaked to host</li>
-</ul>
-<p><strong>Architecture choice</strong>: &quot;Monolithic Script&quot; — bash wrapping CLIs with system prompts. Deliberately minimal: zero infrastructure overhead.</p>
-<p><strong>What it doesn't do</strong>: No programmatic SDK integration, no agent-to-agent coordination, no feedback loops beyond ralph.sh iterations, no structured output capture, no state management beyond git commits and progress.txt.</p>
-<ul>
-<li><a href="docs/TEMPLATES.md">Templates</a></li>
-<li><a href="docs/DEPLOY_KEYS.md">Deploy Keys</a></li>
-<li><a href="docs/INTERNALS.md">Internals</a></li>
-</ul>
-
+    {{ content }}
 
 </body>
 </html>

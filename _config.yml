@@ -3,3 +3,9 @@ description: Ralph... but safer.
 theme: null
 show_downloads: false
 google_analytics: null
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "default"
