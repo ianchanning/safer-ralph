@@ -1,4 +1,4 @@
-### Protocol: BEAM_FORGE (v1.2) - The Quorum 
+### Protocol: BEAM_FORGE (v1.3 - The Ephemeral Swarm)
 
 **Core Concept:** An Elixir-orchestrated, multi-agent evolutionary loop that relies on Git for state-rollback and strictly separates immutable human goals from mutable machine protocols. It guarantees transparent, non-corrupted protocol optimization.
 
@@ -20,10 +20,12 @@ The Elixir `DynamicSupervisor` orchestrates a strict sequence of specialized `Ge
     *   *Input:* `strategy_v{X}.md` + The Judge's `[CRITIQUE]`.
     *   *Action:* If the Judge outputs `[FAIL]`, the Architect reads the critique, identifies the flaw in the *strategy*, and generates `strategy_v{X+1}.md`. 
 
-#### Principle 3: State Reversion (The Git Guillotine)
-Evolution requires a clean test tube for every generation.
-*   **Action:** Before the Worker executes `strategy_v{X+1}.md`, the Elixir Supervisor executes `git reset --hard && git clean -fd` inside the Docker container. 
-*   **Why:** This guarantees that the new strategy is tested against the *exact same initial state*. The Worker cannot accidentally rely on a half-finished file left behind by its dead predecessor.
+#### Principle 3: The Scorched Earth Policy (Container Ephemerality)
+Evolution requires an absolutely sterile test tube for every generation. We do not recycle environments. We burn them.
+*   **The Orchestrator (Elixir Host):** The Elixir `DynamicSupervisor` sits on the *Host* machine (or a highly privileged control-plane container), managing the lifecycle of the sandboxes.
+*   **The Action:** When the `Judge` evaluates a Worker's trace and outputs `[FAIL]`, the `Architect` writes `strategy_v{X+1}.md` to the shared volume. 
+*   **The Annihilation:** The Elixir Orchestrator instantly executes `./sandbox.sh purge <CONTAINER_ID>`. The corrupted reality, with all its phantom state, installed packages, and mutated files, is vaporized.
+*   **The Genesis:** The Orchestrator immediately calls `./sandbox.sh go <REPO_URL>` to summon a completely fresh, sterile Identity. The new container mounts the volume, ingests the *new* `strategy_v{X+1}.md`, and the next evolutionary generation begins from true zero.
 
 #### Principle 4: The Darwinian Threshold (Defensive Limits)
 *   **Action:** Elixir enforces a strict `MAX_GENERATIONS` limit (e.g., 5). If `strategy_v5.md` still fails the Judge's evaluation, the Supervisor initiates a Dunkirk `(⌑)` protocol. It halts, preserves the logs, and flags the human. 
