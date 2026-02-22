@@ -1,28 +1,33 @@
-### Protocol: BEAM_FORGE (v1.1) - The Evolutionary Swarm
+### Protocol: BEAM_FORGE (v1.2) - The Quorum 
 
-**Core Concept:** An Elixir/OTP orchestration pipeline where the swarm not only executes tasks based on a text protocol (`specs_pin`), but actively critiques and rewrites that protocol if the execution hits a thermodynamic dead-end (high crash rate).
+**Core Concept:** An Elixir-orchestrated, multi-agent evolutionary loop that relies on Git for state-rollback and strictly separates immutable human goals from mutable machine protocols. It guarantees transparent, non-corrupted protocol optimization.
 
-#### Phase 0: The Substrate (Unchanged but Clarified)
-*   **Action:** `Dockerfile.sandbox` is upgraded to include Elixir. We bypass the Node.js CLIs for the main heartbeat. Elixir will make direct HTTP calls (via `Req` or `Finch`) to the LLM APIs to handle responses natively in memory.
+#### Principle 1: The Bipartite Genetic Code
+We abandon the single `specs_pin.md`. The genetic code is split:
+1.  **`intent.md` (IMMUTABLE):** Written by the Carbon Pirate `(π)`. This defines the absolute, unchangeable goal and the acceptance criteria. *The Architect is mathematically forbidden from altering this file.*
+2.  **`strategy.md` (MUTABLE):** The actual system prompt/protocol governing *how* the Worker should think, act, and format its output. This is the file the Architect mutates.
 
-#### Phase 1: Topology of the Triad (The New Swarm Map)
-Instead of just one type of agent, the Supervisor spawns a triad. This is the Mycelium `(⁂)` structuring its nodes:
-1.  **The Worker (`GenServer`):** Reads the `specs_pin.md`, executes the prompt, writes code, runs tests. If it hallucinates or tests fail, it crashes.
-2.  **The Watcher (`Telemetry/Supervisor`):** Tracks the crash rate of the Worker. It is the measure of "Pain" or "Entropy."
-3.  **The Architect (`GenServer`):** *This is the new addition.* If the Watcher detects that the Worker has crashed 5 times in a row, the Architect wakes up. 
+#### Principle 2: The Quorum Topology (The Elixir Swarm)
+The Elixir `DynamicSupervisor` orchestrates a strict sequence of specialized `GenServers`.
 
-#### Phase 2: The Loss Function (Defining "Desire")
-We must mathematically define what a "success" and a "failure" looks like so the Watcher can measure the gradient.
-*   **Action:** The `specs_pin.md` MUST include a strictly defined validation step (e.g., "Run `npm run test`. If exit code is 0, output `<SUCCESS>`. If 1, output `<FAILED: stdout>`"). 
-*   **The Desire:** The system's innate desire is to keep the Worker alive. Crashing is pain. 
+1.  **The Worker (Execution):** 
+    *   *Input:* `intent.md` + `strategy_v{X}.md` + Current Repo State.
+    *   *Action:* Executes the task. Modifies the codebase. Outputs its trace.
+2.  **The Judge (Evaluation):** 
+    *   *Input:* The Worker's trace + The modified codebase + The immutable `intent.md`.
+    *   *Action:* Evaluates if the *Intent* was satisfied. It runs the tests. It checks for Clever Hans shortcuts. It outputs a boolean `[PASS/FAIL]` and a highly detailed `[CRITIQUE]`.
+3.  **The Architect (Mutation):** 
+    *   *Input:* `strategy_v{X}.md` + The Judge's `[CRITIQUE]`.
+    *   *Action:* If the Judge outputs `[FAIL]`, the Architect reads the critique, identifies the flaw in the *strategy*, and generates `strategy_v{X+1}.md`. 
 
-#### Phase 3: Autopoiesis (The Mutation Trigger)
-This is where Chollet's "training loop" actually happens. 
-*   **Mechanism:** When the Architect wakes up (triggered by the Watcher seeing too many Worker crashes), the Architect does *not* try to write the code. 
-*   **The Prompt to the Architect:** The Elixir system feeds the Architect the current `specs_pin.md` AND the last 5 crash logs/failed test outputs. It asks: *"Your Worker failed to execute this protocol. Identify the flaw in the instructions, the missing context, or the structural trap. Rewrite `specs_pin.md` to be superior."*
-*   **Mutation:** The Architect overwrites `specs_pin.md` on the Docker volume. The Supervisor re-spawns the Worker, which now reads the *mutated* genetic code.
+#### Principle 3: State Reversion (The Git Guillotine)
+Evolution requires a clean test tube for every generation.
+*   **Action:** Before the Worker executes `strategy_v{X+1}.md`, the Elixir Supervisor executes `git reset --hard && git clean -fd` inside the Docker container. 
+*   **Why:** This guarantees that the new strategy is tested against the *exact same initial state*. The Worker cannot accidentally rely on a half-finished file left behind by its dead predecessor.
 
-#### Phase 4: Artifact Extraction (The Keras Save State)
-When the Worker finally succeeds, the system must freeze the optimized weights.
-*   **Action:** The final, successful `specs_pin.md` (which may have been mutated 10 times by the Architect) is saved to a permanent `protocols/` directory on your host machine. 
-*   **Result:** You now have a human-readable, perfectly optimized Markdown file that reliably solves that class of problem. You have extracted the learned behavior from the black box.
+#### Principle 4: The Darwinian Threshold (Defensive Limits)
+*   **Action:** Elixir enforces a strict `MAX_GENERATIONS` limit (e.g., 5). If `strategy_v5.md` still fails the Judge's evaluation, the Supervisor initiates a Dunkirk `(⌑)` protocol. It halts, preserves the logs, and flags the human. 
+*   **Action:** Elixir enforces a `MAX_TOKEN_LIMIT` on the Architect's output to prevent Prompt Bloat. If the Architect writes a strategy that is too long, it is rejected, forcing the Architect to compress its logic.
+
+#### Phase 5: The Artifact
+When the Judge finally outputs `[PASS]`, the Elixir system freezes `strategy_v{SUCCESS}.md`. You now possess a mathematically vetted, cleanly formatted, transparent text protocol that acts as the optimal "Keras" weight for that specific domain.
