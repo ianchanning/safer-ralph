@@ -1,11 +1,11 @@
 # Safer Ralph
 
-[Ralph](https://ghuntley.com/loop/)... but safer. 
+[Ralph](https://ghuntley.com/loop/)... but safer.
 
-A bash-based orchestration system for running AI coding agents in Docker containers. 
+A bash-based orchestration system for running AI coding agents in Docker containers.
 
 - **Host:** Your machine.
-- **Sandbox:** Docker (node, claude, gemini, python, SSH key, git config, port 3000, persistent  storage).
+- **Sandbox:** Docker (node, claude, gemini, python, SSH key, git config, port 3000, persistent storage).
 - **Identity:** Persona + Sandbox + Keys.
 - **Ralph:** The heartbeat loop.
 
@@ -22,7 +22,7 @@ A bash-based orchestration system for running AI coding agents in Docker contain
 
 ## Docs
 
-`go` split into its component parts, for more control: 
+`go` split into its component parts, for more control:
 
 **create → clone → (ralph) → purge**
 
@@ -34,6 +34,17 @@ A bash-based orchestration system for running AI coding agents in Docker contain
 ./sandbox.sh purge ID       # Scuttle
 ```
 
+Make it available for other projects:
+
+```bash
+# Link to your local bin
+mkdir -p ~/.local/bin
+ln -s "$(pwd)/sandbox.sh" ~/.local/bin/sandbox.sh
+
+# Ensure ~/.local/bin is in your PATH
+export PATH="$HOME/.local/bin:$PATH"
+```
+
 - **Container lifecycle**: `sandbox.sh` handles build/create/up/in/purge/list/save with Docker
 - **Identity management**: Animal-NATO naming (hawk-alpha, shark-bravo), unique Ed25519 SSH keys per container, emoji Git identities
 - **Agent execution loop**: `ralph.sh` runs inside containers as a heartbeat loop supporting Gemini CLI, Claude Code, and Pi agent (Moonshot)
@@ -41,9 +52,9 @@ A bash-based orchestration system for running AI coding agents in Docker contain
 - **Workspace isolation**: Dedicated host directories per container, deploy key injection for GitHub
 - **Credential management**: API keys hydrated from env vars on init, never leaked to host
 
-*Architecture choice*: "Monolithic Script" — bash wrapping CLIs with system prompts. Deliberately minimal: zero infrastructure overhead.
+_Architecture choice_: "Monolithic Script" — bash wrapping CLIs with system prompts. Deliberately minimal: zero infrastructure overhead.
 
-*What it doesn't do*: No programmatic SDK integration, no agent-to-agent coordination, no feedback loops beyond ralph.sh iterations, no structured output capture, no state management beyond git commits and progress.txt.
+_What it doesn't do_: No programmatic SDK integration, no agent-to-agent coordination, no feedback loops beyond ralph.sh iterations, no structured output capture, no state management beyond git commits and progress.txt.
 
 - [Templates](docs/TEMPLATES.md)
 - [Deploy Keys](docs/DEPLOY_KEYS.md)

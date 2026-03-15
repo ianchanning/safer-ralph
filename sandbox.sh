@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# Resolve the directory where this script lives, resolving symlinks
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+  DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+SCRIPT_DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
+
 IMAGE_NAME="local-sandbox-base"
 
 # Naming Strategy Lists
@@ -76,7 +85,7 @@ fi
 case "$1" in
   build)
     echo "Building $IMAGE_NAME..."
-    $DOCKER_CMD build -t $IMAGE_NAME -f Dockerfile.sandbox .
+    $DOCKER_CMD build -t $IMAGE_NAME -f "$SCRIPT_DIR/Dockerfile.sandbox" "$SCRIPT_DIR"
     ;;
   create)
     # Detection logic: If $2 is an image, it's the TEMPLATE. Otherwise, it's the NAME.
