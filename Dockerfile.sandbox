@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1
 # Use a modern Node image as the base
 FROM node:24-bookworm-slim
 
@@ -18,15 +19,41 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 
-# Update npm to the latest version first
-RUN npm install -g npm@latest
+# Configure pnpm environment
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
 
-# Install the Gemini and Claude CLIs globally
-# We use ADD to fetch the latest version info from NPM, which busts the cache only when a new version is released
-ADD https://registry.npmjs.org/@google/gemini-cli/latest /tmp/gemini-version.json
-ADD https://registry.npmjs.org/@anthropic-ai/claude-code/latest /tmp/claude-version.json
-ADD https://registry.npmjs.org/@mariozechner/pi-coding-agent/latest /tmp/pi-version.json
-RUN npm install -g @google/gemini-cli @anthropic-ai/claude-code @mariozechner/pi-coding-agent
+# Enable Corepack to use pnpm (Faster, better caching, more reliable than npm)
+RUN corepack enable
+
+# Configure pnpm for speed and resilience in poor network conditions
+# - store-dir: Explicitly set store location for cache mounting
+# - registry: Use Yarn mirror (https://registry.yarnpkg.com/) to bypass npm registry peering issues
+# - fetch-retries: Be persistent against dropped packets
+# - fetch-retry-maxtimeout: Fail fast (60s) rather than hanging for 10+ mins
+# - network-concurrency: Limit connections to prevent choking the pipe
+RUN pnpm config set store-dir /pnpm/store \
+    && pnpm config set registry https://registry.yarnpkg.com/ \
+    && pnpm config set fetch-retries 5 \
+    && pnpm config set fetch-retry-maxtimeout 60000 \
+    && pnpm config set network-concurrency 4
+
+# Install the Gemini CLI
+# METHOD: Use ADD to fetch version JSON first. This invalidates the cache ONLY when the upstream version changes.
+# If version matches cache, the expensive 'pnpm add' step is skipped entirely.
+ADD https://registry.yarnpkg.com/@google/gemini-cli/latest /tmp/gemini-version.json
+RUN --mount=type=cache,target=/pnpm/store \
+    pnpm add -g @google/gemini-cli
+
+# Install Claude Code
+ADD https://registry.yarnpkg.com/@anthropic-ai/claude-code/latest /tmp/claude-version.json
+RUN --mount=type=cache,target=/pnpm/store \
+    pnpm add -g @anthropic-ai/claude-code
+
+# Install Pi Coding Agent
+ADD https://registry.yarnpkg.com/@mariozechner/pi-coding-agent/latest /tmp/pi-version.json
+RUN --mount=type=cache,target=/pnpm/store \
+    pnpm add -g @mariozechner/pi-coding-agent
 
 # Pre-configure Gemini CLI settings
 RUN mkdir -p /root/.gemini && \
