@@ -180,6 +180,54 @@ case "$1" in
         inject_gemini_auth "$NAME"
     fi
     ;;
+  clone)
+    NAME=$2
+    REPO_URL=$3
+    TARGET_DIR=$4
+    
+    if [ -z "$NAME" ] || [ -z "$REPO_URL" ]; then 
+        echo "Usage: $0 clone <name> <repo_url> [target_dir]"
+        exit 1 
+    fi
+    
+    # 1. Add deploy key to the target repo first
+    REPO_PATH=$(echo $REPO_URL | sed -E 's/.*github.com[:\/]//; s/\.git$//')
+    $0 gh-key "$NAME" "$REPO_PATH" || { echo "   ! Skipping deploy key injection." >&2; }
+    
+    echo "👾 Identity '$NAME' is cloning $REPO_URL..."
+    
+    # Construct the command
+    GIT_CMD="git clone $REPO_URL"
+    if [ -n "$TARGET_DIR" ]; then
+        GIT_CMD="$GIT_CMD $TARGET_DIR"
+    fi
+
+    $DOCKER_CMD exec -w /workspace "$NAME" bash -c "$GIT_CMD"
+    ;;
+  gh-key)
+    NAME=$2
+    REPO_PATH=$3
+    if [ -z "$NAME" ] || [ -z "$REPO_PATH" ]; then echo "Usage: $0 gh-key <name> <org/repo>"; exit 1; fi
+    
+    echo "Adding deploy key for '$NAME' to GitHub repo '$REPO_PATH'..."
+    
+    # Wait for the container to generate its key if it just started
+    for i in {1..10}; do
+        KEY=$($DOCKER_CMD logs "$NAME" 2>&1 | grep "ssh-ed25519" | tail -n 1)
+        if [ -n "$KEY" ]; then break; fi
+        echo "   -> Waiting for Identity generation in '$NAME'..."
+        sleep 2
+    done
+
+    if [ -z "$KEY" ]; then
+        echo "Error: Could not find public key in container logs."
+        exit 1
+    fi
+
+    # Use GH CLI to add the deploy key
+    echo "$KEY" | gh repo deploy-key add - --title "safer-ralph-$NAME" --allow-write --repo "$REPO_PATH"
+    echo "✓ Deploy key added successfully!"
+    ;;
   save)
     NAME=$2
     TEMPLATE_NAME=$3
@@ -208,7 +256,6 @@ case "$1" in
     ;;
   list)
     # List containers, then filter for those matching our image, label, or naming convention
-    # This ensures that even "legacy" identities with untagged image IDs show up.
     HEADER=$($DOCKER_CMD ps | head -n 1)
     IDENTITIES=$($DOCKER_CMD ps | grep -E "local-sandbox-base|org.nyx.sandbox=true|$(echo ${ANIMALS[*]} | tr ' ' '|')" | grep -v "grep" || true)
     
@@ -220,6 +267,6 @@ case "$1" in
   key)
     NAME=$2
     if [ -z "$NAME" ]; then echo "Usage: $0 key <name>"; exit 1; fi
-    # Grep the key from the logs (grabbing the last occurrence if
+    $DOCKER_CMD logs "$NAME" 2>&1 | grep "ssh-ed25519" | tail -n 1
     ;;
 esac
