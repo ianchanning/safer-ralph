@@ -7,18 +7,19 @@ set -e
 
 ITERATIONS=${1:-1}
 AGENT=${2:-gemini}
+PERSONA_NAME=${3:-killer}
 
 # Locate the Persona: Prefer local, fallback to script directory (Mothership)
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PERSONA_LOCAL="personas/killer.md"
-PERSONA_MOTHERSHIP="$SCRIPT_DIR/personas/killer.md"
+PERSONA_LOCAL="personas/${PERSONA_NAME}.md"
+PERSONA_MOTHERSHIP="$SCRIPT_DIR/personas/${PERSONA_NAME}.md"
 
 if [ -f "$PERSONA_LOCAL" ]; then
     PERSONA="$PERSONA_LOCAL"
 elif [ -f "$PERSONA_MOTHERSHIP" ]; then
     PERSONA="$PERSONA_MOTHERSHIP"
 else
-    echo "Error: Persona file 'killer.md' not found in local 'personas/' or '$SCRIPT_DIR/personas/'."
+    echo "Error: Persona file ${PERSONA_NAME}.md not found in local 'personas/' or '$SCRIPT_DIR/personas/'."
     exit 1
 fi
 
@@ -50,6 +51,8 @@ echo "👾 Ralph initialized. Agent: $AGENT. Starting $ITERATIONS iterations..."
 
 # Read the Persona content once to pass it in the prompt
 PERSONA_CONTENT=$(cat "$PERSONA")
+
+echo "🧠 Using Persona: $(basename "$PERSONA")"
 
 for ((i=1; i<=$ITERATIONS; i++)); do
     echo "--- Ralph Strike $i / $ITERATIONS ($AGENT) ---"
