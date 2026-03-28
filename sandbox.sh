@@ -46,6 +46,12 @@ inject_gemini_auth() {
     local NAME=$1
     local GEMINI_DIR="$HOME/.gemini"
     
+    # If GEMINI_API_KEY is present, configure the sandbox to use it instead of OAuth
+    if [ -n "$GEMINI_API_KEY" ]; then
+        echo "   -> Configuring Gemini for API_KEY mode..."
+        $DOCKER_CMD exec "$NAME" bash -c "mkdir -p /root/.gemini && echo '{\"general\": {\"previewFeatures\": true}, \"security\": {\"auth\": {\"selectedType\": \"api-key\"}}}' > /root/.gemini/settings.json"
+    fi
+
     if [ -d "$GEMINI_DIR" ]; then
         echo "   -> Injecting Gemini credentials for '$NAME'..."
         # Copy oauth_creds.json if it exists
@@ -169,6 +175,7 @@ case "$1" in
             -e IDENTITY_NAME="$NAME" \
             -e MOONSHOT_API_KEY="$MOONSHOT_API_KEY" \
             -e ANTHROPIC_API_KEY="$ANTHROPIC_API_KEY" \
+            -e GEMINI_API_KEY="$GEMINI_API_KEY" \
             -v "$WORKSPACE_DIR:/workspace" "$TEMPLATE"
         inject_gemini_auth "$NAME"
     fi
@@ -213,80 +220,6 @@ case "$1" in
   key)
     NAME=$2
     if [ -z "$NAME" ]; then echo "Usage: $0 key <name>"; exit 1; fi
-    # Grep the key from the logs (grabbing the last occurrence if multiple exist)
-    $DOCKER_CMD logs "$NAME" 2>&1 | grep "ssh-ed25519" | tail -n 1
+    # Grep the key from the logs (grabbing the last occurrence if
     ;;
-  gh-key)
-    NAME=$2
-    REPO=$3
-    if [ -z "$NAME" ] || [ -z "$REPO" ]; then echo "Usage: $0 gh-key <name> <repo>"; exit 1; fi
-    
-    # Guard: Check for gh CLI
-    if ! command -v gh >/dev/null 2>&1; then
-        echo "   -> 'gh' (GitHub CLI) not found. Skipping automatic deploy key registration." >&2
-        echo "      (Install 'gh' and run 'gh auth login' to enable this feature)" >&2
-        return 0
-    fi
-
-    # Guard: Check gh auth
-    if ! gh auth status >/dev/null 2>&1; then
-        echo "   -> 'gh' CLI is not authenticated. Skipping automatic deploy key registration." >&2
-        echo "      (Run 'gh auth login' to enable this feature)" >&2
-        return 0
-    fi
-
-    # 1. Wait for identity generation (key in logs) if not already there
-    echo "Waiting for Identity generation in '$NAME'..."
-    count=0
-    while ! $DOCKER_CMD logs "$NAME" 2>&1 | grep -q "ssh-ed25519"; do
-        sleep 1
-        ((count++))
-        if [ $count -ge 10 ]; then echo "Timed out waiting for SSH key in $NAME."; exit 1; fi
-    done
-
-    # 2. Extract key
-    KEY=$($DOCKER_CMD logs "$NAME" 2>&1 | grep "ssh-ed25519" | tail -n 1)
-    if [ -z "$KEY" ]; then echo "Error: No SSH key found in logs for $NAME"; exit 1; fi
-    
-    echo "Adding deploy key for '$NAME' to GitHub repo '$REPO'..."
-    # Create a temp file for the key
-    TMP_KEY_FILE="/tmp/${NAME}_key.pub"
-    echo "$KEY" > "$TMP_KEY_FILE"
-    
-    # Use gh cli to add the deploy key (requires gh to be authenticated)
-    if gh repo deploy-key add "$TMP_KEY_FILE" --allow-write --title "$NAME" --repo "$REPO"; then
-       echo "✓ Deploy key added successfully!"
-    else
-       echo "✗ Failed to add deploy key."
-    fi
-    rm "$TMP_KEY_FILE"
-    ;;
-  clone)
-    NAME=$2
-    REPO_URL=$3
-    TARGET_DIR=$4
-    
-    if [ -z "$NAME" ] || [ -z "$REPO_URL" ]; then 
-        echo "Usage: $0 clone <name> <repo_url> [target_dir]"
-        exit 1 
-    fi
-    
-    # 1. Add deploy key to the target repo first
-    REPO_PATH=$(echo $REPO_URL | sed -E 's/.*github.com[:\/]//; s/\.git$//')
-    $0 gh-key "$NAME" "$REPO_PATH" || { echo "   ! Skipping deploy key injection." >&2; }
-    
-    echo "👾 Identity '$NAME' is cloning $REPO_URL..."
-    
-    # Construct the command
-    GIT_CMD="git clone $REPO_URL"
-    if [ -n "$TARGET_DIR" ]; then
-        GIT_CMD="$GIT_CMD $TARGET_DIR"
-    fi
-    
-    $DOCKER_CMD exec "$NAME" bash -c "$GIT_CMD"
-    ;;
-  *)
-      echo "Usage: $0 {build|create|up|in|purge|list|key|gh-key|clone|save}"
-      exit 1
-      ;;
-  esac
+esac
