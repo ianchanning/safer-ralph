@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-# RALPH: The Heartbeat Loop (REFORGED)
+# RALPH: The Heartbeat Loop (REFORGED + FIXED)
 # This script runs INSIDE the Sandbox.
 
 ITERATIONS=${1:-1}
@@ -47,8 +47,13 @@ PERSONA_CONTENT=$(cat "$PERSONA")
 for ((i=1; i<=$ITERATIONS; i++)); do
     echo "--- Ralph Strike $i / $ITERATIONS ($AGENT) ---"
     
+    # We use a temporary file to capture the status without choking the TTY
+    STRIKE_LOG=$(mktemp)
+
     # THE REFORGED DIRECTIVE: High-pressure, mechanical, and unambiguous.
-    RESULT=$($AGENT_BIN $AGENT_ARGS "SYSTEM_PROMPT:
+    # We use 'tee' to ensure you see the output, and 'set +e' to handle agent crashes gracefully.
+    set +e
+    $AGENT_BIN $AGENT_ARGS "SYSTEM_PROMPT:
 $PERSONA_CONTENT
 
 CONTEXT:
@@ -68,20 +73,22 @@ CRITICAL PROTOCOL:
 
 FAILURE TO UPDATE THE SPECIFICATION FILE IS A PROTOCOL VIOLATION.
 FAILURE TO COMMIT IS A PROTOCOL VIOLATION.
-DO NOT OUTPUT CHAT OR EXPLANATIONS. OUTPUT CODE AND STATUS." 2>&1)
+DO NOT OUTPUT CHAT OR EXPLANATIONS. OUTPUT CODE AND STATUS." 2>&1 | tee "$STRIKE_LOG"
+    set -e
 
-    echo "$RESULT"
-
-    if [[ "$RESULT" == *"<status>ALL_TASKS_DONE</status>"* ]]; then
+    if grep -q "<status>ALL_TASKS_DONE</status>" "$STRIKE_LOG"; then
         echo "🎉 Mission Accomplished. All tasks in specs/ are complete."
+        rm -f "$STRIKE_LOG"
         break
     fi
 
-    if [[ "$RESULT" != *"<status>STRIKE_COMPLETE"* ]]; then
+    if ! grep -q "<status>STRIKE_COMPLETE" "$STRIKE_LOG"; then
         echo "⚠️  Warning: Agent did not signal strike completion properly."
     fi
 
+    rm -f "$STRIKE_LOG"
     echo "--- Strike $i Complete ---"
+    
     DELAY=${STRIKE_DELAY:-10}
     if [ $i -lt $ITERATIONS ]; then
         echo "   -> Cooling down for $DELAY seconds..."
