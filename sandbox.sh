@@ -73,6 +73,31 @@ find_free_port() {
     echo $PORT
 }
 
+detect_repo_name() {
+    local NAME=$1
+    local WORKSPACE_DIR="$(pwd)/workspace-$NAME"
+    local REPO_URL=""
+
+    if [ -d "$WORKSPACE_DIR/.git" ]; then
+        # 1. Try standard git (fastest, but might fail due to "dubious ownership")
+        REPO_URL=$(git -C "$WORKSPACE_DIR" remote get-url origin 2>/dev/null)
+        
+        # 2. If git failed, try reading the config file directly (bypass ownership check)
+        if [ -z "$REPO_URL" ] && [ -f "$WORKSPACE_DIR/.git/config" ]; then
+            REPO_URL=$(grep -A 1 '\[remote "origin"\]' "$WORKSPACE_DIR/.git/config" | grep "url =" | sed -E 's/.*url = (.*)/\1/')
+        fi
+    fi
+
+    # 3. If we still don't have it, try asking the container itself if it's running
+    if [ -z "$REPO_URL" ] && [ "$($DOCKER_CMD ps -q -f name=^/${NAME}$)" ]; then
+        REPO_URL=$($DOCKER_CMD exec "$NAME" git -C /workspace remote get-url origin 2>/dev/null)
+    fi
+
+    if [ -n "$REPO_URL" ]; then
+        basename "$REPO_URL" | sed 's/\.git$//'
+    fi
+}
+
 # Auto-detect if sudo is needed for docker
 if command -v docker >/dev/null 2>&1; then
     if docker ps >/dev/null 2>&1; then
@@ -163,16 +188,10 @@ case "$1" in
     
     # If no template specified and we are creating a NEW container, try to find a matching template in workspace
     if [ -z "$TEMPLATE" ] && ! [ "$($DOCKER_CMD ps -a -q -f name=^/${NAME}$)" ]; then
-        WORKSPACE_DIR="$(pwd)/workspace-$NAME"
-        if [ -d "$WORKSPACE_DIR/.git" ]; then
-            REPO_URL=$(git -C "$WORKSPACE_DIR" remote get-url origin 2>/dev/null)
-            if [ -n "$REPO_URL" ]; then
-                REPO_NAME=$(basename "$REPO_URL" | sed 's/\.git$//')
-                if $DOCKER_CMD image inspect "$REPO_NAME" >/dev/null 2>&1; then
-                    TEMPLATE="$REPO_NAME"
-                    echo "   -> Found matching template '$TEMPLATE' for workspace. Using it..." >&2
-                fi
-            fi
+        REPO_NAME=$(detect_repo_name "$NAME")
+        if [ -n "$REPO_NAME" ] && $DOCKER_CMD image inspect "$REPO_NAME" >/dev/null 2>&1; then
+            TEMPLATE="$REPO_NAME"
+            echo "   -> Found matching template '$TEMPLATE' for workspace. Using it..." >&2
         fi
     fi
 
@@ -256,19 +275,14 @@ case "$1" in
     if [ -z "$NAME" ]; then echo "Usage: $0 save <sandbox_name> [template_name]"; exit 1; fi
     
     if [ -z "$TEMPLATE_NAME" ]; then
-        WORKSPACE_DIR="$(pwd)/workspace-$NAME"
-        if [ -d "$WORKSPACE_DIR/.git" ]; then
-            REPO_URL=$(git -C "$WORKSPACE_DIR" remote get-url origin 2>/dev/null)
-            if [ -n "$REPO_URL" ]; then
-                TEMPLATE_NAME=$(basename "$REPO_URL" | sed 's/\.git$//')
-                echo "   -> Auto-detected template name for '$NAME': $TEMPLATE_NAME" >&2
-            fi
-        fi
+        TEMPLATE_NAME=$(detect_repo_name "$NAME")
         
         if [ -z "$TEMPLATE_NAME" ]; then
-            echo "Error: Template name not provided and could not detect repo name from workspace." >&2
+            echo "Error: Template name not provided and could not detect repo name from workspace or container." >&2
             exit 1
         fi
+        
+        echo "   -> Auto-detected template name for '$NAME': $TEMPLATE_NAME" >&2
     fi
 
     echo "Saving Sandbox '$NAME' into a new template: '$TEMPLATE_NAME'..."
