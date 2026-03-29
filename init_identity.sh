@@ -49,15 +49,15 @@ KEY_PATH="$HOME/.ssh/id_ed25519"
 if [ ! -f "$KEY_PATH" ]; then
     echo "   -> Forging new SSH Key for $EMAIL..."
     ssh-keygen -t ed25519 -C "$EMAIL" -f "$KEY_PATH" -N ""
-    
-    echo ""
-    echo "--- [ PUBLIC KEY FOR GITHUB ] ---"
-    cat "${KEY_PATH}.pub"
-    echo "---------------------------------"
-    echo ""
 else
     echo "   -> SSH Key already exists."
 fi
+
+echo ""
+echo "--- [ PUBLIC KEY FOR GITHUB ] ---"
+cat "${KEY_PATH}.pub"
+echo "---------------------------------"
+echo ""
 
 # 5. Inject API Keys into tool configurations
 if [ -f "$HOME/.pi/agent/models.json" ]; then
