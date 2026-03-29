@@ -42,6 +42,30 @@ fi
 
 echo "👾 Ralph initialized. Agent: $AGENT. Persona: $PERSONA_NAME."
 
+# --- ANTI-GASLIGHTING: Re-hydrate environment ---
+if [ -f "/workspace/.env.agent" ]; then
+    echo "   -> Re-hydrating environment from /workspace/.env.agent..." >&2
+    source "/workspace/.env.agent"
+fi
+
+# --- PLAYBOOK ALIGNMENT: Update AGENTS.md with current session ---
+# We prepend the current identity to AGENTS.md so it's the first thing the agent sees.
+if [ -f "/workspace/AGENTS.md" ]; then
+    TEMP_AGENTS=$(mktemp)
+    cat <<EOF > "$TEMP_AGENTS"
+## CURRENT SESSION: ${IDENTITY_NAME}
+- **Identity**: ${IDENTITY_NAME} ($(date))
+- **Agent**: ${AGENT} (${MODEL:-default})
+- **Persona**: ${PERSONA_NAME}
+- **Environment**: PATH re-hydrated from .env.agent
+
+EOF
+    # Append the rest of the existing AGENTS.md, skipping any previous session block if we wanted to be fancy, 
+    # but for now we'll just keep it simple.
+    cat "/workspace/AGENTS.md" >> "$TEMP_AGENTS"
+    mv "$TEMP_AGENTS" "/workspace/AGENTS.md"
+fi
+
 PERSONA_CONTENT=$(cat "$PERSONA")
 
 for ((i=1; i<=$ITERATIONS; i++)); do
