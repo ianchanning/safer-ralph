@@ -45,6 +45,6 @@ _Architecture choice_: "Monolithic Script" — bash wrapping CLIs with system pr
 
 _What it doesn't do_: No programmatic SDK integration, no agent-to-agent coordination, no feedback loops beyond ralph.sh iterations, no structured output capture, no state management beyond git commits and progress.txt.
 
-- [Advanced Usage](docs/ADVANCED.md) (Templates & Global Install)
+- [Advanced Usage](docs/ADVANCED.md)
 - [Deploy Keys](docs/DEPLOY_KEYS.md)
 - [Internals](docs/INTERNALS.md)
