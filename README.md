@@ -34,17 +34,6 @@ A bash-based orchestration system for running AI coding agents in Docker contain
 ./sandbox.sh purge ID       # Scuttle
 ```
 
-Make it available for other projects:
-
-```bash
-# Link to your local bin
-mkdir -p ~/.local/bin
-ln -s "$(pwd)/sandbox.sh" ~/.local/bin/sandbox.sh
-
-# Ensure ~/.local/bin is in your PATH
-export PATH="$HOME/.local/bin:$PATH"
-```
-
 - **Container lifecycle**: `sandbox.sh` handles build/create/up/in/purge/list/save with Docker
 - **Identity management**: Animal-NATO naming (hawk-alpha, shark-bravo), unique Ed25519 SSH keys per container, emoji Git identities
 - **Agent execution loop**: `ralph.sh` runs inside containers as a heartbeat loop supporting Gemini CLI, Claude Code, and Pi agent (Moonshot)
@@ -56,6 +45,6 @@ _Architecture choice_: "Monolithic Script" — bash wrapping CLIs with system pr
 
 _What it doesn't do_: No programmatic SDK integration, no agent-to-agent coordination, no feedback loops beyond ralph.sh iterations, no structured output capture, no state management beyond git commits and progress.txt.
 
-- [Templates](docs/TEMPLATES.md)
+- [Advanced Usage](docs/ADVANCED.md) (Templates & Global Install)
 - [Deploy Keys](docs/DEPLOY_KEYS.md)
 - [Internals](docs/INTERNALS.md)
