@@ -137,11 +137,17 @@ case "$1" in
     REPO_URL=$2
     if [ -z "$REPO_URL" ]; then echo "Usage: $0 go <repo_url>"; exit 1; fi
 
+    REPO_NAME=$(basename "$REPO_URL" | sed 's/\.git$//')
     echo "LFG: Initializing environment for $REPO_URL..." >&2
 
     # 1. Create a random sandbox and capture the name
-    # We call create with no args to trigger the auto-generation logic
-    NAME=$($0 create)
+    # Check if a template exists for this repo
+    if $DOCKER_CMD image inspect "$REPO_NAME" >/dev/null 2>&1; then
+        echo "   -> Found template '$REPO_NAME' for this repo. Using it..." >&2
+        NAME=$($0 create "$REPO_NAME")
+    else
+        NAME=$($0 create)
+    fi
 
     # 2. Add deploy key and clone the repository
     $0 clone "$NAME" "$REPO_URL" .
@@ -154,6 +160,22 @@ case "$1" in
     NAME=$2
     TEMPLATE=$3
     if [ -z "$NAME" ]; then echo "Usage: $0 up <name> [template]"; exit 1; fi
+    
+    # If no template specified and we are creating a NEW container, try to find a matching template in workspace
+    if [ -z "$TEMPLATE" ] && ! [ "$($DOCKER_CMD ps -a -q -f name=^/${NAME}$)" ]; then
+        WORKSPACE_DIR="$(pwd)/workspace-$NAME"
+        if [ -d "$WORKSPACE_DIR/.git" ]; then
+            REPO_URL=$(git -C "$WORKSPACE_DIR" remote get-url origin 2>/dev/null)
+            if [ -n "$REPO_URL" ]; then
+                REPO_NAME=$(basename "$REPO_URL" | sed 's/\.git$//')
+                if $DOCKER_CMD image inspect "$REPO_NAME" >/dev/null 2>&1; then
+                    TEMPLATE="$REPO_NAME"
+                    echo "   -> Found matching template '$TEMPLATE' for workspace. Using it..." >&2
+                fi
+            fi
+        fi
+    fi
+
     if [ -z "$TEMPLATE" ]; then TEMPLATE="$IMAGE_NAME"; fi
 
     if [ "$($DOCKER_CMD ps -a -q -f name=^/${NAME}$)" ]; then
@@ -231,7 +253,24 @@ case "$1" in
   save)
     NAME=$2
     TEMPLATE_NAME=$3
-    if [ -z "$NAME" ] || [ -z "$TEMPLATE_NAME" ]; then echo "Usage: $0 save <sandbox_name> <template_name>"; exit 1; fi
+    if [ -z "$NAME" ]; then echo "Usage: $0 save <sandbox_name> [template_name]"; exit 1; fi
+    
+    if [ -z "$TEMPLATE_NAME" ]; then
+        WORKSPACE_DIR="$(pwd)/workspace-$NAME"
+        if [ -d "$WORKSPACE_DIR/.git" ]; then
+            REPO_URL=$(git -C "$WORKSPACE_DIR" remote get-url origin 2>/dev/null)
+            if [ -n "$REPO_URL" ]; then
+                TEMPLATE_NAME=$(basename "$REPO_URL" | sed 's/\.git$//')
+                echo "   -> Auto-detected template name for '$NAME': $TEMPLATE_NAME" >&2
+            fi
+        fi
+        
+        if [ -z "$TEMPLATE_NAME" ]; then
+            echo "Error: Template name not provided and could not detect repo name from workspace." >&2
+            exit 1
+        fi
+    fi
+
     echo "Saving Sandbox '$NAME' into a new template: '$TEMPLATE_NAME'..."
     # Preserve the label so it shows up in 'list'
     $DOCKER_CMD commit --change 'LABEL org.nyx.sandbox="true"' "$NAME" "$TEMPLATE_NAME"
