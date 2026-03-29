@@ -1,6 +1,6 @@
 # Safer Ralph
 
-[Ralph](https://ghuntley.com/loop/)... but safer.
+[Ralph](https://ghuntley.com/ralph/)... but safer.
 
 A bash-based orchestration system for running AI coding agents in Docker containers.
 
