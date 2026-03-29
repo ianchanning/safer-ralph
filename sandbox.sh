@@ -265,9 +265,19 @@ case "$1" in
         exit 1
     fi
 
-    # Use GH CLI to add the deploy key
-    echo "$KEY" | gh repo deploy-key add - --title "safer-ralph-$NAME" --allow-write --repo "$REPO_PATH"
-    echo "✓ Deploy key added successfully!"
+    # Check if the key is already in the repo's deploy keys
+    # Use the base64 part of the key for comparison
+    KEY_BASE64=$(echo "$KEY" | cut -d' ' -f2)
+    if gh repo deploy-key list --repo "$REPO_PATH" | grep -q "$KEY_BASE64"; then
+        echo "✓ Key is already a deploy key for '$REPO_PATH'. Skipping add."
+    else
+        # Use GH CLI to add the deploy key
+        if echo "$KEY" | gh repo deploy-key add - --title "safer-ralph-$NAME" --allow-write --repo "$REPO_PATH"; then
+            echo "✓ Deploy key added successfully!"
+        else
+            echo "   ! Failed to add deploy key (it might already be in use elsewhere)."
+        fi
+    fi
     ;;
   save)
     NAME=$2
