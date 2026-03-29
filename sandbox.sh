@@ -149,7 +149,7 @@ case "$1" in
 
     # 2. Unconditionally install the Mothership tools via HTTPS
     echo "Installing Mothership tools via HTTPS..." >&2
-    $DOCKER_CMD exec "$NAME" bash -c "git clone https://github.com/ianchanning/ralph-sandbox-swarm.git ~/mothership || (cd ~/mothership && git pull)" >&2
+    $DOCKER_CMD exec "$NAME" bash -c "if [ -d ~/mothership ]; then (cd ~/mothership && git pull); else git clone https://github.com/ianchanning/ralph-sandbox-swarm.git ~/mothership; fi" >&2
 
     # 3. Symlink the latest init script
     echo "   -> Linking latest init tools..." >&2
@@ -254,14 +254,14 @@ case "$1" in
     
     # Wait for the container to generate its key if it just started
     for i in {1..10}; do
-        KEY=$($DOCKER_CMD logs "$NAME" 2>&1 | grep "ssh-ed25519" | tail -n 1)
+        KEY=$($0 key "$NAME")
         if [ -n "$KEY" ]; then break; fi
         echo "   -> Waiting for Identity generation in '$NAME'..."
         sleep 2
     done
 
     if [ -z "$KEY" ]; then
-        echo "Error: Could not find public key in container logs."
+        echo "Error: Could not find public key in container logs or via exec."
         exit 1
     fi
 
@@ -320,6 +320,17 @@ case "$1" in
   key)
     NAME=$2
     if [ -z "$NAME" ]; then echo "Usage: $0 key <name>"; exit 1; fi
-    $DOCKER_CMD logs "$NAME" 2>&1 | grep "ssh-ed25519" | tail -n 1
+    
+    # 1. Try to find it in the logs (for fresh identities)
+    KEY=$($DOCKER_CMD logs "$NAME" 2>&1 | grep "ssh-ed25519" | tail -n 1)
+    
+    # 2. If not in logs, try to exec and read it directly (for identities baked into templates)
+    if [ -z "$KEY" ]; then
+        KEY=$($DOCKER_CMD exec "$NAME" cat /root/.ssh/id_ed25519.pub 2>/dev/null || true)
+    fi
+    
+    if [ -n "$KEY" ]; then
+        echo "$KEY"
+    fi
     ;;
 esac
